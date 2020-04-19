@@ -1,1 +1,22 @@
 /target/
+.DS_Store
+.AppleDouble
+.LSOverride
+.project
+.cache-main
+.scala_dependencies
+.worksheet
+*.launch
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
