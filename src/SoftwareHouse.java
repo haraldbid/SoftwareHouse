@@ -43,6 +43,7 @@ public class SoftwareHouse implements Observable {
 		for (Observer o : observers) {
 			o.update(loggedIn);
 		}
+	}
 		
 
 	public Worker getWorker(int index) {

@@ -125,7 +125,6 @@ public class Project implements Observer {
 	@Override
 	public void update(String loggedIn) {
 		this.workerLoggedIn = loggedIn;
-		
 	}
 
 }
