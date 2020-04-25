@@ -1,6 +1,14 @@
+import java.util.List;
 
 public class Activity {
 
-	int hej=0;
+	private int activityID;
+	private List<Worker> listWorkersActivity;
+	
+	public Activity() {
+		
+	}
+	
+	
 	
 }
