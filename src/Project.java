@@ -1,12 +1,16 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class Project {
+import designPatterns.Observable;
+import designPatterns.Observer;
 
-	private String workerConnected;
+public class Project implements Observer {
+
+	private String workerLoggedIn;
 	private String projectTitle;
 	private String projectNumberID;
 	private Worker projectLeader;
@@ -14,9 +18,14 @@ public class Project {
 	private Calendar startDate = new GregorianCalendar();
 	private Calendar endDate = new GregorianCalendar();
 	private List<Activity> listOfActivities;
-
-	public Project() {
-
+	private Observable softwareHouse;
+	
+	
+	
+	
+	public Project(Observable softwareHouse) {
+		this.softwareHouse = softwareHouse;
+		this.softwareHouse.register(this);
 	}
 	
 	
@@ -94,7 +103,7 @@ public class Project {
 	public void addWorkerToActivity(Worker worker, Activity activity) {
 
 		if (isProjectLeaderConnected()) {
-			activity.
+//			activity.
 		} else {
 			System.out.println("Only the Project Leader may add a worker to an activity");
 		}
@@ -102,11 +111,21 @@ public class Project {
 	}
 
 	public boolean isProjectLeaderConnected() {
-		if (workerConnected.equals(projectLeader.getID())) {
+		if (workerLoggedIn.equals(projectLeader.getID())) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+
+
+
+
+	@Override
+	public void update(String loggedIn) {
+		this.workerLoggedIn = loggedIn;
+		
 	}
 
 }

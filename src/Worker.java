@@ -2,8 +2,10 @@
 public class Worker {
 
 	private String workerID;
+	private SoftwareHouse softwareHouse;
 
-	public Worker(String ID) {
+	public Worker(SoftwareHouse softwareHouse,String ID) {
+		this.softwareHouse = softwareHouse;
 		
 		// ID length has to be 1, 2, 3 or 4
 		if (ID.length() == 0 || ID.length() > 4) {
