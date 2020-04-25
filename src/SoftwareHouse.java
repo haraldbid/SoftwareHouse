@@ -1,5 +1,6 @@
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.List;
 import designPatterns.Observable;
 import designPatterns.Observer;
 
@@ -7,6 +8,10 @@ public class SoftwareHouse implements Observable {
 	
 	private String loggedIn;
 	private ArrayList<Observer> observers; 
+	private List<Worker> listOfWorkers;
+
+
+
 	
 
 	public static void main(String[] args) {
@@ -14,6 +19,7 @@ public class SoftwareHouse implements Observable {
 		
 	}
 	
+
 	public void logIn(String ID) {
 		loggedIn = ID;
 		notifyObserver();
@@ -38,6 +44,10 @@ public class SoftwareHouse implements Observable {
 			o.update(loggedIn);
 		}
 		
+
+	public Worker getWorker(int index) {
+		return listOfWorkers.get(index);
+
 	}
 	
 	
