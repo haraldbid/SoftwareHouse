@@ -1,3 +1,4 @@
+package app;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -125,7 +126,6 @@ public class Project implements Observer {
 	@Override
 	public void update(String loggedIn) {
 		this.workerLoggedIn = loggedIn;
-		
 	}
 
 }
