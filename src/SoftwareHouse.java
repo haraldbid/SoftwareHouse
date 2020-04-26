@@ -1,53 +1,37 @@
-
 import java.util.ArrayList;
 import java.util.List;
-import designPatterns.Observable;
-import designPatterns.Observer;
 
-public class SoftwareHouse implements Observable {
+public class SoftwareHouse {
 	
-	private String loggedIn;
-	private ArrayList<Observer> observers; 
-	private List<Worker> listOfWorkers;
-
-
-
+	private static ArrayList<Worker> listOfWorkers = new ArrayList<Worker>(0);
+	private static SoftwareHouse softwareHouse;
+	
 	
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		createWorker("AB");
+		createWorker("AB");
+		System.out.println(getNbWorkers());
 		
 	}
 	
-
-	public void logIn(String ID) {
-		loggedIn = ID;
-		notifyObserver();
-	}
-
-	@Override
-	public void register(Observer o) {
-		observers.add(o);
+	public static int getNbWorkers() {
+		
+		return listOfWorkers.size();
 		
 	}
-
-	@Override
-	public void unregiseter(Observer o) {
-		observers.remove(o);
+	
+	
+	//
+	public static void createWorker(String ID) {
+		Worker worker = new Worker(softwareHouse,ID);
 		
+		listOfWorkers.add(worker);
 	}
-
-	@Override
-	public void notifyObserver() {
-		
-		for (Observer o : observers) {
-			o.update(loggedIn);
-		}
-		
-
+	
 	public Worker getWorker(int index) {
 		return listOfWorkers.get(index);
-
 	}
 	
 	

@@ -90,7 +90,7 @@ public class Project implements Observer {
 	// JUST A SHELL
 	public void addActivity(Activity activity) {
 
-		if (isProjectLeaderConnected()) {
+		if (isProjectLeaderLoggedIn()) {
 
 			listOfActivities.add(activity);
 
@@ -102,7 +102,7 @@ public class Project implements Observer {
 
 	public void addWorkerToActivity(Worker worker, Activity activity) {
 
-		if (isProjectLeaderConnected()) {
+		if (isProjectLeaderLoggedIn()) {
 //			activity.
 		} else {
 			System.out.println("Only the Project Leader may add a worker to an activity");
@@ -110,7 +110,7 @@ public class Project implements Observer {
 
 	}
 
-	public boolean isProjectLeaderConnected() {
+	public boolean isProjectLeaderLoggedIn() {
 		if (workerLoggedIn.equals(projectLeader.getID())) {
 			return true;
 		} else {
