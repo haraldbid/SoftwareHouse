@@ -1,3 +1,4 @@
+package app;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,22 +8,23 @@ import designPatterns.Observer;
 public class SoftwareHouse implements Observable {
 	
 	private String loggedIn;
-	private ArrayList<Observer> observers; 
+	private ArrayList<Observer> observers = new ArrayList<Observer>(); 
 	private List<Worker> listOfWorkers;
 
 
-
-	
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+	public SoftwareHouse() {
 	}
 	
-
 	public void logIn(String ID) {
 		loggedIn = ID;
 		notifyObserver();
+	}
+	public boolean loggedIn() {
+		if(this.loggedIn == null) {
+			return false;
+		}
+		return true;
+			
 	}
 
 	@Override
@@ -40,9 +42,12 @@ public class SoftwareHouse implements Observable {
 	@Override
 	public void notifyObserver() {
 		
-		for (Observer o : observers) {
-			o.update(loggedIn);
+		if (!observers.isEmpty()) {
+			for (Observer o : observers) {
+				o.update(loggedIn);
+			}
 		}
+		
 	}
 		
 
