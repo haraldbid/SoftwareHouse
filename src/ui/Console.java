@@ -16,8 +16,6 @@ public class Console {
 		console.test();
 		
 		console.run();
-		
-
 	}
 	
 	
@@ -27,7 +25,6 @@ public class Console {
 			System.out.println("You need to enter ID to log in: ");
 			softwareHouse.logIn(scanner.next());
 		}
-			
 		
 	}
 	

@@ -21,15 +21,10 @@ public class Project implements Observer {
 	private List<Activity> listOfActivities;
 	private Observable softwareHouse;
 	
-	
-	
-	
 	public Project(Observable softwareHouse) {
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
 	}
-	
-	
 	
 	
 	

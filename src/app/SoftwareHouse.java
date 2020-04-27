@@ -11,10 +11,17 @@ public class SoftwareHouse {
 	private String loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>(); 
 	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
+	private List<Project> listOfProjects = new ArrayList<Project>();
+
 
 
 	public SoftwareHouse() {
 		
+	}
+	
+	public void createProject() {
+		Project project = new Project(this);
+		listOfProjects.add(project);
 	}
 	
 	public void logIn(String ID) {
@@ -26,7 +33,6 @@ public class SoftwareHouse {
 			return false;
 		}
 		return true;
-			
 	}
 	
 	@Override
