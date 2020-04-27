@@ -100,7 +100,9 @@ public class Project implements Observer {
 			System.out.println("Only the Project Leader may add an activity.");
 		}
 	}
-
+	
+	
+	// SHOULDNT BE HERE
 	public void addWorkerToActivity(Worker worker, Activity activity) {
 
 		if (isProjectLeaderLoggedIn()) {

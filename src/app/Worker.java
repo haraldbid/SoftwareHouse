@@ -1,9 +1,15 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Worker {
 
 	private String workerID;
 	private SoftwareHouse softwareHouse;
+	private ArrayList<Activity> listOfActivities;
+//	private Calendar calendar = new GregorianCalendar();
 
 	public Worker(SoftwareHouse softwareHouse, String ID) {
 		this.softwareHouse = softwareHouse;
@@ -21,17 +27,33 @@ public class Worker {
 		}
 
 //		 ID must be available       DOESNT WORK
-		for (int i = 0; i < softwareHouse.getNbWorkers(); i++) {
-			if (softwareHouse.getWorker(i).getID().equals(ID)) {
-				throw new IllegalArgumentException("ID is already used by another worker.");
-			}
-		}
+//		for (int i = 0; i < softwareHouse.getNbWorkers(); i++) {
+//			if (softwareHouse.getWorker(i).getID().equals(ID)) {
+//				throw new IllegalArgumentException("ID is already used by another worker.");
+//			}
+//		}
 
 		this.workerID = ID;
 	}
 
 	public String getID() {
 		return "Worker ID is : " + workerID;
+	}
+	
+	
+	
+	public int getNumActivities(Calendar startDate, Calendar endDate) {
+
+		int count = 0;
+		for (int i = 0; i < listOfActivities.size(); i++) {
+			if ((listOfActivities.get(i).getStartDate().after(startDate)
+					&& listOfActivities.get(i).getStartDate().before(endDate))
+					|| (listOfActivities.get(i).getEndDate().after(startDate)
+							&& listOfActivities.get(i).getEndDate().before(endDate))) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 }

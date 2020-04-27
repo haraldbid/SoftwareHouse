@@ -13,6 +13,8 @@ public class Console {
 		
 		Console console = new Console();
 		
+		console.test();
+		
 		console.run();
 		
 
@@ -27,6 +29,10 @@ public class Console {
 		}
 			
 		
+	}
+	
+	public void test() {
+		softwareHouse.createWorker("AB");
 	}
 
 }

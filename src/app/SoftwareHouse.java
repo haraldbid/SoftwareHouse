@@ -3,28 +3,18 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
+import designPatterns.Observer;
+
 public class SoftwareHouse {
 	
-	private static ArrayList<Worker> listOfWorkers = new ArrayList<Worker>(0);
 	private static SoftwareHouse softwareHouse;
-	
-	
-
-	public static void main(String[] args) {
-		
-		createWorker("AB");
-		createWorker("AB");
-		System.out.println(getNbWorkers());
-		
-	}
-	
-
 	private String loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>(); 
-	private List<Worker> listOfWorkers;
+	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
 
 
 	public SoftwareHouse() {
+		
 	}
 	
 	public void logIn(String ID) {
@@ -38,7 +28,7 @@ public class SoftwareHouse {
 		return true;
 			
 	}
-
+	
 	@Override
 	public void register(Observer o) {
 		observers.add(o);		
@@ -46,10 +36,16 @@ public class SoftwareHouse {
 	
 	
 	//
-	public static void createWorker(String ID) {
+	public void createWorker(String ID) {
 		Worker worker = new Worker(softwareHouse,ID);
 		
 		listOfWorkers.add(worker);
+		
+		System.out.print(getNbWorkers());
+	}
+	
+	public int getNbWorkers() {
+		return listOfWorkers.size();
 	}
 	
 
@@ -64,7 +60,7 @@ public class SoftwareHouse {
 		
 	}
 		
-
+	
 
 	public Worker getWorker(int index) {
 		return listOfWorkers.get(index);
