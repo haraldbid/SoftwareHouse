@@ -10,9 +10,15 @@ public class SoftwareHouse implements Observable {
 	private String loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>(); 
 	private List<Worker> listOfWorkers;
+	private List<Project> listOfProjects = new ArrayList<Project>();
 
 
 	public SoftwareHouse() {
+	}
+	
+	public void createProject() {
+		Project project = new Project(this);
+		listOfProjects.add(project);
 	}
 	
 	public void logIn(String ID) {
@@ -24,7 +30,6 @@ public class SoftwareHouse implements Observable {
 			return false;
 		}
 		return true;
-			
 	}
 
 	@Override

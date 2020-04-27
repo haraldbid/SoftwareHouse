@@ -12,10 +12,7 @@ public class Console {
 	public static void main(String[] args) {
 		
 		Console console = new Console();
-		
 		console.run();
-		
-
 	}
 	
 	
@@ -25,7 +22,6 @@ public class Console {
 			System.out.println("You need to enter ID to log in: ");
 			softwareHouse.logIn(scanner.next());
 		}
-			
 		
 	}
 
