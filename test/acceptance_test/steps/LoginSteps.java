@@ -26,5 +26,23 @@ public class LoginSteps {
 	}
 	
 	
+	@Given("that no user is logged in")
+	public void thatNoUserIsLoggedIn() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Given("user enters ID")
+	public void userEntersID() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("user is logged in")
+	public void userIsLoggedIn() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
 	
 }
