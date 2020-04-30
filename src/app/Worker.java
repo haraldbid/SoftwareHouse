@@ -26,7 +26,7 @@ public class Worker {
 			}
 		}
 
-//		 ID must be available       DOESNT WORK
+        // ID must be available       
 		for (int i = 0; i < this.softwareHouse.getNbWorkers(); i++) {
 			if (this.softwareHouse.getWorker(i).getID().equals(ID)) {
 				throw new IllegalArgumentException("ID is already used by another worker.");
@@ -37,7 +37,7 @@ public class Worker {
 	}
 
 	public String getID() {
-		return "Worker ID is : " + workerID;
+		return workerID;
 	}
 	
 	
@@ -54,6 +54,10 @@ public class Worker {
 			}
 		}
 		return count;
+	}
+	
+	public void addActivity(Activity activity) {
+		listOfActivities.add(activity);
 	}
 
 }
