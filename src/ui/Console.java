@@ -14,7 +14,7 @@ public class Console {
 		Console console = new Console();
 		
 		console.test();
-		
+		console.test();
 		console.run();
 		
 

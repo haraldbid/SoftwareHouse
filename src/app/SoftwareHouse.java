@@ -10,7 +10,7 @@ public class SoftwareHouse {
 	private static SoftwareHouse softwareHouse;
 	private String loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>(); 
-	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
+	private  ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
 
 
 	public SoftwareHouse() {
@@ -37,7 +37,7 @@ public class SoftwareHouse {
 	
 	//
 	public void createWorker(String ID) {
-		Worker worker = new Worker(softwareHouse,ID);
+		Worker worker = new Worker(this,ID);
 		
 		listOfWorkers.add(worker);
 		

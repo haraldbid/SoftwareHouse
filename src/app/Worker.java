@@ -27,17 +27,17 @@ public class Worker {
 		}
 
 //		 ID must be available       DOESNT WORK
-//		for (int i = 0; i < softwareHouse.getNbWorkers(); i++) {
-//			if (softwareHouse.getWorker(i).getID().equals(ID)) {
-//				throw new IllegalArgumentException("ID is already used by another worker.");
-//			}
-//		}
+		for (int i = 0; i < this.softwareHouse.getNbWorkers(); i++) {
+			if (this.softwareHouse.getWorker(i).getID().equals(ID)) {
+				throw new IllegalArgumentException("ID is already used by another worker.");
+			}
+		}
 
 		this.workerID = ID;
 	}
 
 	public String getID() {
-		return "Worker ID is : " + workerID;
+		return workerID;
 	}
 	
 	
