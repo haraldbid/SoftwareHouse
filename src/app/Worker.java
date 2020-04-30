@@ -37,7 +37,7 @@ public class Worker {
 	}
 
 	public String getID() {
-		return "Worker ID is : " + workerID;
+		return workerID;
 	}
 	
 	

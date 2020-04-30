@@ -11,8 +11,10 @@ public class SoftwareHouse implements Observable{
 	private static SoftwareHouse softwareHouse;
 	private String loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>(); 
-	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
+
 	private List<Project> listOfProjects = new ArrayList<Project>();
+
+	private  ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
 
 
 
