@@ -28,6 +28,10 @@ public class Console {
 		
 	}
 	
+	public void displayOptions() {
+		
+	}
+	
 	public void test() {
 		softwareHouse.createWorker("AB");
 	}
