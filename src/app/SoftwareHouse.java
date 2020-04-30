@@ -31,6 +31,7 @@ public class SoftwareHouse implements Observable{
 		loggedIn = ID;
 		notifyObserver();
 	}
+	
 	public boolean loggedIn() {
 		if(this.loggedIn == null) {
 			return false;
@@ -44,13 +45,10 @@ public class SoftwareHouse implements Observable{
 	}
 	
 	
-	//
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this,ID);
 		
 		listOfWorkers.add(worker);
-		
-		System.out.print(getNbWorkers());
 	}
 	
 	public int getNbWorkers() {
