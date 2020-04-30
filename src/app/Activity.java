@@ -25,7 +25,7 @@ public class Activity {
 	}
 	
 	public void halfHoursWorked(int halfHours) {
-		timeSheet.
+//		timeSheet.
 	}
 	
 	public void setStartDate(int year, int month, int day) {

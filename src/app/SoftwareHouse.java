@@ -3,9 +3,10 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
+import designPatterns.Observable;
 import designPatterns.Observer;
 
-public class SoftwareHouse {
+public class SoftwareHouse implements Observable{
 	
 	private static SoftwareHouse softwareHouse;
 	private String loggedIn;
@@ -43,7 +44,7 @@ public class SoftwareHouse {
 	
 	//
 	public void createWorker(String ID) {
-		Worker worker = new Worker(softwareHouse,ID);
+		Worker worker = new Worker(this,ID);
 		
 		listOfWorkers.add(worker);
 		
@@ -70,6 +71,12 @@ public class SoftwareHouse {
 
 	public Worker getWorker(int index) {
 		return listOfWorkers.get(index);
+	}
+
+	@Override
+	public void unregiseter(Observer o) {
+		observers.remove(o);
+		
 	}
 	
 	
