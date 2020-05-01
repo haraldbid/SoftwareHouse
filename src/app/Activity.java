@@ -12,39 +12,66 @@ public class Activity {
 	private Calendar startDate = new GregorianCalendar();
 	private Calendar endDate = new GregorianCalendar();
 	private TimeSheet timeSheet;
-	
-	public Activity() {
-		
-	}
-	
-	
-	public void requestAssistance(Worker worker) {
-		
-		
-	
-	}
-	
 
-	public void halfHoursWorked(int halfHours) {
-//		timeSheet.
+
+	private List<TimeSheet> timesheets = new ArrayList<TimeSheet>();
+	public Activity(String title) {
+		this.title = title;
+
 	}
 
-	
+	public void inputAssistance(Worker worker, Worker helper,int hours, int minutes) {
+		if(hours < 0 || minutes < 0)
+			throw new IllegalArgumentException("Only positive work time");
+		if(this.searchWorker(worker.getID()) == null)
+			throw new IllegalArgumentException("Worker is not assigned to activity");
+		// Maybe throw exception if helper doesnt exist in software house?
+
+		TimeSheet t = new TimeSheet(worker);
+		t.addtimeWorked(hours, minutes);
+		t.setHelper(helper);
+	}
+	public void assignWorker(Worker worker) {
+		this.listWorkersActivity.add(worker);
+	}
+
+	public void inputWorkTime(Worker worker, int hours, int minutes) {
+		if(hours < 0 || minutes < 0)
+			throw new IllegalArgumentException("Only positive work time");
+		if(this.searchWorker(worker.getID()) == null)
+			throw new IllegalArgumentException("Worker is not assigned to activity");
+		TimeSheet time = new TimeSheet(worker);
+		time.addtimeWorked(hours, minutes);
+		timesheets.add(time);
+
+	}
+	public Worker searchWorker(String ID) {
+		for (Worker worker : listWorkersActivity) {
+			if(worker.getID().equals(ID))
+				return worker;
+		}
+		return null; // Throw exception?
+	}
+	public String getTitle() {
+		return this.title;
+	}
+
+
 	public void setStartDate(int year, int month, int day) {
 		startDate.set(year, month, day);
 	}
-	
+
 	public void setEndDate(int year, int month, int day) {
 		endDate.set(year, month, day);
 	}
-	
+
 	public Calendar getStartDate() {
 		return this.startDate;
 	}
-	
+
 	public Calendar getEndDate() {
 		return this.endDate;
 	}
-	
-	
+
+
 }
