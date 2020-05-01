@@ -7,29 +7,32 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
+import app.Activity;
 import app.SoftwareHouse;
 
 public class Console {
-	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
+	private static DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
 	SoftwareHouse softwareHouse = new SoftwareHouse();
+	Activity activity = new Activity();
 	Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
 		Console console = new Console();
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Calendar date = new GregorianCalendar();
-		date.set(920, 2, 20);
-		System.out.println(date.getTime());
 
-		console.test("AB");
-		console.test("CDDD");
+		
+		
+		console.test();
+//
+//		console.run();
+		
+}
+	
+	
+	
+	//run() is the method which control logic of the program
 
-		console.run();
-	}
-
-	// run() is the method which control logic of the program
 	public void run() {
 
 		if (!softwareHouse.loggedIn()) {
@@ -40,7 +43,15 @@ public class Console {
 	}
 
 	public void displayOptions() {
+	}
 
+
+	
+	//test() is used to test program features
+	public void test() {
+		softwareHouse.createWorker("AB");
+		
+//		System.out.println(activity.numHoursSpent());
 	}
 
 	public void test(String ID) {
@@ -71,7 +82,8 @@ public class Console {
 
 		date.set(year, month, day);
 
-		System.out.println("valid date entered");
+		
+		System.out.println("valid date entered: " + dateFormat.format(date.getTime()));
 
 		return date;
 	}

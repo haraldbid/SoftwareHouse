@@ -8,13 +8,15 @@ import java.util.List;
 
 import designPatterns.Observable;
 import designPatterns.Observer;
+import designPatterns.Reporting;
 
-public class Project implements Observer {
+public class Project implements Observer, Reporting{
 
 	private String workerLoggedIn;
 	private String projectTitle;
 	private String projectNumberID;
 	private Worker projectLeader;
+	
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
 	private Calendar startDate = new GregorianCalendar();
 	private Calendar endDate = new GregorianCalendar();
@@ -123,6 +125,14 @@ public class Project implements Observer {
 	@Override
 	public void update(String loggedIn) {
 		this.workerLoggedIn = loggedIn;
+	}
+
+
+
+	@Override
+	public int numHoursSpent() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
