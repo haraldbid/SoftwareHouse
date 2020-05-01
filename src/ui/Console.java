@@ -13,7 +13,7 @@ import app.SoftwareHouse;
 public class Console {
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
 	SoftwareHouse softwareHouse = new SoftwareHouse();
-	Activity activity = new Activity();
+	Activity activity = new Activity("testAct");
 	Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Console {
 
 		
 		
-		console.test();
+//		console.test();
 //
 //		console.run();
 		
@@ -63,22 +63,22 @@ public class Console {
 
 		System.out.println("Please enter date in the following format: (yyyy mm dd)");
 
-		String d = scanner.nextLine();
+		String input = scanner.nextLine();
 
-		if (d.length() != 10) {
+		if (input.length() != 10) {
 			throw new IllegalArgumentException("Date not correct format");
 		}
 
-		for (int i = 0; i < d.length(); i++) {
+		for (int i = 0; i < input.length(); i++) {
 
-			if (Character.isAlphabetic(d.charAt(i))) {
+			if (Character.isAlphabetic(input.charAt(i))) {
 				throw new IllegalArgumentException("Date not correct format");
 			}
 		}
 
-		int year = Integer.parseInt(d.substring(0, 4));
-		int month = Integer.parseInt(d.substring(5, 7));
-		int day = Integer.parseInt(d.substring(8, 10));
+		int year = Integer.parseInt(input.substring(0, 4));
+		int month = Integer.parseInt(input.substring(5, 7));
+		int day = Integer.parseInt(input.substring(8, 10));
 
 		date.set(year, month, day);
 

@@ -4,23 +4,16 @@ import designPatterns.Reporting;
 
 public class WeekReport {
 
+	Reporting report;
 	
-	Project project;
-	Activity activity;
-	
-	public WeekReport(Reporting project) {
+	public WeekReport(Reporting report) {
 		
-		project.numHoursSpent();
+		this.report = report;
 	}
 	
-//	public WeekReport(Project project) {
-//		this.project = project;
-//	}
-//	
-//	public WeekReport(Activity activity) {
-//		this.activity = activity;
-//	}
-	
+	public void printWeeklyReport() {
+		
+	}
 
 	
 	

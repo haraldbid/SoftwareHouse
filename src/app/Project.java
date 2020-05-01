@@ -20,7 +20,7 @@ public class Project implements Observer, Reporting{
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
 	private Calendar startDate = new GregorianCalendar();
 	private Calendar endDate = new GregorianCalendar();
-	private List<Activity> listOfActivities;
+	private List<Activity> listOfActivities = new ArrayList<Activity>();
 	private Observable softwareHouse;
 	
 	public Project(Observable softwareHouse) {
@@ -131,8 +131,13 @@ public class Project implements Observer, Reporting{
 
 	@Override
 	public int numHoursSpent() {
-		// TODO Auto-generated method stub
-		return 0;
+		int numHoursSpent = 0; 
+		
+		for (Activity a : listOfActivities) {
+			numHoursSpent += a.numHoursSpent();
+		}
+
+		return numHoursSpent;
 	}
 
 }

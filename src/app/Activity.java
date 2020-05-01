@@ -15,15 +15,15 @@ public class Activity implements Reporting {
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Calendar startDate = new GregorianCalendar();
 	private Calendar endDate = new GregorianCalendar();
-	private TimeSheet timeSheet;
 
-
-	private List<TimeSheet> timesheets = new ArrayList<TimeSheet>();
+	private List<TimeSheet> timeSheets = new ArrayList<TimeSheet>();
+	
 	public Activity(String title) {
 		this.title = title;
 
 	}
 
+//	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
 	public void inputAssistance(Worker worker, Worker helper,int hours, int minutes) {
 		if(hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
@@ -46,7 +46,7 @@ public class Activity implements Reporting {
 			throw new IllegalArgumentException("Worker is not assigned to activity");
 		TimeSheet time = new TimeSheet(worker);
 		time.addtimeWorked(hours, minutes);
-		timesheets.add(time);
+		timeSheets.add(time);
 
 	}
 	public Worker searchWorker(String ID) {
@@ -86,7 +86,16 @@ public class Activity implements Reporting {
 //	TODO: Calculate num of hours spent from timesheets
 	@Override
 	public int numHoursSpent() {
-		return 3;
+		
+		int numHoursSpent = 0;
+		
+		for (TimeSheet t : timeSheets) {
+			numHoursSpent += t.getMinutesWorked();
+		}
+		
+		this.numHoursSpent = numHoursSpent;
+		
+		return numHoursSpent;
 		
 	}
 
