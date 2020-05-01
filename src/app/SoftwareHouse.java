@@ -27,6 +27,8 @@ public class SoftwareHouse implements Observable{
 		listOfProjects.add(project);
 	}
 	
+	
+// TODO: check valid ID, or create example user with the given ID.Perhaps LoggeIn should be reference to worker
 	public void logIn(String ID) {
 		loggedIn = ID;
 		notifyObserver();
