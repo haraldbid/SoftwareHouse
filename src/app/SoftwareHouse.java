@@ -66,7 +66,6 @@ public class SoftwareHouse implements Observable{
 				o.update(loggedIn);
 			}
 		}
-		
 	}
 		
 	

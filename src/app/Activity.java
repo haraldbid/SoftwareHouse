@@ -4,10 +4,14 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class Activity {
+import designPatterns.Reporting;
+
+public class Activity implements Reporting {
 
 	private int activityID;
 	private String title;
+	private int expectedWorkingHours;
+	private int numHoursSpent;
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Calendar startDate = new GregorianCalendar();
 	private Calendar endDate = new GregorianCalendar();
@@ -29,7 +33,6 @@ public class Activity {
 //		timeSheet.
 	}
 
-	
 	public void setStartDate(int year, int month, int day) {
 		startDate.set(year, month, day);
 	}
@@ -44,6 +47,18 @@ public class Activity {
 	
 	public Calendar getEndDate() {
 		return this.endDate;
+	}
+	
+	public void setExpectedWorkingHours(int expectedWorkingHours) {
+		this.expectedWorkingHours = expectedWorkingHours;
+	}
+
+
+//	TODO: Calculate num of hours spent from timesheets
+	@Override
+	public int numHoursSpent() {
+		return 3;
+		
 	}
 	
 	
