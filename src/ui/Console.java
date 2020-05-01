@@ -13,8 +13,9 @@ public class Console {
 		
 		Console console = new Console();
 		
-		console.test();
-		console.test();
+		console.test("AB");
+		console.test("CDDD");
+		
 		console.run();
 	}
 	
@@ -32,8 +33,9 @@ public class Console {
 		
 	}
 	
-	public void test() {
-		softwareHouse.createWorker("AB");
+	public void test(String ID) {
+		softwareHouse.createWorker(ID);
 	}
+	
 
 }

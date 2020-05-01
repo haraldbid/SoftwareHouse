@@ -6,70 +6,77 @@ import java.util.List;
 import designPatterns.Observable;
 import designPatterns.Observer;
 
-public class SoftwareHouse implements Observable{
-	
+public class SoftwareHouse implements Observable {
+
 	private static SoftwareHouse softwareHouse;
 	private String loggedIn;
-	private ArrayList<Observer> observers = new ArrayList<Observer>(); 
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	private List<Project> listOfProjects = new ArrayList<Project>();
 
-	private  ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
-
-
+	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
 
 	public SoftwareHouse() {
-		
+
 	}
-	
+
 	public void createProject() {
 		Project project = new Project(this);
 		listOfProjects.add(project);
 	}
-	
+
 	public void logIn(String ID) {
-		loggedIn = ID;
-		notifyObserver();
+
+		for (int i = 0; i < listOfWorkers.size(); i++) {
+
+			if (listOfWorkers.get(i).getID().equals(ID)) {
+				loggedIn = ID;
+				notifyObserver();
+				System.out.println("Worker " + ID + " has logged in succesfully.");
+			}
+		}
+
+		if (!loggedIn()) {
+			System.out.println("Login failed.");
+		}
+
 	}
+
 	public boolean loggedIn() {
-		if(this.loggedIn == null) {
+		if (this.loggedIn == null) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	public void register(Observer o) {
-		observers.add(o);		
+		observers.add(o);
 	}
-	
-	
+
 	//
 	public void createWorker(String ID) {
-		Worker worker = new Worker(this,ID);
-		
+		Worker worker = new Worker(this, ID);
+
 		listOfWorkers.add(worker);
-		
+
 		System.out.print(getNbWorkers());
 	}
-	
+
 	public int getNbWorkers() {
 		return listOfWorkers.size();
 	}
-	
 
 	@Override
 	public void notifyObserver() {
-		
+
 		if (!observers.isEmpty()) {
 			for (Observer o : observers) {
 				o.update(loggedIn);
 			}
 		}
-		
+
 	}
-		
-	
 
 	public Worker getWorker(int index) {
 		return listOfWorkers.get(index);
@@ -78,11 +85,7 @@ public class SoftwareHouse implements Observable{
 	@Override
 	public void unregiseter(Observer o) {
 		observers.remove(o);
-		
+
 	}
-	
-	
-	
-	
-	
+
 }
