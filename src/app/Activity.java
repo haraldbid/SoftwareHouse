@@ -1,4 +1,5 @@
 package app;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -7,10 +8,9 @@ public class Activity {
 
 	private int activityID;
 	private String title;
-	private List<Worker> listWorkersActivity;
+	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Calendar startDate = new GregorianCalendar();
 	private Calendar endDate = new GregorianCalendar();
-
 	private TimeSheet timeSheet;
 	
 	public Activity() {

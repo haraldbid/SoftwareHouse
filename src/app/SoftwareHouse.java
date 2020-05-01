@@ -25,6 +25,11 @@ public class SoftwareHouse implements Observable {
 		listOfProjects.add(project);
 	}
 
+
+	
+	
+// TODO: check valid ID, or create example user with the given ID.Perhaps LoggeIn should be reference to worker
+
 	public void logIn(String ID) {
 
 		for (int i = 0; i < listOfWorkers.size(); i++) {
@@ -54,13 +59,15 @@ public class SoftwareHouse implements Observable {
 		observers.add(o);
 	}
 
-	//
+	
+	
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
 
 		listOfWorkers.add(worker);
 
 		System.out.print(getNbWorkers());
+
 	}
 
 	public int getNbWorkers() {
