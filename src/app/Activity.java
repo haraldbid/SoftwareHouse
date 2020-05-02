@@ -9,6 +9,7 @@ import designPatterns.Reporting;
 public class Activity implements Reporting {
 
 	private int activityID;
+	private static int activityIDCount = 0;
 	private String title;
 	private int expectedWorkingHours;
 	private int numHoursSpent;
@@ -20,7 +21,7 @@ public class Activity implements Reporting {
 	
 	public Activity(String title) {
 		this.title = title;
-
+		this.activityID = activityIDCount + 1;
 	}
 
 //	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
@@ -35,6 +36,7 @@ public class Activity implements Reporting {
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
 	}
+	
 	public void assignWorker(Worker worker) {
 		this.listWorkersActivity.add(worker);
 	}
@@ -61,12 +63,12 @@ public class Activity implements Reporting {
 	}
 
 
-	public void setStartDate(int year, int month, int day) {
-		startDate.set(year, month, day);
+	public void setStartDate(Calendar date) {
+		startDate = date;
 	}
-
-	public void setEndDate(int year, int month, int day) {
-		endDate.set(year, month, day);
+	
+	public void setEndDate(Calendar date) {
+		endDate = date;
 	}
 
 	public Calendar getStartDate() {
@@ -81,7 +83,7 @@ public class Activity implements Reporting {
 	public void setExpectedWorkingHours(int expectedWorkingHours) {
 		this.expectedWorkingHours = expectedWorkingHours;
 	}
-
+	
 
 //	TODO: Calculate num of hours spent from timesheets
 	@Override
@@ -97,6 +99,18 @@ public class Activity implements Reporting {
 		
 		return numHoursSpent;
 		
+	}
+	
+	public void generateWeekReport() {
+		WeekReport report = new WeekReport(this);
+		
+		report.printWeekReport();
+	}
+
+	@Override
+	public int getID() {
+		
+		return this.activityID;
 	}
 
 }

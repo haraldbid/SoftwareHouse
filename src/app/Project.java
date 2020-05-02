@@ -14,7 +14,7 @@ public class Project implements Observer, Reporting{
 
 	private String workerLoggedIn;
 	private String projectTitle;
-	private String projectNumberID;
+	private int projectNumberID;
 	private Worker projectLeader;
 	
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
@@ -22,20 +22,24 @@ public class Project implements Observer, Reporting{
 	private Calendar endDate = new GregorianCalendar();
 	private List<Activity> listOfActivities = new ArrayList<Activity>();
 	private Observable softwareHouse;
+	private List<WeekReport> weekreports = new ArrayList<WeekReport>();
 	
-	public Project(Observable softwareHouse) {
+	public Project(Observable softwareHouse, Calendar startDate, Calendar endDate) {
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
+		
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 	
 	
 	
-	public void setStartDate(int year, int month, int day) {
-		startDate.set(year, month, day);
+	public void setStartDate(Calendar date) {
+		startDate = date;
 	}
 	
-	public void setEndDate(int year, int month, int day) {
-		endDate.set(year, month, day);
+	public void setEndDate(Calendar date) {
+		endDate = date;
 	}
 	
 
@@ -52,7 +56,7 @@ public class Project implements Observer, Reporting{
 		}
 	}
 
-	public String getProjectTitle() {
+	public String getTitle() {
 
 		if (hasProjectTitle()) {
 			return "Project title : " + projectTitle;
@@ -61,8 +65,8 @@ public class Project implements Observer, Reporting{
 		}
 	}
 
-	public String getProjectNumberID() {
-		return "Project number ID : " + projectNumberID;
+	public int getID() {
+		return projectNumberID;
 	}
 
 	public boolean hasProjectLeader() {
@@ -86,9 +90,11 @@ public class Project implements Observer, Reporting{
 	}
 
 	// JUST A SHELL
-	public void addActivity(Activity activity) {
+	public void createActivity(String title) {
 
 		if (isProjectLeaderLoggedIn()) {
+			
+			Activity activity = new Activity (title);
 
 			listOfActivities.add(activity);
 
@@ -99,16 +105,6 @@ public class Project implements Observer, Reporting{
 	}
 	
 	
-	// SHOULDNT BE HERE
-	public void addWorkerToActivity(Worker worker, Activity activity) {
-
-		if (isProjectLeaderLoggedIn()) {
-//			activity.
-		} else {
-			System.out.println("Only the Project Leader may add a worker to an activity");
-		}
-
-	}
 
 	public boolean isProjectLeaderLoggedIn() {
 		if (workerLoggedIn.equals(projectLeader.getID())) {
@@ -126,6 +122,12 @@ public class Project implements Observer, Reporting{
 	public void update(String loggedIn) {
 		this.workerLoggedIn = loggedIn;
 	}
+	
+	public void generateWeekReport() {
+		WeekReport report = new WeekReport(this);
+		
+		report.printWeekReport();
+	}
 
 
 
@@ -139,5 +141,7 @@ public class Project implements Observer, Reporting{
 
 		return numHoursSpent;
 	}
+
+
 
 }

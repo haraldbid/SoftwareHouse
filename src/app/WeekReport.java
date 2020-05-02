@@ -11,8 +11,16 @@ public class WeekReport {
 		this.report = report;
 	}
 	
-	public void printWeeklyReport() {
+	public void printWeekReport() {
+		System.out.println("___________________________\n"
+				+ report.getTitle() );
 		
+							
+		
+		
+		
+		
+		report.numHoursSpent();
 	}
 
 	

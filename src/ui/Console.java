@@ -19,9 +19,7 @@ public class Console {
 	public static void main(String[] args) {
 
 		Console console = new Console();
-
-
-		
+		console.testExamples();
 		
 //		console.test();
 //
@@ -39,7 +37,19 @@ public class Console {
 			System.out.println("You need to enter ID to log in: ");
 			softwareHouse.logIn(scanner.next());
 		}
-
+	}
+	
+	
+	public void testExamples() {
+		//INIT
+		
+		softwareHouse.createProject(new GregorianCalendar(1930,03-1,4), new GregorianCalendar(1931,03-1,4));
+		softwareHouse.getListOfProjects().get(0).createActivity("testActivity");
+		
+		
+		
+		
+		
 	}
 
 	public void displayOptions() {
@@ -47,17 +57,7 @@ public class Console {
 
 
 	
-	//test() is used to test program features
-	public void test() {
-		softwareHouse.createWorker("AB");
-		
-//		System.out.println(activity.numHoursSpent());
-	}
-
-	public void test(String ID) {
-		softwareHouse.createWorker(ID);
-	}
-
+//	TODO: catch bad input (non-existing dates)
 	private Calendar enterDate() {
 		Calendar date = new GregorianCalendar();
 
@@ -77,8 +77,9 @@ public class Console {
 		}
 
 		int year = Integer.parseInt(input.substring(0, 4));
-		int month = Integer.parseInt(input.substring(5, 7));
+		int month = Integer.parseInt(input.substring(5, 7))-1; //Calendar class numbers months from 0-11
 		int day = Integer.parseInt(input.substring(8, 10));
+		
 
 		date.set(year, month, day);
 
