@@ -9,23 +9,21 @@ import java.util.Optional;
 import app.Activity;
 import app.SoftwareHouse;
 import app.Worker;
+import designPatterns.Date;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 public class AddTime_Activity {
 
-	private Activity activity;
-	private Worker worker;
-	private String error;
-//	public static Activity activity;
-	public AddTime_Activity() {
-//		Activity ac = new Activity("activity1");
-//		ac.assignWorker(new Worker(new SoftwareHouse(), "aa"));
-	}
+	private static Activity activity;
+	private static Worker worker;
+	private static String error;
+
+	
 	@Given("that an activity {string} exist")
 	public void that_an_activity_exist(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-		activity = new Activity(string);
+		activity = new Activity(string,new Date(1,2019),new Date(10,2019));
 		
 	}
 
@@ -36,16 +34,16 @@ public class AddTime_Activity {
 	}
 
 	@Given("worker {string} is assigned to activity")
-	public void worker_is_assigned_to_activity(String string) {
+	public void worker_is_assigned_to_activity(String string){
 	    // Write code here that turns the phrase above into concrete actions
 	    activity.assignWorker(worker);
-	    assertTrue(activity.searchWorker(string).getID().equals(string));
+//	    assertTrue(activity.searchWorker(string).getID().equals(string));
 	}
 
 	@Then("timesheet with {string} and {string} is added to list in {string}")
 	public void timesheet_with_and_is_added_to_list_in(String string, String string2, String string3) {
 	    // Write code here that turns the phrase above into concrete actions
-	    activity.inputWorkTime(worker, 8, 1);
+	    activity.inputWorkTime(worker, 8, 1,new Date(2,2019));
 	    
 	}
 	
@@ -58,12 +56,12 @@ public class AddTime_Activity {
 	public void time_is_added_for_worker(String string) throws IllegalArgumentException{
 	    // Write code here that turns the phrase above into concrete actions
 	    try {
-	    	activity.inputWorkTime(worker, 8, 12);			
+	    	activity.inputWorkTime(worker, 8, 12,new Date(2,2019));			
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
 	}
-
+	
 	@Then("the error message: {string} is displayed")
 	public void the_error_message_is_displayed(String string) {
 	    // Write code here that turns the phrase above into concrete actions

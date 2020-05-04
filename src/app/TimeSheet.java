@@ -11,9 +11,10 @@ public class TimeSheet {
 	Date date;
 	
 	
-	public TimeSheet(Worker worker) {
+	public TimeSheet(Worker worker,Date week) {
 		this.worker = worker;
 		this.minutesWorked = 0;
+		this.date = week;
 		
 	}
 	public void addtimeWorked(int hours, int minutes) {
