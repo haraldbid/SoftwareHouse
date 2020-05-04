@@ -107,6 +107,10 @@ public class Activity implements Reporting {
 		return numHoursSpent;
 	}
 	
+	public WeekReport getRecentWeekReport() {
+		return this.weekReports.get(weekReports.size()-1);
+	}
+	
 	public void generateWeekReport() {
 		WeekReport report = new WeekReport(this);
 		

@@ -8,6 +8,7 @@ public class WeekReport {
 	int[] numHoursSpent;
 	int expectedWorkingHours;
 	int remainingHours;
+	String type;
 	
 	
 	
@@ -17,6 +18,11 @@ public class WeekReport {
 		this.numHoursSpent = report.numHoursSpent();
 		this.expectedWorkingHours = report.getExpectedWorkingHours();
 		this.remainingHours = this.expectedWorkingHours-this.numHoursSpent[1];
+		
+		if (report instanceof Activity)
+			type = "Activity";
+		if (report instanceof Project)
+			type = "Project";
 	}
 	
 	public void printWeekReport() {
@@ -25,7 +31,7 @@ public class WeekReport {
 		
 		System.out.println(
 				  "________________________________\n"
-				+ report.getClass() +  " ID: "+ report.getTitle() +"\n"
+				+ type +  " title: "+ report.getTitle() +"\n"
 				+ "Working hours spent: " + report.numHoursSpent() + "\n"
 				+ "Working hours remaining: " + remainingHours + "\n"
 				+ "________________________________");

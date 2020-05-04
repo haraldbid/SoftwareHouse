@@ -44,7 +44,7 @@ public class Console {
 	public void testExamples() {
 		//INIT
 		
-		softwareHouse.createProject(new GregorianCalendar(1930,03-1,4), new GregorianCalendar(1931,03-1,4));
+//		softwareHouse.createProject(new GregorianCalendar(1930,03-1,4), new GregorianCalendar(1931,03-1,4));
 		softwareHouse.getListOfProjects().get(0).createActivity("testActivity");
 		
 		

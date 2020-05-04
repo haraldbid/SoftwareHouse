@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import designPatterns.Date;
 import designPatterns.Observable;
 import designPatterns.Observer;
 
@@ -25,7 +26,7 @@ public class SoftwareHouse implements Observable {
 
 	}
 
-	public void createProject(Calendar startDate, Calendar endDate) {
+	public void createProject(Date startDate, Date endDate) {
 		Project project = new Project(this, startDate, endDate);
 		listOfProjects.add(project);
 	}

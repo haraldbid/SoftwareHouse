@@ -25,7 +25,7 @@ public class Project implements Observer, Reporting{
 
 
 	private Observable softwareHouse;
-	private List<WeekReport> weekreports = new ArrayList<WeekReport>();
+	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 	
 	public Project(Observable softwareHouse, Date startDate, Date endDate) {
 		this.softwareHouse = softwareHouse;
@@ -130,20 +130,21 @@ public class Project implements Observer, Reporting{
 	public void generateWeekReport() {
 		WeekReport report = new WeekReport(this);
 		
-		report.printWeekReport();
+		weekReports.add(report);
+		
+//		report.printWeekReport();
 	}
-
 
 
 	@Override
 	public int[] numHoursSpent() {
-		
 		int[] numHoursSpent = {0,0}; 
 		
 		for (Activity a : listOfActivities) {
-			
+			a.generateWeekReport();
+			numHoursSpent[0] += a.getRecentWeekReport().numHoursSpent[0];
+			numHoursSpent[1] += a.getRecentWeekReport().numHoursSpent[1];
 		}
-
 		return numHoursSpent;
 	}
 
@@ -151,13 +152,13 @@ public class Project implements Observer, Reporting{
 
 	@Override
 	public int getExpectedWorkingHours() {
-		int numHoursSpent = 0; 
+		int expectedWorkingHours = 0; 
 		
 		for (Activity a : listOfActivities) {
-			numHoursSpent += a.getExpectedWorkingHours();
+			expectedWorkingHours += a.getExpectedWorkingHours();
 		}
 
-		return numHoursSpent;
+		return expectedWorkingHours;
 	
 	}
 
