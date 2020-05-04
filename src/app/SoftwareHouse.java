@@ -2,6 +2,7 @@ package app;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import designPatterns.Observable;
@@ -10,6 +11,8 @@ import designPatterns.Observer;
 public class SoftwareHouse implements Observable {
 
 	private static SoftwareHouse softwareHouse;
+	
+//	TODO: loggedIN should be a reference to a worker, not just the string ID.
 	private String loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
@@ -22,8 +25,8 @@ public class SoftwareHouse implements Observable {
 
 	}
 
-	public void createProject() {
-		Project project = new Project(this);
+	public void createProject(Calendar startDate, Calendar endDate) {
+		Project project = new Project(this, startDate, endDate);
 		listOfProjects.add(project);
 	}
 
@@ -146,6 +149,11 @@ public class SoftwareHouse implements Observable {
 
 	public Worker getWorker(int index) {
 		return listOfWorkers.get(index);
+	}
+	
+	public List<Project> getListOfProjects(){
+		return listOfProjects;
+		
 	}
 
 	@Override

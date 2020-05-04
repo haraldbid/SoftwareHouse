@@ -5,10 +5,10 @@ import designPatterns.Date;
 public class TimeSheet {
 	
 	//private boolean availability;
-	int minutesWorked;
-	Worker worker;
-	Worker helper;
-	Date date;
+	private int minutesWorked;
+	private Worker worker;
+	private Worker helper;
+	private Date date;
 	
 	
 	public TimeSheet(Worker worker) {
@@ -23,5 +23,11 @@ public class TimeSheet {
 		this.helper = worker;
 	}
 	
-
+	public int getMinutesWorked() {
+		return this.minutesWorked;
+	}
+	
+	public Date getDate() {
+		return this.date;
+	}
 }

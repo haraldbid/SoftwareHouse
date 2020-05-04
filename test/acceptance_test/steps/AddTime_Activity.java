@@ -23,10 +23,8 @@ public class AddTime_Activity {
 //		ac.assignWorker(new Worker(new SoftwareHouse(), "aa"));
 	}
 	@Given("that an activity {string} exist")
-	public void that_an_activity_exist(String string) {
-	    // Write code here that turns the phrase above into concrete actions
+	public void thatnActivityExist(String string) {
 		activity = new Activity(string);
-		
 	}
 
 	@Given("a worker {string} exist")
