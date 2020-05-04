@@ -112,7 +112,7 @@ public class Activity implements Reporting {
 		
 		weekReports.add(report);
 		
-		report.printWeekReport();
+//		report.printWeekReport();
 	}
 
 	@Override

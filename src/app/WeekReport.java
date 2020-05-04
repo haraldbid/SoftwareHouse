@@ -30,6 +30,16 @@ public class WeekReport {
 				+ "Working hours remaining: " + remainingHours + "\n"
 				+ "________________________________");
 	}
+	
+	public int[] getNumHoursSpent() {
+		return this.numHoursSpent;
+	}
+	public int getExpectedWorkingHours() {
+		return this.expectedWorkingHours;
+	}
+	public int getRemainingHours() {
+		return this.remainingHours;
+	}
 
 	
 	
