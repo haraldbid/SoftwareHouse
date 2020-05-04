@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import designPatterns.Date;
 import designPatterns.Observable;
 import designPatterns.Observer;
 import designPatterns.Reporting;
@@ -18,13 +19,15 @@ public class Project implements Observer, Reporting{
 	private Worker projectLeader;
 	
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
-	private Calendar startDate = new GregorianCalendar();
-	private Calendar endDate = new GregorianCalendar();
 	private List<Activity> listOfActivities = new ArrayList<Activity>();
+	private Date startDate = new Date();
+	private Date endDate = new Date();
+
+
 	private Observable softwareHouse;
 	private List<WeekReport> weekreports = new ArrayList<WeekReport>();
 	
-	public Project(Observable softwareHouse, Calendar startDate, Calendar endDate) {
+	public Project(Observable softwareHouse, Date startDate, Date endDate) {
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
 		
@@ -34,12 +37,13 @@ public class Project implements Observer, Reporting{
 	
 	
 	
-	public void setStartDate(Calendar date) {
-		startDate = date;
+
+	public void setStartDate(int year, int week) {
+		startDate.setDate(year, week);
 	}
 	
-	public void setEndDate(Calendar date) {
-		endDate = date;
+	public void setEndDate(int year, int week) {
+		endDate.setDate(year, week);
 	}
 	
 
@@ -137,7 +141,7 @@ public class Project implements Observer, Reporting{
 		int[] numHoursSpent = {0,0}; 
 		
 		for (Activity a : listOfActivities) {
-			numHoursSpent += a.numHoursSpent();
+			
 		}
 
 		return numHoursSpent;

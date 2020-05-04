@@ -157,7 +157,7 @@ public class SoftwareHouse implements Observable {
 	}
 
 	@Override
-	public void unregiseter(Observer o) {
+	public void unregister(Observer o) {
 		observers.remove(o);
 
 	}
