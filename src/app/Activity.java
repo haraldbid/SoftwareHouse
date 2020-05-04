@@ -4,12 +4,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import designPatterns.Date;
 import designPatterns.Reporting;
 
 public class Activity implements Reporting {
 
 	private int activityID;
-	private static int activityIDCount = 0;
 	private String title;
 	private int expectedWorkingHours;
 	private int[] numHoursSpent;
@@ -22,18 +22,17 @@ public class Activity implements Reporting {
 	
 	public Activity(String title) {
 		this.title = title;
-		this.activityID = activityIDCount + 1;
 	}
 
 //	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
-	public void inputAssistance(Worker worker, Worker helper,int hours, int minutes) {
+	public void inputAssistance(Worker worker, Worker helper,int hours, int minutes, Date date) {
 		if(hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
 		if(this.searchWorker(worker.getID()) == null)
 			throw new IllegalArgumentException("Worker is not assigned to activity");
 		// Maybe throw exception if helper doesnt exist in software house?
 
-		TimeSheet t = new TimeSheet(worker);
+		TimeSheet t = new TimeSheet(worker,date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
 	}
@@ -42,12 +41,12 @@ public class Activity implements Reporting {
 		this.listWorkersActivity.add(worker);
 	}
 
-	public void inputWorkTime(Worker worker, int hours, int minutes) {
+	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) {
 		if(hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
 		if(this.searchWorker(worker.getID()) == null)
 			throw new IllegalArgumentException("Worker is not assigned to activity");
-		TimeSheet time = new TimeSheet(worker);
+		TimeSheet time = new TimeSheet(worker,date);
 		time.addtimeWorked(hours, minutes);
 		timeSheets.add(time);
 
