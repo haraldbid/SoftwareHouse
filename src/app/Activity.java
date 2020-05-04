@@ -32,6 +32,7 @@ public class Activity {
 		TimeSheet t = new TimeSheet(worker,date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
+		this.timesheets.add(t);
 	}
 	
 	public void assignWorker(Worker worker) {
