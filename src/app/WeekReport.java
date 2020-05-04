@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -12,6 +13,7 @@ public class WeekReport {
 	int expectedWorkingHours;
 	int remainingHours;
 	String type;
+	ArrayList <Activity> activities;
 	Calendar cal = new GregorianCalendar();
 	
 	
@@ -25,13 +27,15 @@ public class WeekReport {
 		
 		if (report instanceof Activity)
 			type = "Activity";
-		if (report instanceof Project)
+		if (report instanceof Project) {
 			type = "Project";
+			this.activities = ((Project) report).getActivities();
+		}
+			
+		
 	}
 	
 	public void printWeekReport() {
-		
-		
 		
 		System.out.println(
 				  "________________________________\n"
@@ -40,7 +44,16 @@ public class WeekReport {
 				+ "Total working hours spent: " + numHoursSpent[0] + "\n"
 				+ "Total working hours remaining: " + remainingHours + "\n"
 				+ "Week " + cal.get(Calendar.WEEK_OF_YEAR) + " working hours: " + numHoursSpent[1] + "\n"
-				+ "________________________________");
+				+ "________________________________" + "\n");
+		
+		if (report instanceof Project) {
+			System.out.println("LIST OF INCOMPLETE ACITIVITIES: ");
+			for(Activity a : activities) {
+				System.out.println(a.getTitle());
+			}
+			System.out.println("________________________________");
+		}
+		
 	}
 	
 	public int[] getNumHoursSpent() {

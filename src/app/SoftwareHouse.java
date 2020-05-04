@@ -73,7 +73,6 @@ public class SoftwareHouse implements Observable {
 			System.out
 					.println(sortedArr.get(i).getID() + " : " + sortedArr.get(i).getNumActivities(startDate, endDate));
 		}
-
 	}
 
 	public void quickSort(ArrayList<Worker> arr, int low, int high, Calendar startDate, Calendar endDate) {
