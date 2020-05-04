@@ -13,6 +13,7 @@ public class WeekReport {
 	int remainingHours;
 	String type;
 	Calendar cal = new GregorianCalendar();
+	int test;
 	
 	
 	
