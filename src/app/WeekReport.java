@@ -12,15 +12,13 @@ public class WeekReport {
 	}
 	
 	public void printWeekReport() {
-		System.out.println("___________________________\n"
-				+ report.getTitle() );
+		System.out.println(
+				  "________________________________\n"
+				+ report.getClass() +  " ID: "+ report.getTitle() +"\n"
+				+ "Working hours spent: " + report.numHoursSpent() + "\n"
+				+ "________________________________");
 		
 							
-		
-		
-		
-		
-		report.numHoursSpent();
 	}
 
 	

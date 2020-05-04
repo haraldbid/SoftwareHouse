@@ -11,6 +11,8 @@ import designPatterns.Observer;
 public class SoftwareHouse implements Observable {
 
 	private static SoftwareHouse softwareHouse;
+	
+//	TODO: loggedIN should be a reference to a worker, not just the string ID.
 	private String loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
