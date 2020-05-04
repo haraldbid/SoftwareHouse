@@ -1,5 +1,8 @@
 package app;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import designPatterns.Reporting;
 
 public class WeekReport {
@@ -9,6 +12,7 @@ public class WeekReport {
 	int expectedWorkingHours;
 	int remainingHours;
 	String type;
+	Calendar cal = new GregorianCalendar();
 	
 	
 	
@@ -32,8 +36,10 @@ public class WeekReport {
 		System.out.println(
 				  "________________________________\n"
 				+ type +  " title: "+ report.getTitle() +"\n"
-				+ "Working hours spent: " + report.numHoursSpent() + "\n"
-				+ "Working hours remaining: " + remainingHours + "\n"
+				+ "-------------------------------- \n"
+				+ "Total working hours spent: " + numHoursSpent[0] + "\n"
+				+ "Total working hours remaining: " + remainingHours + "\n"
+				+ "Week " + cal.get(Calendar.WEEK_OF_YEAR) + " working hours: " + numHoursSpent[1] + "\n"
 				+ "________________________________");
 	}
 	
