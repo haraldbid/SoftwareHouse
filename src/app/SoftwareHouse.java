@@ -12,9 +12,9 @@ import designPatterns.Observer;
 public class SoftwareHouse implements Observable {
 
 	private static SoftwareHouse softwareHouse;
-	
+
 //	TODO: loggedIN should be a reference to a worker, not just the string ID.
-	private String loggedIn;
+	private Worker loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	private List<Project> listOfProjects = new ArrayList<Project>();
@@ -27,13 +27,28 @@ public class SoftwareHouse implements Observable {
 	}
 
 	public void createProject(Date startDate, Date endDate) {
-		Project project = new Project(this, startDate, endDate);
+
+		Project project = new Project(this, startDate, endDate, generateProjectID(startDate));
 		listOfProjects.add(project);
 	}
 
+	public String generateProjectID(Date startDate) {
 
-	
-	
+		String year = Integer.toString(startDate.getYear());
+
+		String runningCount = "";
+
+		for (int i = 0; i < 4 - Integer.toString(listOfProjects.size()).length(); i++) {
+
+			runningCount += "0";
+
+		}
+		runningCount += listOfProjects.size();
+
+		return year + runningCount;
+
+	}
+
 // TODO: check valid ID, or create example user with the given ID.Perhaps LoggeIn should be reference to worker
 
 	public void logIn(String ID) {
@@ -41,7 +56,7 @@ public class SoftwareHouse implements Observable {
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 
 			if (listOfWorkers.get(i).getID().equals(ID)) {
-				loggedIn = ID;
+				loggedIn = listOfWorkers.get(i);
 				notifyObserver();
 				System.out.println("Worker " + ID + " has logged in succesfully.");
 			}
@@ -52,43 +67,43 @@ public class SoftwareHouse implements Observable {
 		}
 
 	}
-	
+
 	public void getAllWorkersActivities(Calendar startDate, Calendar endDate) {
-		
+
 		quickSort(listOfWorkers, 0, listOfWorkers.size() - 1, startDate, endDate);
-		
+
 		for (int i = 0; i < sortedArr.size(); i++) {
-			System.out.println(sortedArr.get(i).getID() + " : " + sortedArr.get(i).getNumActivities(startDate, endDate));
+			System.out
+					.println(sortedArr.get(i).getID() + " : " + sortedArr.get(i).getNumActivities(startDate, endDate));
 		}
-		
+
 	}
-	
-	
+
 	public void quickSort(ArrayList<Worker> arr, int low, int high, Calendar startDate, Calendar endDate) {
-		
+
 		this.sortedArr = arr;
-		
+
 		if (arr == null || arr.size() == 0)
 			return;
- 
+
 		if (low >= high)
 			return;
- 
+
 		// pick the pivot
 		int middle = low + (high - low) / 2;
 		int pivot = arr.get(middle).getNumActivities(startDate, endDate);
- 
+
 		// make left < pivot and right > pivot
 		int i = low, j = high;
 		while (i <= j) {
 			while (arr.get(i).getNumActivities(startDate, endDate) < pivot) {
 				i++;
 			}
- 
+
 			while (arr.get(j).getNumActivities(startDate, endDate) > pivot) {
 				j--;
 			}
- 
+
 			if (i <= j) {
 				Worker temp = arr.get(i);
 				arr.set(i, arr.get(j));
@@ -97,18 +112,16 @@ public class SoftwareHouse implements Observable {
 				j--;
 			}
 		}
- 
+
 		// recursively sort two sub parts
 		if (low < j)
 			quickSort(arr, low, j, startDate, endDate);
- 
+
 		if (high > i)
 			quickSort(arr, i, high, startDate, endDate);
-		
+
 		this.sortedArr = arr;
 	}
-	
-	
 
 	public boolean loggedIn() {
 		if (this.loggedIn == null) {
@@ -122,8 +135,6 @@ public class SoftwareHouse implements Observable {
 		observers.add(o);
 	}
 
-	
-	
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
 
@@ -151,10 +162,10 @@ public class SoftwareHouse implements Observable {
 	public Worker getWorker(int index) {
 		return listOfWorkers.get(index);
 	}
-	
-	public List<Project> getListOfProjects(){
+
+	public List<Project> getListOfProjects() {
 		return listOfProjects;
-		
+
 	}
 
 	@Override

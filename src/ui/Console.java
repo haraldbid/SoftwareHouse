@@ -32,6 +32,22 @@ public class Console {
 	
 	//run() is the method which control logic of the program
 
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Calendar date = new GregorianCalendar();
+		date.set(920, 2, 20);
+		System.out.println(date.getTime());
+
+		console.test("AB");
+		console.test("CDDD");
+		
+		
+
+		console.run();
+	}
+
+	// run() is the method which control logic of the program
+
 	public void run() {
 
 		if (!softwareHouse.loggedIn()) {
@@ -52,6 +68,14 @@ public class Console {
 	}
 
 	public void displayOptions() {
+	}
+
+	public void test(String ID) {
+		softwareHouse.createWorker(ID);
+	}
+	
+	public void createProject(String ID) {
+		
 	}
 
 
