@@ -87,11 +87,12 @@ public class Activity implements Reporting {
 	
 
 //	TODO: Calculate num of hours spent from timesheets
+	//1. entry contains information about total hours spent on activity, 2. entry for the week
 	@Override
 	public int[] numHoursSpent() {
 		
 		Calendar cal = new GregorianCalendar();
-		//1. entry contains information about total hours spent on activity, 2. entry for the week
+		
 		int[] numHoursSpent = {0,0}; 
 		
 		for (TimeSheet t : timeSheets) {

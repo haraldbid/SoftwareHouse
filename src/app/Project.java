@@ -27,7 +27,7 @@ public class Project implements Observer, Reporting{
 	private Observable softwareHouse;
 	private List<WeekReport> weekreports = new ArrayList<WeekReport>();
 	
-	public Project(Observable softwareHouse, Calendar startDate, Calendar endDate) {
+	public Project(Observable softwareHouse, Date startDate, Date endDate) {
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
 		
