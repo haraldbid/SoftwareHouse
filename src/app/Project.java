@@ -13,7 +13,7 @@ import designPatterns.Reporting;
 
 public class Project implements Observer, Reporting{
 
-	private String workerLoggedIn;
+	private Worker workerLoggedIn;
 	private String projectTitle;
 	private int projectNumberID;
 	private Worker projectLeader;
@@ -118,14 +118,6 @@ public class Project implements Observer, Reporting{
 		}
 	}
 
-
-
-
-
-	@Override
-	public void update(String loggedIn) {
-		this.workerLoggedIn = loggedIn;
-	}
 	
 	public void generateWeekReport() {
 		WeekReport report = new WeekReport(this);
@@ -161,6 +153,16 @@ public class Project implements Observer, Reporting{
 		return expectedWorkingHours;
 	
 	}
+
+
+
+
+	@Override
+	public void update(Worker loggedIn) {
+		this.workerLoggedIn = loggedIn;
+		
+	}
+
 
 
 
