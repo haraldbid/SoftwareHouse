@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import designPatterns.Date;
 import designPatterns.Observable;
 import designPatterns.Observer;
 
@@ -16,8 +17,8 @@ public class Project implements Observer {
 	private String projectNumberID;
 	private Worker projectLeader;
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
-	private Calendar startDate = new GregorianCalendar();
-	private Calendar endDate = new GregorianCalendar();
+	private Date startDate = new Date();
+	private Date endDate = new Date();
 	private List<Activity> listOfActivities;
 	private Observable softwareHouse;
 	
@@ -28,12 +29,12 @@ public class Project implements Observer {
 	
 	
 	
-	public void setStartDate(int year, int month, int day) {
-		startDate.set(year, month, day);
+	public void setStartDate(int year, int week) {
+		startDate.setDate(year, week);
 	}
 	
-	public void setEndDate(int year, int month, int day) {
-		endDate.set(year, month, day);
+	public void setEndDate(int year, int week) {
+		endDate.setDate(year, week);
 	}
 	
 

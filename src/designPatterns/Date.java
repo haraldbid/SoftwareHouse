@@ -3,7 +3,12 @@ package designPatterns;
 public class Date {
 	int weekNumber, year;
 	
-	public Date(int week,int year) {
+	public Date() {
+		this.weekNumber = 1;
+		this.year = 2000;
+	}
+	
+	public Date(int year, int week) {
 		this.weekNumber = week;
 		this.year = year;
 	}
@@ -11,10 +16,14 @@ public class Date {
 	public int getWeekNumber() {
 		return this.weekNumber;
 	}
+	public void setDate(int yearNumber, int weekNumber) {
+		setWeekNumber(weekNumber);
+		setYear(yearNumber);
+	}
 
 	public void setWeekNumber(int weekNumber) {
-		if(weekNumber > 52 && weekNumber < 0) 
-			throw new IllegalArgumentException("Weeknumber must be between 0 and 52");
+		if(weekNumber > 53 && weekNumber < 1) 
+			throw new IllegalArgumentException("Weeknumber must be between 1 and 53");
 		this.weekNumber = weekNumber;
 	}
 

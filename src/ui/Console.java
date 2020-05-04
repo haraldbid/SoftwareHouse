@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 import app.SoftwareHouse;
+import designPatterns.Date;
 
 public class Console {
 
@@ -40,8 +41,8 @@ public class Console {
 	
 	
 	
-	private Calendar enterDate() {
-		Calendar date = new GregorianCalendar();
+	private Date enterDate() {
+		Date date = new Date();
 		
 		System.out.println("Please enter date in the following format:  ");
 		
