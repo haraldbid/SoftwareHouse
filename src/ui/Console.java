@@ -48,8 +48,6 @@ public class Console {
 		
 		
 		
-		
-		
 	}
 
 	public void displayOptions() {

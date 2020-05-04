@@ -26,4 +26,8 @@ public class TimeSheet {
 	public int getMinutesWorked() {
 		return this.minutesWorked;
 	}
+	
+	public Date getDate() {
+		return this.date;
+	}
 }

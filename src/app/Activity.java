@@ -18,6 +18,7 @@ public class Activity implements Reporting {
 	private Calendar endDate = new GregorianCalendar();
 
 	private List<TimeSheet> timeSheets = new ArrayList<TimeSheet>();
+	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 	
 	public Activity(String title) {
 		this.title = title;
@@ -87,12 +88,16 @@ public class Activity implements Reporting {
 
 //	TODO: Calculate num of hours spent from timesheets
 	@Override
-	public int numHoursSpent() {
+	public int[] numHoursSpent() {
 		
-		int numHoursSpent = 0;
+		Calendar cal = new GregorianCalendar();
+		int[] numHoursSpent;
+		 
 		
 		for (TimeSheet t : timeSheets) {
-			numHoursSpent += t.getMinutesWorked();
+			numHoursSpent[0] += t.getMinutesWorked();
+			
+			if (cal.get(Calendar.WEEK_OF_YEAR) == t.get)
 		}
 		
 		this.numHoursSpent = numHoursSpent;
@@ -104,6 +109,8 @@ public class Activity implements Reporting {
 	public void generateWeekReport() {
 		WeekReport report = new WeekReport(this);
 		
+		weekReports.add(report);
+		
 		report.printWeekReport();
 	}
 
@@ -111,6 +118,11 @@ public class Activity implements Reporting {
 	public int getID() {
 		
 		return this.activityID;
+	}
+
+	@Override
+	public int getExpectedNumWorkingHours() {
+		return this.expectedWorkingHours;
 	}
 
 }

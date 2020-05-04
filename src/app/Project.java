@@ -144,4 +144,18 @@ public class Project implements Observer, Reporting{
 
 
 
+	@Override
+	public int getExpectedNumWorkingHours() {
+		int numHoursSpent = 0; 
+		
+		for (Activity a : listOfActivities) {
+			numHoursSpent += a.getExpectedNumWorkingHours();
+		}
+
+		return numHoursSpent;
+	
+	}
+
+
+
 }
