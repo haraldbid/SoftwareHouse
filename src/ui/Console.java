@@ -25,6 +25,8 @@ public class Console {
 
 		console.test("AB");
 		console.test("CDDD");
+		
+		
 
 		console.run();
 	}
@@ -45,6 +47,10 @@ public class Console {
 
 	public void test(String ID) {
 		softwareHouse.createWorker(ID);
+	}
+	
+	public void createProject(String ID) {
+		
 	}
 
 	private Calendar enterDate() {

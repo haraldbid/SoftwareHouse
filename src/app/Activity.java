@@ -15,6 +15,7 @@ public class Activity {
 
 
 	private List<TimeSheet> timesheets = new ArrayList<TimeSheet>();
+	
 	public Activity(String title) {
 		this.title = title;
 
