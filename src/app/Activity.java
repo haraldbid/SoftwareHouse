@@ -12,7 +12,7 @@ public class Activity implements Reporting {
 	private static int activityIDCount = 0;
 	private String title;
 	private int expectedWorkingHours;
-	private int numHoursSpent;
+	private int[] numHoursSpent;
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Calendar startDate = new GregorianCalendar();
 	private Calendar endDate = new GregorianCalendar();
@@ -91,19 +91,21 @@ public class Activity implements Reporting {
 	public int[] numHoursSpent() {
 		
 		Calendar cal = new GregorianCalendar();
-		int[] numHoursSpent;
+		//1. entry contains information about total hours spent on activity, 2. entry for the week
+		int[] numHoursSpent = {0,0}; 
 		 
 		
 		for (TimeSheet t : timeSheets) {
 			numHoursSpent[0] += t.getMinutesWorked();
 			
-			if (cal.get(Calendar.WEEK_OF_YEAR) == t.get)
+			if (cal.get(Calendar.WEEK_OF_YEAR) == t.getDate().getWeekNumber()) {
+				numHoursSpent[1] += t.getMinutesWorked();
+			}
 		}
 		
 		this.numHoursSpent = numHoursSpent;
 		
 		return numHoursSpent;
-		
 	}
 	
 	public void generateWeekReport() {
@@ -121,7 +123,7 @@ public class Activity implements Reporting {
 	}
 
 	@Override
-	public int getExpectedNumWorkingHours() {
+	public int getExpectedWorkingHours() {
 		return this.expectedWorkingHours;
 	}
 

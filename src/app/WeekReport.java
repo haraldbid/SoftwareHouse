@@ -5,15 +5,23 @@ import designPatterns.Reporting;
 public class WeekReport {
 
 	Reporting report;
+	int[] numHoursSpent;
+	int expectedWorkingHours;
+	int remainingHours;
+	
+	
 	
 	public WeekReport(Reporting report) {
 		
 		this.report = report;
+		this.numHoursSpent = report.numHoursSpent();
+		this.expectedWorkingHours = report.getExpectedWorkingHours();
+		this.remainingHours = this.expectedWorkingHours-this.numHoursSpent[1];
 	}
 	
 	public void printWeekReport() {
 		
-		int remainingHours = report.getExpectedNumWorkingHours()-report.numHoursSpent();
+		
 		
 		System.out.println(
 				  "________________________________\n"

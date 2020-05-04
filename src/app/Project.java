@@ -132,8 +132,9 @@ public class Project implements Observer, Reporting{
 
 
 	@Override
-	public int numHoursSpent() {
-		int numHoursSpent = 0; 
+	public int[] numHoursSpent() {
+		
+		int[] numHoursSpent = {0,0}; 
 		
 		for (Activity a : listOfActivities) {
 			numHoursSpent += a.numHoursSpent();
@@ -145,11 +146,11 @@ public class Project implements Observer, Reporting{
 
 
 	@Override
-	public int getExpectedNumWorkingHours() {
+	public int getExpectedWorkingHours() {
 		int numHoursSpent = 0; 
 		
 		for (Activity a : listOfActivities) {
-			numHoursSpent += a.getExpectedNumWorkingHours();
+			numHoursSpent += a.getExpectedWorkingHours();
 		}
 
 		return numHoursSpent;
