@@ -28,7 +28,7 @@ public class SoftwareHouse implements Observable {
 
 	public void createProject(Date startDate, Date endDate) {
 
-		Project project = new Project(this, startDate, endDate, generateProjectID(startDate));
+		Project project = new Project(this, startDate, endDate,generateProjectID()));
 		listOfProjects.add(project);
 	}
 
@@ -41,7 +41,6 @@ public class SoftwareHouse implements Observable {
 		for (int i = 0; i < 4 - Integer.toString(listOfProjects.size()).length(); i++) {
 
 			runningCount += "0";
-
 		}
 		runningCount += listOfProjects.size();
 
