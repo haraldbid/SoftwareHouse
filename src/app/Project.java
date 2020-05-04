@@ -141,7 +141,7 @@ public class Project implements Observer, Reporting{
 		int[] numHoursSpent = {0,0}; 
 		
 		for (Activity a : listOfActivities) {
-			numHoursSpent += a.numHoursSpent();
+			
 		}
 
 		return numHoursSpent;
