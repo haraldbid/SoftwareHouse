@@ -13,9 +13,9 @@ import designPatterns.Reporting;
 
 public class Project implements Observer, Reporting{
 
-	private Worker workerLoggedIn;
+	private String workerLoggedIn;
 	private String projectTitle;
-	private String projectNumberID;
+	private int projectNumberID;
 	private Worker projectLeader;
 	
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
@@ -69,7 +69,7 @@ public class Project implements Observer, Reporting{
 		}
 	}
 
-	public String getID() {
+	public int getID() {
 		return projectNumberID;
 	}
 
@@ -111,7 +111,7 @@ public class Project implements Observer, Reporting{
 	
 
 	public boolean isProjectLeaderLoggedIn() {
-		if (workerLoggedIn.equals(projectLeader)) {
+		if (workerLoggedIn.equals(projectLeader.getID())) {
 			return true;
 		} else {
 			return false;
@@ -123,7 +123,7 @@ public class Project implements Observer, Reporting{
 
 
 	@Override
-	public void update(Worker loggedIn) {
+	public void update(String loggedIn) {
 		this.workerLoggedIn = loggedIn;
 	}
 	
