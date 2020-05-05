@@ -63,6 +63,10 @@ public class Date {
 		return false;
 	}
 
+	public void print() {
+		String print;
+		
+	}
 	
 	
 	
