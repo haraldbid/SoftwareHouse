@@ -10,7 +10,7 @@ import designPatterns.Reporting;
 public class WeekReport {
 
 	Reporting report;
-	int[] numHoursSpent;
+	int[] numMinSpent;
 	int expectedWorkingHours;
 	int remainingHours;
 	String reportType;
@@ -19,11 +19,10 @@ public class WeekReport {
 	Date date;
 
 	public WeekReport(Reporting report, Date date) {
-
 		this.report = report;
-		this.numHoursSpent = report.numHoursSpent(date);
-		this.expectedWorkingHours = report.getExpectedWorkingHours();
-		this.remainingHours = this.expectedWorkingHours - this.numHoursSpent[1];
+		this.numMinSpent = report.numMinSpent(date);
+		this.expectedWorkingHours = report.getExpectedWorkingHours()/60;
+		this.remainingHours = (this.expectedWorkingHours - this.numMinSpent[1]/60);
 		this.date = date;
 
 		if (report instanceof Activity)
@@ -41,13 +40,14 @@ public class WeekReport {
 		
 		System.out.println("________________________________\n" 
 				+ reportType + " title: " + report.getTitle() + "\n"
+				+ "Week: " + date.getWeekNumber() + " Year: " + date.getYear() +"\n"
 				+ "-------------------------------- \n" 
-				+ "Total working hours spent: " + numHoursSpent[0] + "\n"
+				+ "Total working hours spent: " + numMinSpent[0]/60 + "\n"
 				+ "Total working hours remaining: " + remainingHours + "\n" 
-				+ "Week " + cal.get(Calendar.WEEK_OF_YEAR)
-				+ " working hours: " + numHoursSpent[1] + "\n" + "________________________________" + "\n");
+				+ "Week " + cal.get(Calendar.WEEK_OF_YEAR) + " working hours: " + numMinSpent[1]/60 + "\n" 
+				+ "________________________________" + "\n");
 
-//		TODO: Print activities that are critical (1 week left)
+//		Print activities that are critical (1 week left)
 		if (report instanceof Project) {
 			System.out.println("LIST OF CRITICAL ACITIVITIES: ");
 			for (Activity a : activities) {
@@ -60,9 +60,9 @@ public class WeekReport {
 		}
 	}
 
-	public int[] getNumHoursSpent() {
-		return this.numHoursSpent;
-	}
+//	public int[] getNumMinSpent() {
+//		return this.numMinSpent;
+//	}
 
 	public int getExpectedWorkingHours() {
 		return this.expectedWorkingHours;

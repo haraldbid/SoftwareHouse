@@ -12,7 +12,7 @@ public class Activity implements Reporting {
 	private String activityID;
 	private String title;
 	private int expectedWorkingHours;
-	private int[] numHoursSpent;
+	private int[] numMinSpent;
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Date startDate;
 	private Date endDate;
@@ -22,11 +22,10 @@ public class Activity implements Reporting {
 	
 	public Activity(String title, Date startDate, Date endDate) {
 		this.title = title;
-		
-		
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
-//	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
 	public void inputAssistance(Worker worker, Worker helper,int hours, int minutes, Date date) {
 		if(hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
@@ -93,22 +92,22 @@ public class Activity implements Reporting {
 
 	//1. entry contains information about total hours spent on activity, 2. entry for the week
 	@Override
-	public int[] numHoursSpent(Date date) {
+	public int[] numMinSpent(Date date) {
 		
-		int[] numHoursSpent = {0,0}; 
+		int[] numMinSpent = {0,0}; 
 		
 		for (TimeSheet t : timeSheets) {
 			if (t.getDate().before(date) || t.getDate().equals(date)) {			
-				numHoursSpent[0] += t.getMinutesWorked();
+				numMinSpent[0] += t.getMinutesWorked();
 			}
 			if (t.getDate().equals(date)) {
-				numHoursSpent[1] += t.getMinutesWorked();
+				numMinSpent[1] += t.getMinutesWorked();
 			}
 		}
 		
-		this.numHoursSpent = numHoursSpent;
+		this.numMinSpent = numMinSpent;
 		
-		return numHoursSpent;
+		return numMinSpent;
 	}
 	
 	public WeekReport getRecentWeekReport() {
