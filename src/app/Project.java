@@ -2,6 +2,8 @@ package app;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import designPatterns.Date;
@@ -145,12 +147,28 @@ public class Project implements Observer, Reporting{
 	}
 
 	
-	public void generateWeekReport(Date date) {
-		WeekReport report = new WeekReport(this,date);
+public void generateWeekReport(Date date) {
 		
-		weekReports.add(report);
+		boolean weekReportExists = false;
+		Calendar cal = new GregorianCalendar();
 		
-//		report.printWeekReport();
+		if (cal.get(Calendar.YEAR) < date.getYear()
+				|| (cal.get(Calendar.YEAR) == date.getYear() 
+				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+			throw new IllegalArgumentException("Illgeal date entered");
+		}
+		
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date)) {
+				weekReportExists = true;
+			}
+		}
+		
+		if(!weekReportExists) {
+			WeekReport report = new WeekReport(this,date);
+			
+			weekReports.add(report);
+		}
 	}
 
 
@@ -161,8 +179,8 @@ public class Project implements Observer, Reporting{
 		
 		for (Activity a : listOfActivities) {
 			a.generateWeekReport(date);
-			numHoursSpent[0] += a.getRecentWeekReport().numHoursSpent[0];
-			numHoursSpent[1] += a.getRecentWeekReport().numHoursSpent[1];
+			numHoursSpent[0] += a.getWeekReport(date).numHoursSpent[0];
+			numHoursSpent[1] += a.getWeekReport(date).numHoursSpent[1];
 		}
 		return numHoursSpent;
 	}

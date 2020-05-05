@@ -71,5 +71,9 @@ public class WeekReport {
 	public int getRemainingHours() {
 		return this.remainingHours;
 	}
+	
+	public Date getDate() {
+		return this.date;
+	}
 
 }

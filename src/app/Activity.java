@@ -1,5 +1,7 @@
 package app;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import designPatterns.Date;
@@ -99,7 +101,7 @@ public class Activity implements Reporting {
 			if (t.getDate().before(date) || t.getDate().equals(date)) {			
 				numHoursSpent[0] += t.getMinutesWorked();
 			}
-			if (date.getWeekNumber() == t.getDate().getWeekNumber()) {
+			if (t.getDate().equals(date)) {
 				numHoursSpent[1] += t.getMinutesWorked();
 			}
 		}
@@ -114,11 +116,27 @@ public class Activity implements Reporting {
 	}
 	
 	public void generateWeekReport(Date date) {
-		WeekReport report = new WeekReport(this,date);
 		
-		weekReports.add(report);
+		boolean weekReportExists = false;
+		Calendar cal = new GregorianCalendar();
 		
-//		report.printWeekReport();
+		if (cal.get(Calendar.YEAR) < date.getYear()
+				|| (cal.get(Calendar.YEAR) == date.getYear() 
+				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+			throw new IllegalArgumentException("Illgeal date entered");
+		}
+		
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date)) {
+				weekReportExists = true;
+			}
+		}
+		
+		if(!weekReportExists) {
+			WeekReport report = new WeekReport(this,date);
+			
+			weekReports.add(report);
+		}
 	}
 
 	@Override
@@ -130,6 +148,15 @@ public class Activity implements Reporting {
 	@Override
 	public int getExpectedWorkingHours() {
 		return this.expectedWorkingHours;
+	}
+	
+	public WeekReport getWeekReport(Date date) {
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date)) {
+				return r;
+			}
+		}
+		return null;
 	}
 
 }
