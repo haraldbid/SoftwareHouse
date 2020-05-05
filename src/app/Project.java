@@ -152,6 +152,8 @@ public void generateWeekReport(Date date) {
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
 		
+		/*The first conditional checks if the entered date has not passed yet
+		 */
 		if (cal.get(Calendar.YEAR) < date.getYear()
 				|| (cal.get(Calendar.YEAR) == date.getYear() 
 				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
@@ -171,8 +173,9 @@ public void generateWeekReport(Date date) {
 		}
 	}
 
-
-//
+	/* 1. Entry of NumHoursSpent is the total hours spent on project
+	 * 2. Entry of NumHoursSpent is the hours spent at the specified week
+	*/
 	@Override
 	public int[] numHoursSpent(Date date) {
 		int[] numHoursSpent = {0,0}; 
