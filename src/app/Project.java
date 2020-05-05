@@ -172,7 +172,7 @@ public void generateWeekReport(Date date) {
 	}
 
 
-//	TODO: Dont use just recent report, print the report from the specified weekNumber
+//
 	@Override
 	public int[] numHoursSpent(Date date) {
 		int[] numHoursSpent = {0,0}; 
