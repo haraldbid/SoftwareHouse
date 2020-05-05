@@ -145,8 +145,8 @@ public class Project implements Observer, Reporting{
 	}
 
 	
-	public void generateWeekReport() {
-		WeekReport report = new WeekReport(this);
+	public void generateWeekReport(Date date) {
+		WeekReport report = new WeekReport(this,date);
 		
 		weekReports.add(report);
 		
@@ -154,12 +154,13 @@ public class Project implements Observer, Reporting{
 	}
 
 
+//	TODO: Dont use just recent report, print the report from the specified weekNumber
 	@Override
-	public int[] numHoursSpent() {
+	public int[] numHoursSpent(Date date) {
 		int[] numHoursSpent = {0,0}; 
 		
 		for (Activity a : listOfActivities) {
-			a.generateWeekReport();
+			a.generateWeekReport(date);
 			numHoursSpent[0] += a.getRecentWeekReport().numHoursSpent[0];
 			numHoursSpent[1] += a.getRecentWeekReport().numHoursSpent[1];
 		}
@@ -178,12 +179,6 @@ public class Project implements Observer, Reporting{
 
 		return expectedWorkingHours;
 	
-	}
-
-	@Override
-	public void update(Worker loggedIn) {
-		this.workerLoggedIn = loggedIn;
-		
 	}
 
 	public ArrayList<Activity> getActivities(){

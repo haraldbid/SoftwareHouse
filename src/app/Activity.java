@@ -7,7 +7,7 @@ import designPatterns.Reporting;
 
 public class Activity implements Reporting {
 
-	private int activityID;
+	private String activityID;
 	private String title;
 	private int expectedWorkingHours;
 	private int[] numHoursSpent;
@@ -35,7 +35,7 @@ public class Activity implements Reporting {
 		TimeSheet t = new TimeSheet(worker,date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
-		this.timesheets.add(t);
+		this.timeSheets.add(t);
 	}
 	
 	public void assignWorker(Worker worker) {
@@ -86,19 +86,22 @@ public class Activity implements Reporting {
 	}
 	
 
-//	TODO: Calculate num of hours spent from timesheets
 	//1. entry contains information about total hours spent on activity, 2. entry for the week
 	@Override
-	public int[] numHoursSpent() {
-		
-		Calendar cal = new GregorianCalendar();
+	public int[] numHoursSpent(Date date) {
 		
 		int[] numHoursSpent = {0,0}; 
 		
 		for (TimeSheet t : timeSheets) {
-			numHoursSpent[0] += t.getMinutesWorked();
-			
-			if (cal.get(Calendar.WEEK_OF_YEAR) == t.getDate().getWeekNumber()) {
+			if (t.getDate().before(date)) {
+//				
+//		
+//				
+//				
+				
+				numHoursSpent[0] += t.getMinutesWorked();
+			}
+			if (date.getWeekNumber() == t.getDate().getWeekNumber()) {
 				numHoursSpent[1] += t.getMinutesWorked();
 			}
 		}
@@ -112,8 +115,8 @@ public class Activity implements Reporting {
 		return this.weekReports.get(weekReports.size()-1);
 	}
 	
-	public void generateWeekReport() {
-		WeekReport report = new WeekReport(this);
+	public void generateWeekReport(Date date) {
+		WeekReport report = new WeekReport(this,date);
 		
 		weekReports.add(report);
 		
@@ -121,7 +124,7 @@ public class Activity implements Reporting {
 	}
 
 	@Override
-	public int getID() {
+	public String getID() {
 		
 		return this.activityID;
 	}
