@@ -46,11 +46,11 @@ public class Activity implements Reporting {
 	}
 
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) {
-		if(hours < 0 || minutes < 0)
+		if(hours < 0 || minutes < 0) // 1 || 2
 			throw new IllegalArgumentException("Only positive work time");
-		if(this.searchWorker(worker.getID()) == null)
+		if(this.searchWorker(worker.getID()) == null) // Whitebox 3
 			throw new IllegalArgumentException("Worker is not assigned to activity");
-		TimeSheet time = new TimeSheet(worker,date);
+		TimeSheet time = new TimeSheet(worker,date); // 3
 		time.addtimeWorked(hours, minutes);
 		timeSheets.add(time);
 
@@ -65,7 +65,10 @@ public class Activity implements Reporting {
 	public String getTitle() {
 		return this.title;
 	}
-
+	
+	public List<TimeSheet> getTimeSheets(){
+		return this.timeSheets;
+	}
 
 	public void setStartDate(Date date) {
 		startDate = date;

@@ -79,7 +79,7 @@ public class SoftwareHouse implements Observable {
 
 	public void quickSort(ArrayList<Worker> arr, int low, int high, Date startDate, Date endDate) {
 
-		this.sortedArr = arr;
+		this.sortedArr = arr; 
 
 		if (arr == null || arr.size() == 0)
 			return;
@@ -164,6 +164,9 @@ public class SoftwareHouse implements Observable {
 	public List<Project> getListOfProjects() {
 		return listOfProjects;
 
+	}
+	public List<Worker> getListOfWorkers(){
+		return this.listOfWorkers;
 	}
 
 	@Override
