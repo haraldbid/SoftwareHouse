@@ -96,12 +96,7 @@ public class Activity implements Reporting {
 		int[] numHoursSpent = {0,0}; 
 		
 		for (TimeSheet t : timeSheets) {
-			if (t.getDate().before(date)) {
-//				
-//		
-//				
-//				
-				
+			if (t.getDate().before(date) || t.getDate().equals(date)) {			
 				numHoursSpent[0] += t.getMinutesWorked();
 			}
 			if (date.getWeekNumber() == t.getDate().getWeekNumber()) {
