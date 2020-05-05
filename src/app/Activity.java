@@ -1,7 +1,5 @@
 package app;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import designPatterns.Date;
@@ -35,6 +33,7 @@ public class Activity implements Reporting {
 		TimeSheet t = new TimeSheet(worker,date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
+		this.timesheets.add(t);
 	}
 	
 	public void assignWorker(Worker worker) {
