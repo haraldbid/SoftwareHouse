@@ -34,6 +34,14 @@ public class Date {
 	public void setYear(int year) {
 		this.year = year;
 	}
+	
+	public boolean equals(Date date) {
+		if (this.year == date.year && this.weekNumber == date.weekNumber) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean after(Date date) {
 		if(this.year > date.year) {
 			return true;
