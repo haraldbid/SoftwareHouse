@@ -21,7 +21,6 @@ public class SoftwareHouse implements Observable {
 	private ArrayList<Worker> sortedArr = new ArrayList<Worker>();
 
 	public SoftwareHouse() {
-
 	}
 
 	public void createProject(Date startDate, Date endDate) {
@@ -43,7 +42,6 @@ public class SoftwareHouse implements Observable {
 		runningCount += listOfProjects.size();
 
 		return year + runningCount;
-
 	}
 	
 	
