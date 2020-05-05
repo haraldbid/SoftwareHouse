@@ -1,4 +1,5 @@
 package app;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,63 +15,80 @@ public class Activity implements Reporting {
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Date startDate;
 	private Date endDate;
+	private Worker workerLoggedIn;
+	private Project project;
 
 	private List<TimeSheet> timeSheets = new ArrayList<TimeSheet>();
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
-	
-	public Activity(String title, Date startDate, Date endDate) {
+
+	public Activity(String title, Date startDate, Date endDate, Project project) {
 		this.title = title;
-		
-		
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.project = project;
+
+	}
+
+	public void update(Worker loggedIn) {
+		this.workerLoggedIn = loggedIn;
 	}
 
 //	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
-	public void inputAssistance(Worker worker, Worker helper,int hours, int minutes, Date date) {
-		if(hours < 0 || minutes < 0)
+	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) {
+		if (hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
-		if(this.searchWorker(worker.getID()) == null)
+		if (this.searchWorker(worker.getID()) == null)
 			throw new IllegalArgumentException("Worker is not assigned to activity");
 		// Maybe throw exception if helper doesnt exist in software house?
 
-		TimeSheet t = new TimeSheet(worker,date);
+		TimeSheet t = new TimeSheet(worker, date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
 		this.timeSheets.add(t);
 	}
 	
+
+
 	public void assignWorker(Worker worker) {
-		if(searchWorker(worker.getID()) == null)
-			this.listWorkersActivity.add(worker);
-		else
-			throw new IllegalArgumentException("Worker is already assigned");
+		if (workerLoggedIn == project.getProjectLeader()) {
+			if (searchWorker(worker.getID()) == null) {
+				this.listWorkersActivity.add(worker);
+				worker.addActivity(this);
+			} else {
+				throw new IllegalArgumentException("Worker is already assigned");
+			}
+		} else {
+			throw new IllegalArgumentException("Only Project Leader can assign a worker to an activity.");
+		}
 	}
 
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) {
-		if(hours < 0 || minutes < 0)
+		if (hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
-		if(this.searchWorker(worker.getID()) == null)
+		if (this.searchWorker(worker.getID()) == null)
 			throw new IllegalArgumentException("Worker is not assigned to activity");
-		TimeSheet time = new TimeSheet(worker,date);
+		TimeSheet time = new TimeSheet(worker, date);
 		time.addtimeWorked(hours, minutes);
 		timeSheets.add(time);
 
 	}
+
 	public Worker searchWorker(String ID) {
 		for (Worker worker : listWorkersActivity) {
-			if(worker.getID().equals(ID))
+			if (worker.getID().equals(ID))
 				return worker;
 		}
 		return null; // Throw exception?
 	}
+
 	public String getTitle() {
 		return this.title;
 	}
 
-
 	public void setStartDate(Date date) {
 		startDate = date;
 	}
-	
+
 	public void setEndDate(Date date) {
 		endDate = date;
 	}
@@ -83,49 +101,48 @@ public class Activity implements Reporting {
 		return this.endDate;
 	}
 
-	
 	public void setExpectedWorkingHours(int expectedWorkingHours) {
 		this.expectedWorkingHours = expectedWorkingHours;
 	}
-	
 
 //	TODO: Calculate num of hours spent from timesheets
-	//1. entry contains information about total hours spent on activity, 2. entry for the week
+	// 1. entry contains information about total hours spent on activity, 2. entry
+	// for the week
 	@Override
 	public int[] numHoursSpent() {
-		
+
 		Calendar cal = new GregorianCalendar();
-		
-		int[] numHoursSpent = {0,0}; 
-		
+
+		int[] numHoursSpent = { 0, 0 };
+
 		for (TimeSheet t : timeSheets) {
 			numHoursSpent[0] += t.getMinutesWorked();
-			
+
 			if (cal.get(Calendar.WEEK_OF_YEAR) == t.getDate().getWeekNumber()) {
 				numHoursSpent[1] += t.getMinutesWorked();
 			}
 		}
-		
+
 		this.numHoursSpent = numHoursSpent;
-		
+
 		return numHoursSpent;
 	}
-	
+
 	public WeekReport getRecentWeekReport() {
-		return this.weekReports.get(weekReports.size()-1);
+		return this.weekReports.get(weekReports.size() - 1);
 	}
-	
+
 	public void generateWeekReport() {
 		WeekReport report = new WeekReport(this);
-		
+
 		weekReports.add(report);
-		
+
 //		report.printWeekReport();
 	}
 
 	@Override
 	public int getID() {
-		
+
 		return this.activityID;
 	}
 

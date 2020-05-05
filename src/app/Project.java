@@ -96,12 +96,20 @@ public class Project implements Observer, Reporting{
 			return true;
 		}
 	}
+	
+	public Activity getActivity(String title) {
+		int i = 0;
+		while (!listOfActivities.get(i).getTitle().equals(title)) {
+			i++;
+		}
+		return listOfActivities.get(i);
+	}
 
-	public String getProjectLeader() {
+	public Worker getProjectLeader() {
 		if (hasProjectLeader()) {
-			return "Project Leader is worker " + projectLeader.getID();
+			return projectLeader;
 		} else {
-			return "Project has no leader yet.";
+			throw new IllegalArgumentException("Project has no leader yet.");
 		}
 	}
 
@@ -110,11 +118,11 @@ public class Project implements Observer, Reporting{
 	}
 
 	// JUST A SHELL
-	public void createActivity(String title, Date startDate, Date endDate) {
+	public void createActivity(String title, Date startDate, Date endDate, Project project) {
 
 		if (isProjectLeaderLoggedIn()) {
 			
-			Activity activity = new Activity (title, startDate, endDate);
+			Activity activity = new Activity (title, startDate, endDate, this);
 
 			listOfActivities.add(activity);
 
@@ -180,11 +188,7 @@ public class Project implements Observer, Reporting{
 	
 	}
 
-	@Override
-	public void update(Worker loggedIn) {
-		this.workerLoggedIn = loggedIn;
-		
-	}
+
 
 	public ArrayList<Activity> getActivities(){
 		return this.listOfActivities;

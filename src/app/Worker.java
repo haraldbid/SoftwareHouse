@@ -10,7 +10,7 @@ public class Worker {
 
 	private String workerID;
 	private SoftwareHouse softwareHouse;
-	private ArrayList<Activity> listOfActivities;
+	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
 //	private Calendar calendar = new GregorianCalendar();
 
 	public Worker(SoftwareHouse softwareHouse, String ID) {
