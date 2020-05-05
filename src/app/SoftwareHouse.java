@@ -64,7 +64,6 @@ public class SoftwareHouse implements Observable {
 		if (!loggedIn()) {
 			System.out.println("Login failed.");
 		}
-
 	}
 
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
