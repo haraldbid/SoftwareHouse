@@ -135,7 +135,7 @@ public class SoftwareHouse implements Observable {
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
 
-		listOfWorkers.add(worker);
+		this.listOfWorkers.add(worker);
 
 		System.out.print(getNbWorkers());
 
@@ -173,5 +173,14 @@ public class SoftwareHouse implements Observable {
 		observers.remove(o);
 
 	}
+	public Worker getWorkerByIndex(String ID) {
+		for (Worker worker : listOfWorkers) {
+			if(worker.getID().equals(ID))
+				return worker;
+		}
+		return null;
+	}
+
+
 
 }

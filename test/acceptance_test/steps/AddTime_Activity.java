@@ -21,7 +21,6 @@ public class AddTime_Activity {
 
 	
 	@Given("that an activity {string} exist")
-
 	public void that_an_activity_exist(String string) {
 	    // Write code here that turns the phrase above into concrete actions
 		activity = new Activity(string,new Date(1,2019),new Date(10,2019));
