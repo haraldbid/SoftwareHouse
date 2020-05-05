@@ -12,14 +12,16 @@ public class Activity implements Reporting {
 	private int expectedWorkingHours;
 	private int[] numHoursSpent;
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
-	private Calendar startDate = new GregorianCalendar();
-	private Calendar endDate = new GregorianCalendar();
+	private Date startDate;
+	private Date endDate;
 
 	private List<TimeSheet> timeSheets = new ArrayList<TimeSheet>();
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 	
-	public Activity(String title) {
+	public Activity(String title, Date startDate, Date endDate) {
 		this.title = title;
+		
+		
 	}
 
 //	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
@@ -62,19 +64,19 @@ public class Activity implements Reporting {
 	}
 
 
-	public void setStartDate(Calendar date) {
+	public void setStartDate(Date date) {
 		startDate = date;
 	}
 	
-	public void setEndDate(Calendar date) {
+	public void setEndDate(Date date) {
 		endDate = date;
 	}
 
-	public Calendar getStartDate() {
+	public Date getStartDate() {
 		return this.startDate;
 	}
 
-	public Calendar getEndDate() {
+	public Date getEndDate() {
 		return this.endDate;
 	}
 

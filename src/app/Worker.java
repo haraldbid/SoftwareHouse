@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import designPatterns.Date;
 
+import designPatterns.Date;
+
 public class Worker {
 
 	private String workerID;
@@ -41,7 +43,7 @@ public class Worker {
 		return workerID;
 	}
 	
-		
+
 	public int getNumActivities(Date startDate, Date endDate) {
 
 		int count = 0;

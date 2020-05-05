@@ -45,6 +45,8 @@ public class SoftwareHouse implements Observable {
 		return year + runningCount;
 
 	}
+	
+	
 
 // TODO: check valid ID, or create example user with the given ID.Perhaps LoggeIn should be reference to worker
 
@@ -65,7 +67,7 @@ public class SoftwareHouse implements Observable {
 
 	}
 
-	public void getAllWorkersActivities(Calendar startDate, Calendar endDate) {
+	public void getAllWorkersActivities(Date startDate, Date endDate) {
 
 		quickSort(listOfWorkers, 0, listOfWorkers.size() - 1, startDate, endDate);
 
@@ -75,7 +77,7 @@ public class SoftwareHouse implements Observable {
 		}
 	}
 
-	public void quickSort(ArrayList<Worker> arr, int low, int high, Calendar startDate, Calendar endDate) {
+	public void quickSort(ArrayList<Worker> arr, int low, int high, Date startDate, Date endDate) {
 
 		this.sortedArr = arr;
 

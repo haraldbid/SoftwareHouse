@@ -21,7 +21,26 @@ public class Console {
 //
 //		console.run();
 		
-}
+
+
+	
+	
+	
+	//run() is the method which control logic of the program
+
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Calendar date = new GregorianCalendar();
+		date.set(920, 2, 20);
+		System.out.println(date.getTime());
+
+		console.test("AB");
+		console.test("CDDD");
+		
+		
+
+		console.run();
+	}
 
 	// run() is the method which control logic of the program
 

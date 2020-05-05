@@ -3,5 +3,8 @@ package designPatterns;
 import app.Worker;
 
 public interface Observer {
-	public void update(Worker loggedIn);
+
+	public void update(Worker LoggedIn);
+
+
 }
