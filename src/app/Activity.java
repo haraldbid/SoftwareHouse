@@ -35,11 +35,14 @@ public class Activity implements Reporting {
 		TimeSheet t = new TimeSheet(worker,date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
-		this.timesheets.add(t);
+		this.timeSheets.add(t);
 	}
 	
 	public void assignWorker(Worker worker) {
-		this.listWorkersActivity.add(worker);
+		if(searchWorker(worker.getID()) == null)
+			this.listWorkersActivity.add(worker);
+		else
+			throw new IllegalArgumentException("Worker is already assigned");
 	}
 
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) {
