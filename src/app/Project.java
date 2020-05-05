@@ -19,7 +19,7 @@ public class Project implements Observer, Reporting{
 	private Worker projectLeader;
 	
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
-	private List<Activity> listOfActivities = new ArrayList<Activity>();
+	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
 	private Date startDate = new Date();
 	private Date endDate = new Date();
 
@@ -27,7 +27,7 @@ public class Project implements Observer, Reporting{
 	private Observable softwareHouse;
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 	
-	public Project(Observable softwareHouse, Date startDate, Date endDate) {
+	public Project(Observable softwareHouse, Date startDate, Date endDate, String string) {
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
 		
@@ -154,15 +154,15 @@ public class Project implements Observer, Reporting{
 	
 	}
 
-
-
-
 	@Override
 	public void update(Worker loggedIn) {
 		this.workerLoggedIn = loggedIn;
 		
 	}
 
+	public ArrayList<Activity> getActivities(){
+		return this.listOfActivities;
+	}
 
 
 
