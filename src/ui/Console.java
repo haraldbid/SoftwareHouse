@@ -7,37 +7,13 @@ import app.SoftwareHouse;
 import designPatterns.Date;
 
 public class Console {
-	private static DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
+	
 	SoftwareHouse softwareHouse = new SoftwareHouse();
-	Activity activity = new Activity("testAct");
 	Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
 		Console console = new Console();
-		console.testExamples();
-		
-//		console.test();
-//
-//		console.run();
-		
-
-
-	
-	
-	
-	//run() is the method which control logic of the program
-
-
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Calendar date = new GregorianCalendar();
-		date.set(920, 2, 20);
-		System.out.println(date.getTime());
-
-		console.test("AB");
-		console.test("CDDD");
-		
-		
 
 		console.run();
 	}
@@ -53,15 +29,15 @@ public class Console {
 	}
 	
 	
-	public void testExamples() {
-		//INIT
+//	public void testExamples() {
+//		//INIT
+//		
+////		softwareHouse.createProject(new GregorianCalendar(1930,03-1,4), new GregorianCalendar(1931,03-1,4));
+//		softwareHouse.getListOfProjects().get(0).createActivity("testActivity");
+//		
+//		
 		
-//		softwareHouse.createProject(new GregorianCalendar(1930,03-1,4), new GregorianCalendar(1931,03-1,4));
-		softwareHouse.getListOfProjects().get(0).createActivity("testActivity");
-		
-		
-		
-	}
+//	}
 
 	public void displayOptions() {
 	}

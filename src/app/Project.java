@@ -2,6 +2,8 @@ package app;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import designPatterns.Date;
@@ -145,26 +147,55 @@ public class Project implements Observer, Reporting{
 	}
 
 	
-	public void generateWeekReport(Date date) {
-		WeekReport report = new WeekReport(this,date);
+public void generateWeekReport(Date date) {
 		
-		weekReports.add(report);
+		boolean weekReportExists = false;
+		Calendar cal = new GregorianCalendar();
 		
-//		report.printWeekReport();
+		/*The first conditional checks if the entered date has not occured yet
+		 */
+		if (cal.get(Calendar.YEAR) < date.getYear()
+				|| (cal.get(Calendar.YEAR) == date.getYear() 
+				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+			throw new IllegalArgumentException("Illgeal date entered");
+		}
+		
+		/* 
+		 * Checks if a week report already exists for that date
+		 */
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date)) {
+				weekReportExists = true;
+			}
+		}
+		/* 
+		 * Report added to list if no reports have been genereated for the given date
+		 */
+		if(!weekReportExists) {
+			WeekReport report = new WeekReport(this,date);
+			
+			weekReports.add(report);
+		}
 	}
 
-
-//	TODO: Dont use just recent report, print the report from the specified weekNumber
+	
 	@Override
-	public int[] numHoursSpent(Date date) {
-		int[] numHoursSpent = {0,0}; 
+	public int[] numMinSpent(Date date) {
+		/* 1. Entry of NumMinSpent is the total hours spent on project
+		 * 2. Entry of NumMinSpent is the hours spent at the specified week
+		*/
+		int[] numMinSpent = {0,0}; 
 		
+		/* 
+		 * For each activity, a report is generated for the given date.
+		 * Then the total number of hours spent on each activity is added to the array.
+		 */
 		for (Activity a : listOfActivities) {
 			a.generateWeekReport(date);
-			numHoursSpent[0] += a.getRecentWeekReport().numHoursSpent[0];
-			numHoursSpent[1] += a.getRecentWeekReport().numHoursSpent[1];
+			numMinSpent[0] += a.getWeekReport(date).numMinSpent[0];
+			numMinSpent[1] += a.getWeekReport(date).numMinSpent[1];
 		}
-		return numHoursSpent;
+		return numMinSpent;
 	}
 
 

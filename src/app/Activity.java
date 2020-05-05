@@ -1,5 +1,7 @@
 package app;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import designPatterns.Date;
@@ -10,7 +12,7 @@ public class Activity implements Reporting {
 	private String activityID;
 	private String title;
 	private int expectedWorkingHours;
-	private int[] numHoursSpent;
+	private int[] numMinSpent;
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Date startDate;
 	private Date endDate;
@@ -20,11 +22,10 @@ public class Activity implements Reporting {
 	
 	public Activity(String title, Date startDate, Date endDate) {
 		this.title = title;
-		
-		
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
-//	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
 	public void inputAssistance(Worker worker, Worker helper,int hours, int minutes, Date date) {
 		if(hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
@@ -94,27 +95,22 @@ public class Activity implements Reporting {
 
 	//1. entry contains information about total hours spent on activity, 2. entry for the week
 	@Override
-	public int[] numHoursSpent(Date date) {
+	public int[] numMinSpent(Date date) {
 		
-		int[] numHoursSpent = {0,0}; 
+		int[] numMinSpent = {0,0}; 
 		
 		for (TimeSheet t : timeSheets) {
-			if (t.getDate().before(date)) {
-//				
-//		
-//				
-//				
-				
-				numHoursSpent[0] += t.getMinutesWorked();
+			if (t.getDate().before(date) || t.getDate().equals(date)) {			
+				numMinSpent[0] += t.getMinutesWorked();
 			}
-			if (date.getWeekNumber() == t.getDate().getWeekNumber()) {
-				numHoursSpent[1] += t.getMinutesWorked();
+			if (t.getDate().equals(date)) {
+				numMinSpent[1] += t.getMinutesWorked();
 			}
 		}
 		
-		this.numHoursSpent = numHoursSpent;
+		this.numMinSpent = numMinSpent;
 		
-		return numHoursSpent;
+		return numMinSpent;
 	}
 	
 	public WeekReport getRecentWeekReport() {
@@ -122,11 +118,27 @@ public class Activity implements Reporting {
 	}
 	
 	public void generateWeekReport(Date date) {
-		WeekReport report = new WeekReport(this,date);
 		
-		weekReports.add(report);
+		boolean weekReportExists = false;
+		Calendar cal = new GregorianCalendar();
 		
-//		report.printWeekReport();
+		if (cal.get(Calendar.YEAR) < date.getYear()
+				|| (cal.get(Calendar.YEAR) == date.getYear() 
+				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+			throw new IllegalArgumentException("Illgeal date entered");
+		}
+		
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date)) {
+				weekReportExists = true;
+			}
+		}
+		
+		if(!weekReportExists) {
+			WeekReport report = new WeekReport(this,date);
+			
+			weekReports.add(report);
+		}
 	}
 
 	@Override
@@ -138,6 +150,15 @@ public class Activity implements Reporting {
 	@Override
 	public int getExpectedWorkingHours() {
 		return this.expectedWorkingHours;
+	}
+	
+	public WeekReport getWeekReport(Date date) {
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date)) {
+				return r;
+			}
+		}
+		return null;
 	}
 
 }
