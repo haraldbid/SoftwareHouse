@@ -1,5 +1,9 @@
 package designPatterns;
 
+import app.Worker;
+
 public interface Observer {
-	public void update(String LoggedIn);
+	public void update(Worker LoggedIn);
+
+
 }

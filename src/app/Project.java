@@ -13,9 +13,9 @@ import designPatterns.Reporting;
 
 public class Project implements Observer, Reporting{
 
-	private String workerLoggedIn;
+	private Worker workerLoggedIn;
 	private String projectTitle;
-	private int projectNumberID;
+	private String projectNumberID;
 	private Worker projectLeader;
 	
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
@@ -27,19 +27,35 @@ public class Project implements Observer, Reporting{
 	private Observable softwareHouse;
 	private List<WeekReport> weekreports = new ArrayList<WeekReport>();
 	
-	public Project(Observable softwareHouse, Date startDate, Date endDate) {
+	public Project(Observable softwareHouse, Date startDate, Date endDate, String projectNumberID) {
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
 		
 		this.startDate = startDate;
 		this.endDate = endDate;
+		
+		this.projectNumberID = projectNumberID;
 	}
 	
 	
 	
 
+
+	public void modifyProjectNumberID (int year) {
+		
+		String yearStr = Integer.toString(year);
+		String runningCount = projectNumberID.substring(2,6);
+		
+		this.projectNumberID = yearStr + runningCount;
+		
+		
+	}
+
+
+
 	public void setStartDate(int year, int week) {
 		startDate.setDate(year, week);
+		modifyProjectNumberID(year);
 	}
 	
 	public void setEndDate(int year, int week) {
@@ -69,7 +85,7 @@ public class Project implements Observer, Reporting{
 		}
 	}
 
-	public int getID() {
+	public String getID() {
 		return projectNumberID;
 	}
 
@@ -94,11 +110,11 @@ public class Project implements Observer, Reporting{
 	}
 
 	// JUST A SHELL
-	public void createActivity(String title) {
+	public void createActivity(String title, Date startDate, Date endDate) {
 
 		if (isProjectLeaderLoggedIn()) {
 			
-			Activity activity = new Activity (title);
+			Activity activity = new Activity (title, startDate, endDate);
 
 			listOfActivities.add(activity);
 
@@ -111,7 +127,7 @@ public class Project implements Observer, Reporting{
 	
 
 	public boolean isProjectLeaderLoggedIn() {
-		if (workerLoggedIn.equals(projectLeader.getID())) {
+		if (workerLoggedIn.equals(projectLeader)) {
 			return true;
 		} else {
 			return false;
@@ -123,7 +139,7 @@ public class Project implements Observer, Reporting{
 
 
 	@Override
-	public void update(String loggedIn) {
+	public void update(Worker loggedIn) {
 		this.workerLoggedIn = loggedIn;
 	}
 	

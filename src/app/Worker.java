@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import designPatterns.Date;
+
 public class Worker {
 
 	private String workerID;
@@ -42,7 +44,7 @@ public class Worker {
 	
 	
 	
-	public int getNumActivities(Calendar startDate, Calendar endDate) {
+	public int getNumActivities(Date startDate, Date endDate) {
 
 		int count = 0;
 		for (int i = 0; i < listOfActivities.size(); i++) {
