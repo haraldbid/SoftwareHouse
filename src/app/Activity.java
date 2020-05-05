@@ -39,7 +39,10 @@ public class Activity implements Reporting {
 	}
 	
 	public void assignWorker(Worker worker) {
-		this.listWorkersActivity.add(worker);
+		if(searchWorker(worker.getID()) == null)
+			this.listWorkersActivity.add(worker);
+		else
+			throw new IllegalArgumentException("Worker is already assigned");
 	}
 
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) {
