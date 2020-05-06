@@ -10,7 +10,7 @@ import app.Worker;
 import designPatterns.Date;
 
 public class designByContract {
-	
+	// https://www.youtube.com/watch?v=4CNrRcc8Cwc
 	
 	@Test
 	public void addTimeContract() {
@@ -26,14 +26,6 @@ public class designByContract {
 		
 		activity.inputWorkTime(softwareHouse.getWorkerByIndex(ID), hours, minutes, new Date(11,20));
 		
-		// Pre AssertStatements
-		assertTrue(minutes < 60);
-		assertTrue(softwareHouse.getWorkerByIndex(ID) != null);
-		assertTrue(activity != null);
-		//Post Assert statements
-		assertTrue(activity.getTimeSheets().get(activity.getTimeSheets().size()-1).getWorker().getID() == ID);
-		assertTrue(activity.getTimeSheets().get(activity.getTimeSheets().size()-1).getHoursWorked() == hours);
-		assertTrue(activity.getTimeSheets().get(activity.getTimeSheets().size()-1).getMinutesWorked()- hours*60 == minutes);
 	}
 	@Test
 	public void workerContract() {
@@ -49,18 +41,7 @@ public class designByContract {
 		softwareHouse.createWorker(ID3);
 		softwareHouse.createWorker(ID4);
 	
-			//Pre Assert Statements
-			assertTrue(softwareHouse!= null);
-			//Post Assert Statements
-			assertTrue(softwareHouse.getWorkerByIndex(ID).getID() instanceof String);
-			assertTrue(softwareHouse.getWorkerByIndex(ID).getID().length() > 0);
-			assertTrue(softwareHouse.getWorkerByIndex(ID).getID().length() != 0);
-			assertTrue(softwareHouse.getWorkerByIndex(ID) != null);
-			int idCount = 0;
-			for (Worker worker : softwareHouse.getListOfWorkers()) {
-				if(worker.getID().equals(ID))idCount++;
-			}
-			assertTrue(idCount == 1); // Only one worker with given ID
+
 	}
 
 }

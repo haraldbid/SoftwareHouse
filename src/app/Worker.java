@@ -15,6 +15,8 @@ public class Worker {
 //	private Calendar calendar = new GregorianCalendar();
 
 	public Worker(SoftwareHouse softwareHouse, String ID) {
+		
+		assert softwareHouse != null : "Precondition for Worker()";
 		this.softwareHouse = softwareHouse;
 
 		// ID length has to be 1, 2, 3 or 4
@@ -35,8 +37,15 @@ public class Worker {
 				throw new IllegalArgumentException("ID is already used by another worker.");
 			}
 		}
-		
+
 		this.workerID = ID;
+		
+		assert this.workerID.length() <= 4 : "Postcondition for Worker()";
+		assert this.workerID.length() > 0 : "Postcondition for Worker()";
+		for (Worker wo : softwareHouse.getListOfWorkers()) {
+			assert !wo.workerID.equals(ID) : "Postcondition for Worker()";
+		}
+	
 	}
 
 	public String getID() {

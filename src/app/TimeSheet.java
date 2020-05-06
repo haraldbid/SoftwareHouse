@@ -30,6 +30,9 @@ public class TimeSheet {
 	public int getHoursWorked() {
 		return this.getMinutesWorked()/60;
 	}
+	public int getMinutesInputed() {
+		return this.getMinutesWorked() - this.getHoursWorked()*60;
+	}
 	
 	public Date getDate() {
 		return this.date;
