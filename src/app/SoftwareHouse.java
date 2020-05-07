@@ -51,10 +51,8 @@ public class SoftwareHouse implements Observable {
 // TODO: check valid ID, or create example user with the given ID.Perhaps LoggeIn should be reference to worker
 
 	public void logIn(String ID) {
-		assert listOfWorkers.size() > 0 : "Precondition for logIn()";
-		for (Worker wo : listOfWorkers) {
-			assert wo.getID().equals(ID) : "Precondition for logIn()";
-		}
+		assert ID.length() > 0 : "Precondition for logIn()";
+		assert ID.length() < 5 : "Precondition for logIn()";
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 
 			if (listOfWorkers.get(i).getID().equals(ID)) {
@@ -66,6 +64,7 @@ public class SoftwareHouse implements Observable {
 
 		if (!loggedIn()) {
 			System.out.println("Login failed.");
+			throw new IllegalArgumentException("Login failed.");
 		}
 		assert loggedIn != null : "Postcondition for logIn()";
 	}
