@@ -80,7 +80,7 @@ public class SoftwareHouse implements Observable {
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
 
 		quickSort(listOfWorkers, 0, listOfWorkers.size() - 1, startDate, endDate);
-
+		
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 			System.out.println(listOfWorkers.get(i).getID() + " : " + listOfWorkers.get(i).getNumActivities(startDate, endDate));
 		}
@@ -146,7 +146,7 @@ public class SoftwareHouse implements Observable {
 
 		listOfWorkers.add(worker);
 
-		System.out.print(getNbWorkers());
+//		System.out.print(getNbWorkers());
 
 	}
 
@@ -196,6 +196,8 @@ public class SoftwareHouse implements Observable {
 	public boolean getExitRequest() {
 		return this.exitRequest;
 	}
+	
+//	TODO: print all Projects and their corresponding activities
 
 	
 	//OBSERVER PATTERN
@@ -216,6 +218,8 @@ public class SoftwareHouse implements Observable {
 		}
 
 	}
+	
+	
 	
 	
 

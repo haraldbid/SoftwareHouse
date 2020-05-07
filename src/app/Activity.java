@@ -35,8 +35,6 @@ public class Activity implements Observer, Reporting {
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
 		this.workerLoggedIn = softwareHouse.getWorkerLoggedIn();
-
-
 	}
 	
 	@Override
@@ -151,11 +149,11 @@ public class Activity implements Observer, Reporting {
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
 		
-		if (cal.get(Calendar.YEAR) < date.getYear()
-				|| (cal.get(Calendar.YEAR) == date.getYear() 
-				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
-			throw new IllegalArgumentException("Illgeal date entered");
-		}
+//		if (cal.get(Calendar.YEAR) < date.getYear()
+//				|| (cal.get(Calendar.YEAR) == date.getYear() 
+//				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+//			throw new IllegalArgumentException("Illgeal date entered");
+//		}
 		
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {
@@ -188,6 +186,13 @@ public class Activity implements Observer, Reporting {
 			}
 		}
 		return null;
+	}
+	
+	public void printWeekReport(Date date) {
+		for(WeekReport r : weekReports) {
+			if(r.getDate().equals(date))
+				r.printWeekReport();
+		}
 	}
 
 }

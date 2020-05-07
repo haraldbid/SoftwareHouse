@@ -22,7 +22,7 @@ public class WeekReport {
 		this.report = report;
 		this.numMinSpent = report.numMinSpent(date);
 		this.expectedWorkingHours = report.getExpectedWorkingHours()/60;
-		this.remainingHours = (this.expectedWorkingHours - this.numMinSpent[1]/60);
+		this.remainingHours = (report.getExpectedWorkingHours() - this.numMinSpent[0]/60);
 		this.date = date;
 
 		if (report instanceof Activity)
@@ -44,7 +44,7 @@ public class WeekReport {
 				+ "-------------------------------- \n" 
 				+ "Total working hours spent: " + numMinSpent[0]/60 + "\n"
 				+ "Total working hours remaining: " + remainingHours + "\n" 
-				+ "Week " + cal.get(Calendar.WEEK_OF_YEAR) + " working hours: " + numMinSpent[1]/60 + "\n" 
+				+ "Week " + date.getWeekNumber() + " working hours: " + numMinSpent[1]/60 + "\n" 
 				+ "________________________________" + "\n");
 
 //		Print activities that are critical (1 week left)

@@ -40,7 +40,7 @@ public class Worker {
 	}
 
 	public String getID() {
-		return workerID;
+		return this.workerID;
 	}
 
 	public int getNumActivities(Date startDate, Date endDate) {

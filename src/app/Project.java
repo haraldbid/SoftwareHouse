@@ -62,6 +62,13 @@ public class Project implements Observer, Reporting{
 		endDate.setDate(year, week);
 	}
 	
+	public Date getStartDate() {
+		return this.startDate;
+	}
+	public Date getEndDate() {
+		return this.endDate;
+	}
+	
 
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
@@ -97,12 +104,15 @@ public class Project implements Observer, Reporting{
 		}
 	}
 	
-	public Activity getActivity(String title) {
-		int i = 0;
-		while (!listOfActivities.get(i).getTitle().equals(title)) {
-			i++;
+public Activity getActivty(String activityID) throws Exception {
+		
+		for(Activity a : listOfActivities) {
+			if (a.getID().equals(activityID)) {
+				return a;
+			}	
 		}
-		return listOfActivities.get(i);
+		
+		throw new Exception("Activity not found");
 	}
 
 	public Worker getProjectLeader() {
@@ -118,7 +128,7 @@ public class Project implements Observer, Reporting{
 	}
 
 	// JUST A SHELL
-	public void createActivity(String title, Date startDate, Date endDate, Project project) {
+	public void createActivity(String title, Date startDate, Date endDate) {
 
 		if (isProjectLeaderLoggedIn()) {
 			
@@ -160,11 +170,11 @@ public void generateWeekReport(Date date) {
 		
 		/*The first conditional checks if the entered date has not occured yet
 		 */
-		if (cal.get(Calendar.YEAR) < date.getYear()
-				|| (cal.get(Calendar.YEAR) == date.getYear() 
-				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
-			throw new IllegalArgumentException("Illgeal date entered");
-		}
+//		if (cal.get(Calendar.YEAR) < date.getYear()
+//				|| (cal.get(Calendar.YEAR) == date.getYear() 
+//				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+//			throw new IllegalArgumentException("Illgeal date entered");
+//		}
 		
 		/* 
 		 * Checks if a week report already exists for that date
@@ -205,13 +215,12 @@ public void generateWeekReport(Date date) {
 	}
 	
 	public void printWeekReport(Date date) {
+		generateWeekReport(date);
 		for(WeekReport r : weekReports) {
 			if(r.getDate().equals(date))
 				r.printWeekReport();
 		}
 	}
-
-
 
 	@Override
 	public int getExpectedWorkingHours() {

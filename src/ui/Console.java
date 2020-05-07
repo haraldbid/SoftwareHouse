@@ -1,6 +1,9 @@
 package ui;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 import app.Activity;
 import app.Project;
@@ -81,22 +84,27 @@ public class Console {
 			}
 
 			if (state.equals(State.PROJECTSELECTED)) {
-				System.out.println("You have selected project" + project.getID());
+				System.out.println("You have selected project " + project.getID());
 				System.out.println("Enter a corresponding number for the following menu options:");
-				System.out.println("1) Create new activity \n" 
-								+ "2) Appoint project leader \n" 
-								+ "3) Print weekly report");
+				System.out.println(
+						"1) Create new activity \n" + "2) Appoint project leader \n" + "3) Print weekly report");
 
 				try {
 					selectionInput = scanner.nextInt();
-					checkValidInput(selectionInput, 0, softwareHouse.getListOfProjects().size());
+					checkValidInput(selectionInput, 0, 3);
+					
+					if(selectionInput == 12)
+						state=State.MAINSCREEN;
+					
+					if (selectionInput == 3) {
+						
+						project.printWeekReport(enterDate());
+					}
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
+
 				
-				if(selectionInput == 3) {
-					project.printWeekReport(enterDate());
-				}
 
 			}
 		}
@@ -110,97 +118,87 @@ public class Console {
 			throw new IllegalArgumentException("Invalid input");
 	}
 
-	public void displayOptions() {
-	}
-
-	public void getAllNumberActivities(Date startDate, Date endDate) {
-		softwareHouse.getAllWorkersActivities(startDate, endDate);
-	}
-
-	public void createWorker(String ID) {
-		softwareHouse.createWorker(ID);
-	}
-
-	public void createProject(Date startDate, Date endDate) {
-		softwareHouse.createProject(startDate, endDate);
-	}
-
-	public void appointProjectLeader(String workerID, String projectID) throws Exception {
-		softwareHouse.getProject(projectID).appointProjectLeader(softwareHouse.getWorker(workerID));
-	}
-
-	public void createActivity(String projectID, String activityTitle, Date startDate, Date endDate) throws Exception {
-		softwareHouse.getProject(projectID).createActivity(activityTitle, startDate, endDate,
-				softwareHouse.getProject(projectID));
-	}
-
-	public void addWorker(String projectID, String activityTitle, String workerID) throws Exception {
-		softwareHouse.getProject(projectID).getActivity(activityTitle).assignWorker(softwareHouse.getWorker(workerID));
-	}
-
-	public void logIn(String ID) {
-		softwareHouse.logIn(ID);
-	}
-
-	public void logOut() {
-		softwareHouse.logOut();
-	}
-
 	public void example() {
-
-		softwareHouse.createWorker("Nick");
-		softwareHouse.createWorker("Markus");
+//		Workers
+		softwareHouse.createWorker("MARK");
+		softwareHouse.createWorker("MART");
+		softwareHouse.createWorker("HARA");
+		softwareHouse.createWorker("NICK");
 		Worker worker1 = softwareHouse.getWorker(0);
 		Worker worker2 = softwareHouse.getWorker(1);
-		softwareHouse.createProject(new Date(2020,4), new Date(2021,4));
-//		softwareHouse.createProject(new Date, endDate);
+		Worker worker3 = softwareHouse.getWorker(2);
+		Worker worker4 = softwareHouse.getWorker(3);
 
-		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
+//		Projects
+
+		softwareHouse.createProject(new Date(2025, 1), new Date(2025, 52));
+		softwareHouse.createProject(new Date(2020, 4), new Date(2020, 42));
+		Project project1 = softwareHouse.getListOfProjects().get(0);
+		Project project2 = softwareHouse.getListOfProjects().get(1);
+		String projectID1 = project1.getID();
+		String projectID2 = project2.getID();
+
+//		Project leaders
+		project1.appointProjectLeader(worker1);
+		project2.appointProjectLeader(worker1);
+
+		softwareHouse.logIn(worker1.getID());
+//		Activities
+		project1.createActivity("TestActivity1", project1.getStartDate(), project1.getEndDate());
+		project1.createActivity("testActivity2", new Date(2025, 7), new Date(2025, 8));
+		project2.createActivity("testActivity3", new Date(2025, 30), new Date(2025, 32));
+
+		Activity activity1 = project1.getActivities().get(0);
+		Activity activity2 = project1.getActivities().get(1);
+		Activity activity3 = project2.getActivities().get(0);
 		
+//		Expected time
+		activity1.setExpectedWorkingHours(80);
+		activity2.setExpectedWorkingHours(150);
+		activity3.setExpectedWorkingHours(90);
+//		Worker added to activity
+		activity1.assignWorker(worker1);
+		activity1.assignWorker(worker2);
+		activity1.assignWorker(worker3);
+		activity1.assignWorker(worker4);
+		activity2.assignWorker(worker1);
+		activity2.assignWorker(worker4);
+		activity3.assignWorker(worker1);
+
+//		Add time sheets for workers
+		activity1.inputWorkTime(worker1, 12, 30, new Date(2025, 12));
+		activity1.inputWorkTime(worker2, 2, 30, new Date(2025, 7));
+		activity1.inputWorkTime(worker2, 5, 0, new Date(2025, 3));
+		activity1.inputWorkTime(worker3, 20, 0, new Date(2040, 4));
+		activity1.inputWorkTime(worker1, 12, 30, new Date(2025,40));
 		
-		createWorker("AB");
-		createWorker("CDDD");
-		createWorker("RFE");
-		createProject(new Date(2020, 5), new Date(2023, 15));
-		createProject(new Date(2023, 6), new Date(2040, 17));
+		activity3.inputWorkTime(worker1, 40, 30, new Date(2025, 30));
+		activity3.inputWorkTime(worker1, 35, 30, new Date(2025, 31));
+
+
+		ArrayList<Activity> arr = new ArrayList<Activity>();
+		Random r = new Random();
+//		int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+		arr.add(activity1);
+		arr.add(activity2);
+		arr.add(activity3);
+//		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
 		
-		try {
-			appointProjectLeader("RFE", "200000");
-			appointProjectLeader("RFE", "200001");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (int i = 0; i < 5; i++) {
+			for (Activity a : arr) {
+				a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
+						.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
+			}
 		}
-
-		logIn("RFE");
-
-		try {
-			createActivity("200000", "test", new Date(20, 7), new Date(20, 9));
-			createActivity("200000", "test1", new Date(20, 7), new Date(20, 14));
-			createActivity("200001", "test2", new Date(20, 8), new Date(20, 12));
-			createActivity("200001", "test3", new Date(20, 9), new Date(20, 15));
-			createActivity("200001", "test5", new Date(20, 10), new Date(20, 16));
-
-			addWorker("200000", "test", "AB");
-			addWorker("200000", "test1", "AB");
-			addWorker("200001", "test2", "RFE");
-			addWorker("200001", "test3", "RFE");
-
-			addWorker("200001", "test2", "AB");
-			addWorker("200001", "test5", "AB");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+		project2.printWeekReport(new Date(2025,31));
 		
-
-		getAllNumberActivities(new Date(20, 15), new Date(20, 20));
-
-		logOut();
+		softwareHouse.logOut();
+		
+//		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
 
 	}
-	
+
 	public Date enterDate() {
 		Scanner scanner = new Scanner(System.in);
 
@@ -229,6 +227,18 @@ public class Console {
 
 		return date;
 
+	}
+	
+	
+	public void printAllProjectsInfo() {
+		for(Project p : softwareHouse.getListOfProjects()) {
+			System.out.println(p.getID() + " activities:");
+			for(Activity a : p.getActivities()) {
+				System.out.println(a.getTitle());
+			}
+			System.out.println("________________"
+					+ "");
+		}
 	}
 
 }
