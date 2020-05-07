@@ -122,7 +122,7 @@ public class Project implements Observer, Reporting{
 
 		if (isProjectLeaderLoggedIn()) {
 			
-			Activity activity = new Activity (title, startDate, endDate, this);
+			Activity activity = new Activity (softwareHouse, title, startDate, endDate, this);
 
 			listOfActivities.add(activity);
 

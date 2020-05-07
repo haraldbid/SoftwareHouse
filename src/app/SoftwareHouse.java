@@ -65,6 +65,18 @@ public class SoftwareHouse implements Observable {
 		}
 
 	}
+	
+	public void logOut() {
+		
+		if (loggedIn()) {
+			loggedIn = null;
+			notifyObserver();
+			System.out.println("Logout successful.");
+		} else {
+			System.out.println("No worker is logged in.");
+		}
+		
+	}
 
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
 
@@ -123,6 +135,12 @@ public class SoftwareHouse implements Observable {
 		}
 		return true;
 	}
+	
+	public Worker getWorkerLoggedIn() {
+		return loggedIn;
+	}
+	
+	
 
 	@Override
 	public void register(Observer o) {

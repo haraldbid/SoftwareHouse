@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import designPatterns.Date;
+import designPatterns.Observable;
+import designPatterns.Observer;
 import designPatterns.Reporting;
 
-public class Activity implements Reporting {
+public class Activity implements Observer, Reporting {
 
 	private int activityID;
 	private String title;
@@ -17,18 +19,24 @@ public class Activity implements Reporting {
 	private Date endDate;
 	private Worker workerLoggedIn;
 	private Project project;
+	private Observable softwareHouse;
 
 	private List<TimeSheet> timeSheets = new ArrayList<TimeSheet>();
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 
-	public Activity(String title, Date startDate, Date endDate, Project project) {
+	public Activity(Observable softwareHouse, String title, Date startDate, Date endDate, Project project) {
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.project = project;
+		this.softwareHouse = softwareHouse;
+		this.softwareHouse.register(this);
+		this.workerLoggedIn = softwareHouse.getWorkerLoggedIn();
+
 
 	}
-
+	
+	@Override
 	public void update(Worker loggedIn) {
 		this.workerLoggedIn = loggedIn;
 	}

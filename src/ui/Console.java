@@ -20,35 +20,13 @@ public class Console {
 		
 
 
-		console.createWorker("AB");
-		console.createWorker("CDDD");
-		console.createWorker("RFE");
-		console.createProject(new Date(20,5), new Date(20,15));
-		console.createProject(new Date(20,6), new Date(20,17));
-		console.appointProjectLeader("RFE", "200000");
-		console.appointProjectLeader("RFE", "200001");
+		console.example();
 
 
 
 		console.run();
 		
-		console.createActivity("200000", "test", new Date(20,7), new Date(20,9));
-		console.createActivity("200000", "test1", new Date(20,7), new Date(20,14));
-		console.createActivity("200001", "test2", new Date(20,8), new Date(20,12));
-		console.createActivity("200001", "test3", new Date(20,9), new Date(20,15));
-		console.createActivity("200001", "test5", new Date(20,10), new Date(20,16));
-
-		console.addWorker("200000", "test", "AB");
-		console.addWorker("200000", "test1", "AB");
-		console.addWorker("200001", "test2", "RFE");
-		console.addWorker("200001", "test3", "RFE");
-
-		console.addWorker("200001", "test2", "AB");
-		console.addWorker("200001", "test5", "AB");
-		
-		console.getAllNumberActivities(new Date (20,15), new Date(20, 20));
-		
-		
+	
 		
 	}
 
@@ -61,17 +39,6 @@ public class Console {
 			softwareHouse.logIn(scanner.next());
 		}
 	}
-	
-	
-//	public void testExamples() {
-		//INIT
-		
-//		softwareHouse.createProject(new GregorianCalendar(1930,03-1,4), new GregorianCalendar(1931,03-1,4));
-//		softwareHouse.getListOfProjects().get(0).createActivity("testActivity");
-		
-		
-		
-//	}
 	
 	
 
@@ -95,7 +62,7 @@ public class Console {
 	}
 	
 	public void createActivity(String projectID, String activityTitle, Date startDate, Date endDate) {
-		softwareHouse.getProject(projectID).createActivity(activityTitle, startDate, endDate);
+		softwareHouse.getProject(projectID).createActivity(activityTitle, startDate, endDate, softwareHouse.getProject(projectID));
 	}
 	
 	public void addWorker(String projectID, String activityTitle, String workerID) {
@@ -103,7 +70,50 @@ public class Console {
 		
 	}
 	
-//	public void getNumberOfActivities 
+	public void logIn(String ID) {
+		softwareHouse.logIn(ID);
+	}
+	
+	public void logOut() {
+		softwareHouse.logOut();
+	}
+	
+	
+	public void example() {
+		
+		createWorker("AB");
+		createWorker("CDDD");
+		createWorker("RFE");
+		createProject(new Date(20,5), new Date(20,15));
+		createProject(new Date(20,6), new Date(20,17));
+		appointProjectLeader("RFE", "200000");
+		appointProjectLeader("RFE", "200001");
+		
+		logIn("RFE");
+		
+		createActivity("200000", "test", new Date(20,7), new Date(20,9));
+		createActivity("200000", "test1", new Date(20,7), new Date(20,14));
+		createActivity("200001", "test2", new Date(20,8), new Date(20,12));
+		createActivity("200001", "test3", new Date(20,9), new Date(20,15));
+		createActivity("200001", "test5", new Date(20,10), new Date(20,16));
+		
+	
+
+		addWorker("200000", "test", "AB");
+		addWorker("200000", "test1", "AB");
+		addWorker("200001", "test2", "RFE");
+		addWorker("200001", "test3", "RFE");
+
+		addWorker("200001", "test2", "AB");
+		addWorker("200001", "test5", "AB");
+		
+		getAllNumberActivities(new Date (20,15), new Date(20, 20));
+		
+		logOut();
+
+		
+	}
+	
 
 
 }
