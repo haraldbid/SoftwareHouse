@@ -34,6 +34,7 @@ public class Project implements Observer, Reporting{
 		this.setProjectTitle(title);
 		this.startDate = startDate;
 		this.endDate = endDate;
+		//this.projectLeader = null;
 		
 		this.projectNumberID = projectNumberID;
 	}
@@ -113,7 +114,10 @@ public class Project implements Observer, Reporting{
 	}
 
 	public void appointProjectLeader(Worker appointedProjectLeader) {
-		this.projectLeader = appointedProjectLeader;
+		if(!this.hasProjectLeader())
+			this.projectLeader = appointedProjectLeader;
+		else
+			throw new IllegalArgumentException("Project has leader assigned");
 	}
 
 	// JUST A SHELL
