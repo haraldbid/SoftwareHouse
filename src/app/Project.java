@@ -49,8 +49,6 @@ public class Project implements Observer, Reporting{
 		String runningCount = projectNumberID.substring(2,6);
 		
 		this.projectNumberID = yearStr + runningCount;
-		
-		
 	}
 
 

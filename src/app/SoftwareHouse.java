@@ -64,11 +64,6 @@ public class SoftwareHouse implements Observable {
 			throw new IllegalArgumentException("Login failed");
 		}
 	}
-
-	public void logOut() {
-		loggedIn = null;
-		System.out.println("Logged out successfully");
-	}
 	
 	public void logOut() {
 		
