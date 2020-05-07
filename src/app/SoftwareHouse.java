@@ -53,7 +53,7 @@ public class SoftwareHouse implements Observable {
 	public void logIn(String ID) {
 		assert listOfWorkers.size() > 0 : "Precondition for logIn()";
 		for (Worker wo : listOfWorkers) {
-			assert !wo.getID().equals(ID) : "Precondition for logIn()";
+			assert wo.getID().equals(ID) : "Precondition for logIn()";
 		}
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 

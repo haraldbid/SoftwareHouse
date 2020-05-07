@@ -43,5 +43,16 @@ public class designByContract {
 	
 
 	}
+	@Test
+	public void logInContract() {
+
+		String ID = "aaa";
+
+		SoftwareHouse softwareHouse = new SoftwareHouse();
+		softwareHouse.createWorker(ID);
+		softwareHouse.logIn(ID);
+	
+
+	}
 
 }
