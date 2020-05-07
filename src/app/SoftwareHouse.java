@@ -18,9 +18,11 @@ public class SoftwareHouse implements Observable {
 	private List<Project> listOfProjects = new ArrayList<Project>();
 
 	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
+
 	private ArrayList<Worker> sortedArr = new ArrayList<Worker>();
 	
 	private boolean exitRequest = false;
+
 
 	public SoftwareHouse() {
 	}
@@ -67,20 +69,30 @@ public class SoftwareHouse implements Observable {
 		loggedIn = null;
 		System.out.println("Logged out successfully");
 	}
+	
+	public void logOut() {
+		
+		if (loggedIn()) {
+			loggedIn = null;
+			notifyObserver();
+			System.out.println("Logout successful.");
+		} else {
+			System.out.println("No worker is logged in.");
+		}
+		
+	}
 
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
 
 		quickSort(listOfWorkers, 0, listOfWorkers.size() - 1, startDate, endDate);
 
-		for (int i = 0; i < sortedArr.size(); i++) {
-			System.out
-					.println(sortedArr.get(i).getID() + " : " + sortedArr.get(i).getNumActivities(startDate, endDate));
+		for (int i = 0; i < listOfWorkers.size(); i++) {
+			System.out.println(listOfWorkers.get(i).getID() + " : " + listOfWorkers.get(i).getNumActivities(startDate, endDate));
 		}
 	}
 
 	public void quickSort(ArrayList<Worker> arr, int low, int high, Date startDate, Date endDate) {
 
-		this.sortedArr = arr;
 
 		if (arr == null || arr.size() == 0)
 			return;
@@ -119,7 +131,6 @@ public class SoftwareHouse implements Observable {
 		if (high > i)
 			quickSort(arr, i, high, startDate, endDate);
 
-		this.sortedArr = arr;
 	}
 
 	public boolean loggedIn() {
@@ -128,6 +139,12 @@ public class SoftwareHouse implements Observable {
 		}
 		return true;
 	}
+	
+	public Worker getWorkerLoggedIn() {
+		return loggedIn;
+	}
+	
+	
 
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
@@ -145,13 +162,35 @@ public class SoftwareHouse implements Observable {
 	
 
 	public Worker getWorker(int index) {
+		
 		return listOfWorkers.get(index);
+	}
+	
+	public Worker getWorker(String ID) {
+		int i = 0;
+		while (!listOfWorkers.get(i).getID().equals(ID)) {
+			i++;
+		}
+		return listOfWorkers.get(i);
+	}
+	
+	public Project getProject(String projectID) {
+		int i = 0;
+		
+		while (!listOfProjects.get(i).getID().equals(projectID)) {
+			i++;
+		}
+		
+		return listOfProjects.get(i);
+		
 	}
 
 	public List<Project> getListOfProjects() {
 		return listOfProjects;
 
 	}
+	
+
 
 	public List<Worker> getListOfWorkers() {
 		return this.listOfWorkers;
