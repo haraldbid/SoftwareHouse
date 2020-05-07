@@ -24,9 +24,9 @@ public class SoftwareHouse implements Observable {
 
 	}
 
-	public void createProject(Date startDate, Date endDate) {
+	public void createProject(Date startDate, Date endDate,String title) {
 
-		Project project = new Project(this, startDate, endDate,generateProjectID(startDate));
+		Project project = new Project(this, startDate, endDate,generateProjectID(startDate),title);
 		listOfProjects.add(project);
 	}
 
@@ -183,7 +183,13 @@ public class SoftwareHouse implements Observable {
 		}
 		return null;
 	}
-
+	public Project getProjectByID(String ID) {
+		for (Project project : listOfProjects) {
+			if(project.getID().equals(ID))
+				return project;
+		}
+		return null;
+	}
 
 
 }
