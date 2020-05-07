@@ -63,9 +63,9 @@ public class Date {
 		return false;
 	}
 
-	public void print() {
-		String print;
-		
+	public String print() {
+		String print = String.format("Week %s Year %s", this.weekNumber, this.year);
+		return print;
 	}
 	
 	
@@ -95,7 +95,7 @@ public class Date {
 
 		date.setDate(year, week);
 
-		System.out.println("valid date entered: ");
+		System.out.println("valid date entered: " + print());
 
 		return date;
 

@@ -19,13 +19,15 @@ public class SoftwareHouse implements Observable {
 
 	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
 	private ArrayList<Worker> sortedArr = new ArrayList<Worker>();
+	
+	private boolean exitRequest = false;
 
 	public SoftwareHouse() {
 	}
 
 	public void createProject(Date startDate, Date endDate) {
 
-		Project project = new Project(this, startDate, endDate,generateProjectID(startDate));
+		Project project = new Project(this, startDate, endDate, generateProjectID(startDate));
 		listOfProjects.add(project);
 	}
 
@@ -43,10 +45,7 @@ public class SoftwareHouse implements Observable {
 
 		return year + runningCount;
 	}
-	
-	
 
-// TODO: check valid ID, or create example user with the given ID.Perhaps LoggeIn should be reference to worker
 
 	public void logIn(String ID) {
 
@@ -60,8 +59,13 @@ public class SoftwareHouse implements Observable {
 		}
 
 		if (!loggedIn()) {
-			System.out.println("Login failed.");
+			throw new IllegalArgumentException("Login failed");
 		}
+	}
+
+	public void logOut() {
+		loggedIn = null;
+		System.out.println("Logged out successfully");
 	}
 
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
@@ -76,7 +80,7 @@ public class SoftwareHouse implements Observable {
 
 	public void quickSort(ArrayList<Worker> arr, int low, int high, Date startDate, Date endDate) {
 
-		this.sortedArr = arr; 
+		this.sortedArr = arr;
 
 		if (arr == null || arr.size() == 0)
 			return;
@@ -125,11 +129,6 @@ public class SoftwareHouse implements Observable {
 		return true;
 	}
 
-	@Override
-	public void register(Observer o) {
-		observers.add(o);
-	}
-
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
 
@@ -143,16 +142,7 @@ public class SoftwareHouse implements Observable {
 		return listOfWorkers.size();
 	}
 
-	@Override
-	public void notifyObserver() {
-
-		if (!observers.isEmpty()) {
-			for (Observer o : observers) {
-				o.update(loggedIn);
-			}
-		}
-
-	}
+	
 
 	public Worker getWorker(int index) {
 		return listOfWorkers.get(index);
@@ -162,14 +152,37 @@ public class SoftwareHouse implements Observable {
 		return listOfProjects;
 
 	}
-	public List<Worker> getListOfWorkers(){
+
+	public List<Worker> getListOfWorkers() {
 		return this.listOfWorkers;
 	}
+	public void exit() {
+		this.exitRequest=true;
+	}
+	public boolean getExitRequest() {
+		return this.exitRequest;
+	}
 
+	
+	//OBSERVER PATTERN
 	@Override
 	public void unregister(Observer o) {
 		observers.remove(o);
+	}
+	@Override
+	public void register(Observer o) {
+		observers.add(o);
+	}
+	@Override
+	public void notifyObserver() {
+		if (!observers.isEmpty()) {
+			for (Observer o : observers) {
+				o.update(loggedIn);
+			}
+		}
 
 	}
+	
+	
 
 }
