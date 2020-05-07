@@ -45,30 +45,11 @@ public class Console {
 		}
 
 		if (stage == 0) {
-			System.out.println("Press 1 to create a worker.\n" + "\n" + "Press 2 to create project.\n"
-					+ "Press 3 to appoint project leader\n" + "Press 4 to view project timeframe\n"
-					+ "Press 4 to edit project timeframe.\n" + "Press 5 to give a project a title.\n" + "\n"
-					+ "Press 5 to create activity.\n" + "Press 6 to view activity timeframe\n"
-					+ "Press 6 to edit activity timeframe\n" + "Press 7 to add worker to activity\n"
-					+ "Press 8 to check workers availabilities.\n" + "\n" + "Press 9 to fill timesheet.\n"
-					+ "Press 10 to seek assistance.\n" + "Press 11 to fill assistance timesheet.\n" + "\n"
-					+ "Press 11 to see all projects.\n" + "Press 12 to see all activities of a project.\n"
-					+ "Press 13 to see number of activities workers are assigned to within a given period.\n" + "\n"
-					+ "Press 16 to give worker sick leave, holliday, ect.\n" + "\n" + "Press 17 to get week report.\n"
-					+ "\n" + "Press 80 to log out.\n" + "\n" + "Press 99 to exit program\n");
-
-			if (commandError) {
-				System.out.println("Command not recongnized");
-				commandError = false;
-			}
-
-			stage = scanner.nextInt();
-
-			space();
+			stage0();
 		}
 
 		if (stage == 1) {
-
+			stage1();					
 		} else if (stage == 2) {
 
 		} else if (stage == 3) {
@@ -127,7 +108,12 @@ public class Console {
 	}
 
 	public void createWorker(String ID) {
+		try {
 		softwareHouse.createWorker(ID);
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
 	}
 
 	public void createProject(Date startDate, Date endDate) {
@@ -187,11 +173,52 @@ public class Console {
 		logOut();
 
 	}
+	
+	public void options() {
+		println("\nPress 0 to go back.\n"
+				+ "Press " + stage + " to repeat action.\n");
+		stage = scanner.nextInt();
+		space();
+	}
 
 	public void space() {
 		System.out.print("\n"
 				+ "---------------------------------------------------------------------------------------------------------"
 				+ "\n");
+	}
+	
+	public void println(String string) {
+		System.out.println(string);
+	}
+	
+	
+	public void stage0() {
+		System.out.println("Press 1 to create a worker.\n" + "\n" + "Press 2 to create project.\n"
+				+ "Press 3 to appoint project leader\n" + "Press 4 to view project timeframe\n"
+				+ "Press 4 to edit project timeframe.\n" + "Press 5 to give a project a title.\n" + "\n"
+				+ "Press 5 to create activity.\n" + "Press 6 to view activity timeframe\n"
+				+ "Press 6 to edit activity timeframe\n" + "Press 7 to add worker to activity\n"
+				+ "Press 8 to check workers availabilities.\n" + "\n" + "Press 9 to fill timesheet.\n"
+				+ "Press 10 to seek assistance.\n" + "Press 11 to fill assistance timesheet.\n" + "\n"
+				+ "Press 11 to see all projects.\n" + "Press 12 to see all activities of a project.\n"
+				+ "Press 13 to see number of activities workers are assigned to within a given period.\n" + "\n"
+				+ "Press 16 to give worker sick leave, holliday, ect.\n" + "\n" + "Press 17 to get week report.\n"
+				+ "\n" + "Press 80 to log out.\n" + "\n" + "Press 99 to exit program\n");
+
+		if (commandError) {
+			System.out.println("Command not recognized");
+			commandError = false;
+		}
+
+		stage = scanner.nextInt();
+
+		space();
+	}
+	
+	public void stage1() {
+		println("Enter ID of worker you wish to create : ");
+		createWorker(scanner.next());
+		options();
 	}
 
 }
