@@ -35,7 +35,7 @@ public class SoftwareHouse implements Observable {
 
 	public String generateProjectID(Date startDate) {
 
-		String year = Integer.toString(startDate.getYear());
+		String year = Integer.toString(startDate.getYear()).substring(2,4);
 
 		String runningCount = "";
 
@@ -169,15 +169,15 @@ public class SoftwareHouse implements Observable {
 		return listOfWorkers.get(i);
 	}
 	
-	public Project getProject(String projectID) {
-		int i = 0;
+	public Project getProject(String projectID) throws Exception {
 		
-		while (!listOfProjects.get(i).getID().equals(projectID)) {
-			i++;
+		for(Project p : listOfProjects) {
+			if (p.getID().equals(projectID)) {
+				return p;
+			}	
 		}
 		
-		return listOfProjects.get(i);
-		
+		throw new Exception("Project not found");
 	}
 
 	public List<Project> getListOfProjects() {

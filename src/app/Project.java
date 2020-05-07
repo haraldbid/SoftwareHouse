@@ -203,6 +203,13 @@ public void generateWeekReport(Date date) {
 		}
 		return numMinSpent;
 	}
+	
+	public void printWeekReport(Date date) {
+		for(WeekReport r : weekReports) {
+			if(r.getDate().equals(date))
+				r.printWeekReport();
+		}
+	}
 
 
 
