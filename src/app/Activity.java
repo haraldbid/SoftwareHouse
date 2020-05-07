@@ -1,6 +1,8 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import designPatterns.Date;
@@ -10,10 +12,10 @@ import designPatterns.Reporting;
 
 public class Activity implements Observer, Reporting {
 
-	private int activityID;
+	private String activityID;
 	private String title;
 	private int expectedWorkingHours;
-	private int[] numHoursSpent;
+	private int[] numMinSpent;
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Date startDate;
 	private Date endDate;
@@ -28,6 +30,7 @@ public class Activity implements Observer, Reporting {
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
+
 		this.project = project;
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
@@ -71,11 +74,11 @@ public class Activity implements Observer, Reporting {
 	}
 
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) {
-		if (hours < 0 || minutes < 0)
+		if(hours < 0 || minutes < 0) // 1 || 2
 			throw new IllegalArgumentException("Only positive work time");
-		if (this.searchWorker(worker.getID()) == null)
+		if(this.searchWorker(worker.getID()) == null) // Whitebox 3
 			throw new IllegalArgumentException("Worker is not assigned to activity");
-		TimeSheet time = new TimeSheet(worker, date);
+		TimeSheet time = new TimeSheet(worker,date); // 3
 		time.addtimeWorked(hours, minutes);
 		timeSheets.add(time);
 
@@ -92,6 +95,11 @@ public class Activity implements Observer, Reporting {
 	public String getTitle() {
 		return this.title;
 	}
+	
+	public List<TimeSheet> getTimeSheets(){
+		return this.timeSheets;
+	}
+
 
 	public void setStartDate(Date date) {
 		startDate = date;
@@ -113,50 +121,73 @@ public class Activity implements Observer, Reporting {
 		this.expectedWorkingHours = expectedWorkingHours;
 	}
 
-//	TODO: Calculate num of hours spent from timesheets
-	// 1. entry contains information about total hours spent on activity, 2. entry
-	// for the week
+	//1. entry contains information about total hours spent on activity, 2. entry for the week
 	@Override
-	public int[] numHoursSpent() {
-
-		Calendar cal = new GregorianCalendar();
-
-		int[] numHoursSpent = { 0, 0 };
-
+	public int[] numMinSpent(Date date) {
+		
+		int[] numMinSpent = {0,0}; 
+		
 		for (TimeSheet t : timeSheets) {
-			numHoursSpent[0] += t.getMinutesWorked();
-
-			if (cal.get(Calendar.WEEK_OF_YEAR) == t.getDate().getWeekNumber()) {
-				numHoursSpent[1] += t.getMinutesWorked();
+			if (t.getDate().before(date) || t.getDate().equals(date)) {			
+				numMinSpent[0] += t.getMinutesWorked();
+			}
+			if (t.getDate().equals(date)) {
+				numMinSpent[1] += t.getMinutesWorked();
 			}
 		}
+		
+		this.numMinSpent = numMinSpent;
+		
+		return numMinSpent;
 
-		this.numHoursSpent = numHoursSpent;
-
-		return numHoursSpent;
 	}
 
 	public WeekReport getRecentWeekReport() {
 		return this.weekReports.get(weekReports.size() - 1);
 	}
-
-	public void generateWeekReport() {
-		WeekReport report = new WeekReport(this);
-
-		weekReports.add(report);
-
-//		report.printWeekReport();
+	
+	public void generateWeekReport(Date date) {
+		
+		boolean weekReportExists = false;
+		Calendar cal = new GregorianCalendar();
+		
+		if (cal.get(Calendar.YEAR) < date.getYear()
+				|| (cal.get(Calendar.YEAR) == date.getYear() 
+				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+			throw new IllegalArgumentException("Illgeal date entered");
+		}
+		
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date)) {
+				weekReportExists = true;
+			}
+		}
+		
+		if(!weekReportExists) {
+			WeekReport report = new WeekReport(this,date);
+			
+			weekReports.add(report);
+		}
 	}
 
 	@Override
-	public int getID() {
-
+	public String getID() {
+		
 		return this.activityID;
 	}
 
 	@Override
 	public int getExpectedWorkingHours() {
 		return this.expectedWorkingHours;
+	}
+	
+	public WeekReport getWeekReport(Date date) {
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date)) {
+				return r;
+			}
+		}
+		return null;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Scanner;
 import app.Activity;
 import app.Project;
 import app.SoftwareHouse;
+import app.Worker;
 import designPatterns.Date;
 
 public class Console {
@@ -15,6 +16,10 @@ public class Console {
 	static boolean commandError = false;
 	static boolean exitProgram = false;
 
+	enum State {
+		LOGIN, MAINSCREEN, PROJECTSELECTED, ACTIVITYSELECTED
+	}
+
 	public static void main(String[] args) {
 
 		Console console = new Console();
@@ -24,6 +29,7 @@ public class Console {
 		while (!exitProgram) {
 			console.displayOptions();
 		}
+
 
 	}
 
@@ -37,6 +43,16 @@ public class Console {
 			stage = 0;
 		}
 	}
+
+
+//	TODO: Create method to check valid input (given interval of valid input, and the input.)
+	public boolean checkValidInput(int input, int lowerBound, int upperBound) throws IllegalArgumentException {
+		if (input <= upperBound && input >= lowerBound) {
+			return true;
+		} else
+			throw new IllegalArgumentException("Invalid input");
+	}
+
 
 	public void displayOptions() {
 
@@ -120,16 +136,18 @@ public class Console {
 		softwareHouse.createProject(startDate, endDate);
 	}
 
-	public void appointProjectLeader(String workerID, String projectID) {
+
+	public void appointProjectLeader(String workerID, String projectID) throws Exception {
 		softwareHouse.getProject(projectID).appointProjectLeader(softwareHouse.getWorker(workerID));
 	}
 
-	public void createActivity(String projectID, String activityTitle, Date startDate, Date endDate) {
+	public void createActivity(String projectID, String activityTitle, Date startDate, Date endDate) throws Exception {
 		softwareHouse.getProject(projectID).createActivity(activityTitle, startDate, endDate,
 				softwareHouse.getProject(projectID));
 	}
 
-	public void addWorker(String projectID, String activityTitle, String workerID) {
+
+	public void addWorker(String projectID, String activityTitle, String workerID) throws Exception {
 		softwareHouse.getProject(projectID).getActivity(activityTitle).assignWorker(softwareHouse.getWorker(workerID));
 
 	}
@@ -144,31 +162,56 @@ public class Console {
 
 	public void example() {
 
+
+		softwareHouse.createWorker("Nick");
+		softwareHouse.createWorker("Markus");
+		Worker worker1 = softwareHouse.getWorker(0);
+		Worker worker2 = softwareHouse.getWorker(1);
+		softwareHouse.createProject(new Date(2020,4), new Date(2021,4));
+//		softwareHouse.createProject(new Date, endDate);
+
+		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
+		
+		
 		createWorker("AB");
 		createWorker("CDDD");
 		createWorker("RFE");
-		createProject(new Date(20, 5), new Date(20, 15));
-		createProject(new Date(20, 6), new Date(20, 17));
-		appointProjectLeader("RFE", "200000");
-		appointProjectLeader("RFE", "200001");
+		createProject(new Date(2020, 5), new Date(2023, 15));
+		createProject(new Date(2023, 6), new Date(2040, 17));
+		
+		try {
+			appointProjectLeader("RFE", "200000");
+			appointProjectLeader("RFE", "200001");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		logIn("RFE");
 
-		createActivity("200000", "test", new Date(20, 7), new Date(20, 9));
-		createActivity("200000", "test1", new Date(20, 7), new Date(20, 14));
-		createActivity("200001", "test2", new Date(20, 8), new Date(20, 12));
-		createActivity("200001", "test3", new Date(20, 9), new Date(20, 15));
-		createActivity("200001", "test5", new Date(20, 10), new Date(20, 16));
+		try {
+			createActivity("200000", "test", new Date(20, 7), new Date(20, 9));
+			createActivity("200000", "test1", new Date(20, 7), new Date(20, 14));
+			createActivity("200001", "test2", new Date(20, 8), new Date(20, 12));
+			createActivity("200001", "test3", new Date(20, 9), new Date(20, 15));
+			createActivity("200001", "test5", new Date(20, 10), new Date(20, 16));
 
-		addWorker("200000", "test", "AB");
-		addWorker("200000", "test1", "AB");
-		addWorker("200001", "test2", "RFE");
-		addWorker("200001", "test3", "RFE");
+			addWorker("200000", "test", "AB");
+			addWorker("200000", "test1", "AB");
+			addWorker("200001", "test2", "RFE");
+			addWorker("200001", "test3", "RFE");
 
-		addWorker("200001", "test2", "AB");
-		addWorker("200001", "test5", "AB");
+			addWorker("200001", "test2", "AB");
+			addWorker("200001", "test5", "AB");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 
 		getAllNumberActivities(new Date(20, 15), new Date(20, 20));
+
 
 		logOut();
 
@@ -219,6 +262,36 @@ public class Console {
 		println("Enter ID of worker you wish to create : ");
 		createWorker(scanner.next());
 		options();
+
+	public Date enterDate() {
+		Scanner scanner = new Scanner(System.in);
+
+		Date date = new Date();
+		System.out.println("Please enter date in the following format: (yyyy - weeknumber)");
+
+		String input = scanner.nextLine();
+
+		if (input.length() != 7) {
+			throw new IllegalArgumentException("Date not correct format");
+		}
+
+		for (int i = 0; i < input.length(); i++) {
+
+			if (Character.isAlphabetic(input.charAt(i))) {
+				throw new IllegalArgumentException("Date not correct format");
+			}
+		}
+
+		int year = Integer.parseInt(input.substring(0, 4));
+		int week = Integer.parseInt(input.substring(5, 7));
+
+		date.setDate(year, week);
+
+//		System.out.println("valid date entered: " + print());
+
+		return date;
+
+
 	}
 
 }

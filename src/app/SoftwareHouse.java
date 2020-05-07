@@ -19,19 +19,23 @@ public class SoftwareHouse implements Observable {
 
 	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
 
-	public SoftwareHouse() {
+	private ArrayList<Worker> sortedArr = new ArrayList<Worker>();
+	
+	private boolean exitRequest = false;
 
+
+	public SoftwareHouse() {
 	}
 
 	public void createProject(Date startDate, Date endDate) {
 
-		Project project = new Project(this, startDate, endDate,generateProjectID(startDate));
+		Project project = new Project(this, startDate, endDate, generateProjectID(startDate));
 		listOfProjects.add(project);
 	}
 
 	public String generateProjectID(Date startDate) {
 
-		String year = Integer.toString(startDate.getYear());
+		String year = Integer.toString(startDate.getYear()).substring(2,4);
 
 		String runningCount = "";
 
@@ -42,12 +46,8 @@ public class SoftwareHouse implements Observable {
 		runningCount += listOfProjects.size();
 
 		return year + runningCount;
-
 	}
-	
-	
 
-// TODO: check valid ID, or create example user with the given ID.Perhaps LoggeIn should be reference to worker
 
 	public void logIn(String ID) {
 
@@ -61,9 +61,8 @@ public class SoftwareHouse implements Observable {
 		}
 
 		if (!loggedIn()) {
-			System.out.println("Login failed.");
+			throw new IllegalArgumentException("Login failed");
 		}
-
 	}
 	
 	public void logOut() {
@@ -142,11 +141,6 @@ public class SoftwareHouse implements Observable {
 	
 	
 
-	@Override
-	public void register(Observer o) {
-		observers.add(o);
-	}
-
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
 
@@ -160,16 +154,7 @@ public class SoftwareHouse implements Observable {
 		return listOfWorkers.size();
 	}
 
-	@Override
-	public void notifyObserver() {
-
-		if (!observers.isEmpty()) {
-			for (Observer o : observers) {
-				o.update(loggedIn);
-			}
-		}
-
-	}
+	
 
 	public Worker getWorker(int index) {
 		
@@ -184,15 +169,15 @@ public class SoftwareHouse implements Observable {
 		return listOfWorkers.get(i);
 	}
 	
-	public Project getProject(String projectID) {
-		int i = 0;
+	public Project getProject(String projectID) throws Exception {
 		
-		while (!listOfProjects.get(i).getID().equals(projectID)) {
-			i++;
+		for(Project p : listOfProjects) {
+			if (p.getID().equals(projectID)) {
+				return p;
+			}	
 		}
 		
-		return listOfProjects.get(i);
-		
+		throw new Exception("Project not found");
 	}
 
 	public List<Project> getListOfProjects() {
@@ -202,10 +187,36 @@ public class SoftwareHouse implements Observable {
 	
 
 
+	public List<Worker> getListOfWorkers() {
+		return this.listOfWorkers;
+	}
+	public void exit() {
+		this.exitRequest=true;
+	}
+	public boolean getExitRequest() {
+		return this.exitRequest;
+	}
+
+	
+	//OBSERVER PATTERN
 	@Override
 	public void unregister(Observer o) {
 		observers.remove(o);
+	}
+	@Override
+	public void register(Observer o) {
+		observers.add(o);
+	}
+	@Override
+	public void notifyObserver() {
+		if (!observers.isEmpty()) {
+			for (Observer o : observers) {
+				o.update(loggedIn);
+			}
+		}
 
 	}
+	
+	
 
 }
