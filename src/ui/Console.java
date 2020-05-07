@@ -16,9 +16,7 @@ public class Console {
 	static boolean commandError = false;
 	static boolean exitProgram = false;
 
-	enum State {
-		LOGIN, MAINSCREEN, PROJECTSELECTED, ACTIVITYSELECTED
-	}
+
 
 	public static void main(String[] args) {
 
@@ -67,9 +65,9 @@ public class Console {
 		if (stage == 1) {
 			stage1();					
 		} else if (stage == 2) {
-
+			stage2();
 		} else if (stage == 3) {
-
+			stage3();
 		} else if (stage == 4) {
 
 		} else if (stage == 5) {
@@ -163,14 +161,14 @@ public class Console {
 	public void example() {
 
 
-		softwareHouse.createWorker("Nick");
-		softwareHouse.createWorker("Markus");
-		Worker worker1 = softwareHouse.getWorker(0);
-		Worker worker2 = softwareHouse.getWorker(1);
+//		softwareHouse.createWorker("Nick");
+//		softwareHouse.createWorker("Markus");
+//		Worker worker1 = softwareHouse.getWorker(0);
+//		Worker worker2 = softwareHouse.getWorker(1);
 		softwareHouse.createProject(new Date(2020,4), new Date(2021,4));
 //		softwareHouse.createProject(new Date, endDate);
 
-		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
+//		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
 		
 		
 		createWorker("AB");
@@ -262,12 +260,48 @@ public class Console {
 		println("Enter ID of worker you wish to create : ");
 		createWorker(scanner.next());
 		options();
+	}
+	
+	// TODO mangler exceptions til ulovlige start/end dates
+	public void stage2() {
+		Date[] SE = startAndEndDate();
+		softwareHouse.createProject(SE[0], SE[1]);
+		space();
+		options();
+	}
+	
+	public void stage3() {
+		println("Enter ID of worker you wish to appoint :");
+		String worker = scanner.next();
+		println("Enter ID of project you wish to appoint worker " + worker + " as leader of :");
+		String project = scanner.next();
+		try {
+			softwareHouse.getProject(project).appointProjectLeader(softwareHouse.getWorker(worker));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		space();
+		options();
 
-	public Date enterDate() {
+	}
+	
+	public Date[] startAndEndDate() {
+		Date[] SE = new Date[2];
+		SE[0] = enterDate(true);
+		SE[1] = enterDate(false);
+		return SE;
+	}
+
+	public Date enterDate(boolean startEnd) {
+		String startOrEnd;
+		if (startEnd) {
+			startOrEnd = "start";
+		} else { startOrEnd = "end";}
 		Scanner scanner = new Scanner(System.in);
 
 		Date date = new Date();
-		System.out.println("Please enter date in the following format: (yyyy - weeknumber)");
+		System.out.println("Please enter " + startOrEnd + " date in the following format: (yyyy - weeknumber)");
 
 		String input = scanner.nextLine();
 
@@ -286,8 +320,6 @@ public class Console {
 		int week = Integer.parseInt(input.substring(5, 7));
 
 		date.setDate(year, week);
-
-//		System.out.println("valid date entered: " + print());
 
 		return date;
 

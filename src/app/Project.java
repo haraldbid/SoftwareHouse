@@ -115,6 +115,7 @@ public class Project implements Observer, Reporting{
 
 	public void appointProjectLeader(Worker appointedProjectLeader) {
 		this.projectLeader = appointedProjectLeader;
+		System.out.println("\nWorker " + appointedProjectLeader + " is appointed project leader of " + this.getID());
 	}
 
 	// JUST A SHELL

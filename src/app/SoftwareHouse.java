@@ -44,7 +44,9 @@ public class SoftwareHouse implements Observable {
 			runningCount += "0";
 		}
 		runningCount += listOfProjects.size();
-
+		
+		System.out.println("Project " + year + "" + runningCount + " was just created.");
+		
 		return year + runningCount;
 	}
 
@@ -161,12 +163,14 @@ public class SoftwareHouse implements Observable {
 		return listOfWorkers.get(index);
 	}
 	
-	public Worker getWorker(String ID) {
-		int i = 0;
-		while (!listOfWorkers.get(i).getID().equals(ID)) {
-			i++;
+	public Worker getWorker(String ID) throws Exception {
+		
+		for(Worker w : listOfWorkers) {
+			if (w.getID().equals(ID));
+			return w;
 		}
-		return listOfWorkers.get(i);
+		
+		throw new Exception("Worker not found");
 	}
 	
 	public Project getProject(String projectID) throws Exception {
