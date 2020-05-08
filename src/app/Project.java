@@ -30,12 +30,13 @@ public class Project implements Observer, Reporting{
 
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
-		
 		this.startDate = startDate;
 		this.endDate = endDate;
+		//this.projectLeader = null;
 		
 		this.projectNumberID = projectNumberID;
 	}
+	
 	
 	
 	
@@ -59,7 +60,6 @@ public class Project implements Observer, Reporting{
 	public void setEndDate(int year, int week) {
 		endDate.setDate(year, week);
 	}
-	
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -122,7 +122,14 @@ public Activity getActivty(String activityID) throws Exception {
 	}
 
 	public void appointProjectLeader(Worker appointedProjectLeader) {
-		this.projectLeader = appointedProjectLeader;
+
+		if(!this.hasProjectLeader())
+			this.projectLeader = appointedProjectLeader;
+		else
+			throw new IllegalArgumentException("Project has leader assigned");
+
+		System.out.println("\nWorker " + appointedProjectLeader.getID() + " is appointed project leader of " + this.getID());
+
 	}
 
 	// JUST A SHELL

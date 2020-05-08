@@ -27,8 +27,17 @@ public class TimeSheet {
 	public int getMinutesWorked() {
 		return this.minutesWorked;
 	}
+	public int getHoursWorked() {
+		return this.getMinutesWorked()/60;
+	}
+	public int getMinutesInputed() {
+		return this.getMinutesWorked() - this.getHoursWorked()*60;
+	}
 	
 	public Date getDate() {
 		return this.date;
+	}
+	public Worker getWorker() {
+		return this.worker;
 	}
 }
