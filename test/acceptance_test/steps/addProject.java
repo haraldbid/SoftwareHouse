@@ -17,8 +17,8 @@ public class addProject {
 	@When("a project with name {string} is created")
 	public void aProjectWithNameIsCreated(String string) {
 		this.softwareHouse = new SoftwareHouse();
-		this.softwareHouse.createProject(new Date(20,10), new Date(20,14),string);
-		
+		this.softwareHouse.createProject(new Date(2020,10), new Date(2020,14));
+		this.softwareHouse.getListOfProjects().get(0).setProjectTitle(string);
 	}
 	
 	@Given("that a proctID is generated with the date and running number")
