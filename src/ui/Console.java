@@ -15,100 +15,38 @@ public class Console {
 
 	SoftwareHouse softwareHouse = new SoftwareHouse();
 	Scanner scanner = new Scanner(System.in);
+	static int stage = -1;
+	static boolean commandError = false;
+	static boolean exitProgram = false;
 
-	enum State {
-		LOGIN, MAINSCREEN, PROJECTSELECTED, ACTIVITYSELECTED
-	}
+
 
 	public static void main(String[] args) {
 
 		Console console = new Console();
 
 		console.example();
-		console.run();
+
+		while (!exitProgram) {
+			console.displayOptions();
+		}
+
+
 	}
 
 	// run() is the method which control logic of the program
 
+
 	public void run() {
 
-		State state = State.LOGIN;
-		int selectionInput = -1;
-		Project project = null;
 
-		while (!softwareHouse.getExitRequest()) {
-
-			if (!softwareHouse.loggedIn()) {
-				System.out.println("\n \n \n \n \n");
-				System.out.println("You need to enter ID to log in: ");
-
-				try {
-					softwareHouse.logIn(scanner.next());
-					state = State.MAINSCREEN;
-				} catch (Exception e) {
-					System.out.println(e.getMessage() + "\n\n\n");
-				}
-			}
-
-			if (state.equals(State.MAINSCREEN)) {
-				System.out.println("\n \n \n \n \n");
-				System.out.println("Welcome to mainscreen.\n "
-						+ "Enter a corresponding number for the following menu options: \n" + "1) Access projects \n"
-						+ "2) Create new project \n" + "3) Add worker \n" + "4) Log out");
-
-				try {
-					selectionInput = scanner.nextInt();
-					checkValidInput(selectionInput, 1, 4);
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-
-//				ACCESS TO PROJECTS
-				if (selectionInput == 1) {
-					System.out.println("\n \n \n \n \n");
-					for (int i = 0; i < softwareHouse.getListOfProjects().size(); i++) {
-						System.out.println(
-								"Enter " + i + " to access project: " + softwareHouse.getListOfProjects().get(i).getID()
-										+ " Title: " + softwareHouse.getListOfProjects().get(i).getTitle());
-					}
-
-					try {
-						selectionInput = scanner.nextInt();
-						checkValidInput(selectionInput, 0, softwareHouse.getListOfProjects().size());
-						project = softwareHouse.getListOfProjects().get(selectionInput);
-						state = State.PROJECTSELECTED;
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
-					}
-				}
-			}
-
-			if (state.equals(State.PROJECTSELECTED)) {
-				System.out.println("You have selected project " + project.getID());
-				System.out.println("Enter a corresponding number for the following menu options:");
-				System.out.println(
-						"1) Create new activity \n" + "2) Appoint project leader \n" + "3) Print weekly report");
-
-				try {
-					selectionInput = scanner.nextInt();
-					checkValidInput(selectionInput, 0, 3);
-					
-					if(selectionInput == 12)
-						state=State.MAINSCREEN;
-					
-					if (selectionInput == 3) {
-						
-						project.printWeekReport(enterDate());
-					}
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-
-				
-
-			}
+		if (!softwareHouse.loggedIn()) {
+			System.out.println("You need to enter ID to log in: ");
+			softwareHouse.logIn(scanner.next());
+			stage = 0;
 		}
 	}
+
 
 //	TODO: Create method to check valid input (given interval of valid input, and the input.)
 	public boolean checkValidInput(int input, int lowerBound, int upperBound) throws IllegalArgumentException {
@@ -118,39 +56,84 @@ public class Console {
 			throw new IllegalArgumentException("Invalid input");
 	}
 
-	public void example() {
-//		Workers
-		softwareHouse.createWorker("MARK");
-		softwareHouse.createWorker("MART");
-		softwareHouse.createWorker("HARA");
-		softwareHouse.createWorker("NICK");
-		Worker worker1 = softwareHouse.getWorker(0);
-		Worker worker2 = softwareHouse.getWorker(1);
-		Worker worker3 = softwareHouse.getWorker(2);
-		Worker worker4 = softwareHouse.getWorker(3);
 
-//		Projects
+	public void displayOptions() {
 
-		softwareHouse.createProject(new Date(2025, 1), new Date(2025, 52));
-		softwareHouse.createProject(new Date(2020, 4), new Date(2020, 42));
-		Project project1 = softwareHouse.getListOfProjects().get(0);
-		Project project2 = softwareHouse.getListOfProjects().get(1);
-		String projectID1 = project1.getID();
-		String projectID2 = project2.getID();
+		if (stage == -1) {
+			run();
+		}
 
-//		Project leaders
-		project1.appointProjectLeader(worker1);
-		project2.appointProjectLeader(worker1);
+		if (stage == 0) {
+			stage0();
+		}
 
-		softwareHouse.logIn(worker1.getID());
-//		Activities
-		project1.createActivity("TestActivity1", project1.getStartDate(), project1.getEndDate());
-		project1.createActivity("testActivity2", new Date(2025, 7), new Date(2025, 8));
-		project2.createActivity("testActivity3", new Date(2020, 30), new Date(2020, 32));
+		if (stage == 1) {
+			stage1();					
+		} else if (stage == 2) {
+			stage2();
+		} else if (stage == 3) {
+			stage3();
+		} else if (stage == 4) {
+			stage4();
+		} else if (stage == 5) {
 
-		Activity activity1 = project1.getActivities().get(0);
-		Activity activity2 = project1.getActivities().get(1);
-		Activity activity3 = project2.getActivities().get(0);
+		} else if (stage == 6) {
+
+		} else if (stage == 7) {
+
+		} else if (stage == 8) {
+
+		} else if (stage == 9) {
+
+		} else if (stage == 10) {
+
+		} else if (stage == 11) {
+
+		} else if (stage == 12) {
+
+		} else if (stage == 13) {
+
+		} else if (stage == 14) {
+
+		} else if (stage == 15) {
+
+		} else if (stage == 16) {
+
+		} else if (stage == 17) {
+
+		} else if (stage == 18) {
+
+		} else if (stage == 19) {
+
+		} else if (stage == 20) {
+
+		} else if (stage == 80) {
+
+			softwareHouse.logOut();
+			stage = -1;
+			space();
+
+		} else if (stage == 99) {
+			exitProgram = true;
+		} else {
+			commandError = true;
+			stage = 0;
+		}
+
+	}
+
+
+
+//		softwareHouse.createWorker("Nick");
+//		softwareHouse.createWorker("Markus");
+//		Worker worker1 = softwareHouse.getWorker(0);
+//		Worker worker2 = softwareHouse.getWorker(1);
+		softwareHouse.createProject(new Date(2020,4), new Date(2021,4));
+//		softwareHouse.createProject(new Date, endDate);
+
+//		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
+		
+
 		
 //		Expected time
 		activity1.setExpectedWorkingHours(80);
@@ -200,10 +183,122 @@ public class Console {
 	}
 
 	public Date enterDate() {
+
+
+		getAllNumberActivities(new Date(20, 15), new Date(20, 20));
+
+
+		logOut();
+
+	}
+	
+	public void options() {
+		println("\nPress 0 to go back.\n"
+				+ "Press " + stage + " to repeat action.\n");
+		stage = scanner.nextInt();
+		space();
+	}
+
+	public void space() {
+		System.out.print("\n"
+				+ "---------------------------------------------------------------------------------------------------------"
+				+ "\n");
+	}
+	
+	public void println(String string) {
+		System.out.println(string);
+	}
+	
+	
+	public void stage0() {
+		System.out.println("Press 1 to create a worker.\n" + "\n" + "Press 2 to create project.\n"
+				+ "Press 3 to appoint project leader\n" + "Press 4 to view project timeframe\n"
+				+ "Press 5 to edit project timeframe.\n" + "Press 6 to give a project a title.\n" + "\n"
+				+ "Press 7 to create activity.\n" + "Press 8 to view activity timeframe\n"
+				+ "Press 9 to edit activity timeframe\n" + "Press 10 to add worker to activity\n"
+				+ "Press 11 to check workers availabilities.\n" + "\n" + "Press 12 to fill timesheet.\n"
+				+ "Press 13 to seek assistance.\n" + "Press 14 to fill assistance timesheet.\n" + "\n"
+				+ "Press 15 to see all projects.\n" + "Press 16 to see all activities of a project.\n"
+				+ "Press 17 to see number of activities workers are assigned to within a given period.\n" + "\n"
+				+ "Press 18 to give worker sick leave, holliday, ect.\n" + "\n" + "Press 19 to get week report.\n"
+				+ "\n" + "Press 80 to log out.\n" + "\n" + "Press 99 to exit program\n");
+
+		if (commandError) {
+			System.out.println("Command not recognized");
+			commandError = false;
+		}
+
+		stage = scanner.nextInt();
+
+		space();
+	}
+	
+	public void stage1() {
+		println("Enter ID of worker you wish to create : ");
+		createWorker(scanner.next());
+		options();
+	}
+	
+	// TODO mangler exceptions til ulovlige start/end dates
+	public void stage2() {
+		Date[] SE = startAndEndDate();
+		softwareHouse.createProject(SE[0], SE[1]);
+		space();
+		options();
+	}
+	
+	public void stage3() {
+		println("Enter ID of worker you wish to appoint :");
+		String worker = scanner.next();
+		println("Enter ID of project you wish to appoint worker " + worker + " as leader of :");
+		String project = scanner.next();
+		try {
+			softwareHouse.getProject(project).appointProjectLeader(softwareHouse.getWorker(worker));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		space();
+		options();
+
+	}
+	
+	public void stage4() {
+		println("Enter project ID of project you wish to see timeframe of :");
+		String projectID = scanner.next();
+		try {
+			println("Start date : " + softwareHouse.getProject(projectID).getStartDate().print());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			println("End date : " + softwareHouse.getProject(projectID).getEndDate().print());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		space();
+		options();
+	}
+	
+	public Date[] startAndEndDate() {
+		Date[] SE = new Date[2];
+		SE[0] = enterDate(true);
+		SE[1] = enterDate(false);
+		return SE;
+	}
+
+	public Date enterDate(boolean startEnd) {
+		String startOrEnd;
+		if (startEnd) {
+			startOrEnd = "start";
+		} else { startOrEnd = "end";}
+
 		Scanner scanner = new Scanner(System.in);
 
 		Date date = new Date();
-		System.out.println("Please enter date in the following format: (yyyy - weeknumber)");
+		System.out.println("Please enter " + startOrEnd + " date in the following format: (yyyy - weeknumber)");
 
 		String input = scanner.nextLine();
 
@@ -223,9 +318,8 @@ public class Console {
 
 		date.setDate(year, week);
 
-//		System.out.println("valid date entered: " + print());
-
 		return date;
+
 
 	}
 	

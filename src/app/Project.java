@@ -75,6 +75,14 @@ public class Project implements Observer, Reporting{
 		return this.endDate;
 	}
 	
+	public Date getStartDate() {
+		return startDate;
+	}
+	
+	public Date getEndDate() {
+		return endDate;
+	}
+	
 
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
@@ -130,10 +138,14 @@ public Activity getActivty(String activityID) throws Exception {
 	}
 
 	public void appointProjectLeader(Worker appointedProjectLeader) {
+
 		if(!this.hasProjectLeader())
 			this.projectLeader = appointedProjectLeader;
 		else
 			throw new IllegalArgumentException("Project has leader assigned");
+
+		System.out.println("\nWorker " + appointedProjectLeader.getID() + " is appointed project leader of " + this.getID());
+
 	}
 
 	// JUST A SHELL
