@@ -457,9 +457,33 @@ public class Console {
 	}
 	
 	public void stage13() {
+		// REQUEST ASSISTANCE NOT IMPLEMENTED :(
 	}
+
 	
 	public void stage14() {
+		println("Enter project ID of activity you've seeked help for : ");
+		String projectID = scanner.next();
+		println("Enter title of relevant activity :");
+		String activityTitle = scanner.next();
+		println("Enter ID of worker who helped you :");
+		String helper = scanner.next();
+		Date date = enterDate();
+		println("Enter number of hours :");
+		int hours = scanner.nextInt();
+		println("Enter number of minutes :");
+		int minutes = scanner.nextInt();
+		try {
+			softwareHouse.getProject(projectID).getActivity(activityTitle).inputAssistance(softwareHouse.getWorkerLoggedIn(), softwareHouse.getWorker(helper), hours, minutes, date);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		space();
+		options();		
+	}
+	
+	public void stage15(){
 		
 	}
 
