@@ -28,7 +28,8 @@ public class SoftwareHouse implements Observable {
 
 	public void createProject(Date startDate, Date endDate) {
 
-		Project project = new Project(this, startDate, endDate, generateProjectID(startDate));
+
+		Project project = new Project(this, startDate, endDate,generateProjectID(startDate));
 		listOfProjects.add(project);
 	}
 
@@ -44,25 +45,29 @@ public class SoftwareHouse implements Observable {
 		}
 		runningCount += listOfProjects.size();
 
-		System.out.println("Project " + year + "" + runningCount + " was just created.");
+//		System.out.println("Project " + year + "" + runningCount + " was just created.");
 
 		return year + runningCount;
 	}
 
 	public void logIn(String ID) {
-
+		assert ID.length() > 0 : "Precondition for logIn()";
+		assert ID.length() < 5 : "Precondition for logIn()";
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 
 			if (listOfWorkers.get(i).getID().equals(ID)) {
 				loggedIn = listOfWorkers.get(i);
 				notifyObserver();
-				System.out.println("Worker " + ID + " has logged in succesfully.");
+//				System.out.println("Worker " + ID + " has logged in succesfully.");
 			}
 		}
 
 		if (!loggedIn()) {
-			throw new IllegalArgumentException("Login failed");
+
+//			System.out.println("Login failed.");
+			throw new IllegalArgumentException("Login failed.");
 		}
+		assert loggedIn != null : "Postcondition for logIn()";
 	}
 
 	public void logOut() {
@@ -70,9 +75,9 @@ public class SoftwareHouse implements Observable {
 		if (loggedIn()) {
 			loggedIn = null;
 			notifyObserver();
-			System.out.println("Logout successful.");
+//			System.out.println("Logout successful.");
 		} else {
-			System.out.println("No worker is logged in.");
+//			System.out.println("No worker is logged in.");
 		}
 
 	}
@@ -80,7 +85,7 @@ public class SoftwareHouse implements Observable {
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
 
 		quickSort(listOfWorkers, 0, listOfWorkers.size() - 1, startDate, endDate);
-
+		
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 			System.out.println(
 					listOfWorkers.get(i).getID() + " will be working on " + listOfWorkers.get(i).getNumActivities(startDate, endDate) + " activities.");
@@ -142,9 +147,9 @@ public class SoftwareHouse implements Observable {
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
 
-		listOfWorkers.add(worker);
+		this.listOfWorkers.add(worker);
 
-		System.out.print(getNbWorkers());
+//		System.out.print(getNbWorkers());
 
 	}
 
@@ -197,6 +202,8 @@ public class SoftwareHouse implements Observable {
 	public boolean getExitRequest() {
 		return this.exitRequest;
 	}
+	
+//	TODO: print all Projects and their corresponding activities
 
 	// OBSERVER PATTERN
 	@Override
@@ -219,4 +226,18 @@ public class SoftwareHouse implements Observable {
 
 	}
 
+	public Worker getWorkerByIndex(String ID) {
+		for (Worker worker : listOfWorkers) {
+			if(worker.getID().equals(ID))
+				return worker;
+		}
+		return null;
+	}
+	public Project getProjectByID(String ID) {
+		for (Project project : listOfProjects) {
+			if(project.getID().equals(ID))
+				return project;
+		}
+		return null;
+	}
 }

@@ -22,8 +22,6 @@ public class Project implements Observer, Reporting{
 	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
 	private Date startDate = new Date();
 	private Date endDate = new Date();
-
-
 	private Observable softwareHouse;
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 	
@@ -32,12 +30,13 @@ public class Project implements Observer, Reporting{
 
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
-		
 		this.startDate = startDate;
 		this.endDate = endDate;
+		//this.projectLeader = null;
 		
 		this.projectNumberID = projectNumberID;
 	}
+	
 	
 	
 	
@@ -68,13 +67,11 @@ public class Project implements Observer, Reporting{
 	public void setEndDate(int year, int week) {
 		endDate.setDate(year, week);
 	}
-	
 	public Date getStartDate() {
-		return startDate;
+		return this.startDate;
 	}
-	
 	public Date getEndDate() {
-		return endDate;
+		return this.endDate;
 	}
 	
 
@@ -94,11 +91,7 @@ public class Project implements Observer, Reporting{
 
 	public String getTitle() {
 
-		if (hasProjectTitle()) {
-			return "Project title : " + projectTitle;
-		} else {
-			return "Project has no title yet";
-		}
+		return this.projectTitle;
 	}
 
 	public String getID() {
@@ -113,12 +106,15 @@ public class Project implements Observer, Reporting{
 		}
 	}
 	
-	public Activity getActivity(String title) {
-		int i = 0;
-		while (!listOfActivities.get(i).getTitle().equals(title)) {
-			i++;
+public Activity getActivty(String activityID) throws Exception {
+		
+		for(Activity a : listOfActivities) {
+			if (a.getID().equals(activityID)) {
+				return a;
+			}	
 		}
-		return listOfActivities.get(i);
+		
+		throw new Exception("Activity not found");
 	}
 
 	public Worker getProjectLeader() {
@@ -130,13 +126,23 @@ public class Project implements Observer, Reporting{
 	}
 
 	public void appointProjectLeader(Worker appointedProjectLeader) {
-		this.projectLeader = appointedProjectLeader;
-		System.out.println("\nWorker " + appointedProjectLeader.getID() + " is appointed project leader of " + this.getID());
+
+		if(!this.hasProjectLeader())
+			this.projectLeader = appointedProjectLeader;
+		else
+			throw new IllegalArgumentException("Project has leader assigned");
+
+//		System.out.println("\nWorker " + appointedProjectLeader.getID() + " is appointed project leader of " + this.getID());
+
 	}
 
 	// JUST A SHELL
-	public void createActivity(String title, Date startDate, Date endDate, Project project) {
+	public void createActivity(String title, Date startDate, Date endDate) {
 
+		if(this.startDate.after(startDate) || this.endDate.before(endDate)) {
+			throw new IllegalArgumentException("Date incongruent with project period");
+		}
+		
 		if (isProjectLeaderLoggedIn()) {
 			
 			Activity activity = new Activity (softwareHouse, title, startDate, endDate, this);
@@ -145,7 +151,7 @@ public class Project implements Observer, Reporting{
 
 		} else {
 
-			System.out.println("Only the Project Leader may add an activity.");
+//			System.out.println("Only the Project Leader may add an activity.");
 		}
 	}
 	
@@ -177,11 +183,11 @@ public void generateWeekReport(Date date) {
 		
 		/*The first conditional checks if the entered date has not occured yet
 		 */
-		if (cal.get(Calendar.YEAR) < date.getYear()
-				|| (cal.get(Calendar.YEAR) == date.getYear() 
-				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
-			throw new IllegalArgumentException("Illgeal date entered");
-		}
+//		if (cal.get(Calendar.YEAR) < date.getYear()
+//				|| (cal.get(Calendar.YEAR) == date.getYear() 
+//				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+//			throw new IllegalArgumentException("Illgeal date entered");
+//		}
 		
 		/* 
 		 * Checks if a week report already exists for that date
@@ -222,13 +228,12 @@ public void generateWeekReport(Date date) {
 	}
 	
 	public void printWeekReport(Date date) {
+		generateWeekReport(date);
 		for(WeekReport r : weekReports) {
 			if(r.getDate().equals(date))
 				r.printWeekReport();
 		}
 	}
-
-
 
 	@Override
 	public int getExpectedWorkingHours() {
@@ -237,15 +242,10 @@ public void generateWeekReport(Date date) {
 		for (Activity a : listOfActivities) {
 			expectedWorkingHours += a.getExpectedWorkingHours();
 		}
-
 		return expectedWorkingHours;
-	
 	}
 
 	public ArrayList<Activity> getActivities(){
 		return this.listOfActivities;
 	}
-
-
-
 }

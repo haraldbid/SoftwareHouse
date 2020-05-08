@@ -1,6 +1,9 @@
 package ui;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 import app.Activity;
 import app.Project;
@@ -19,8 +22,9 @@ public class Console {
 	public static void main(String[] args) {
 
 		Console console = new Console();
-
+		
 		console.example();
+		console.printAllProjectsInfo();
 
 		while (!exitProgram) {
 			console.displayOptions();
@@ -30,7 +34,9 @@ public class Console {
 
 	// run() is the method which control logic of the program
 
+
 	public void run() {
+
 
 		if (!softwareHouse.loggedIn()) {
 			System.out.println("You need to enter ID to log in: ");
@@ -111,6 +117,7 @@ public class Console {
 		}
 
 	}
+
 
 	public void getAllNumberActivities(Date startDate, Date endDate) {
 		softwareHouse.getAllWorkersActivities(startDate, endDate);
@@ -202,6 +209,7 @@ public class Console {
 
 	}
 
+
 	public void options() {
 		println("\nPress 0 to go back.\n" + "Press " + stage + " to repeat action.\n");
 		stage = scanner.nextInt();
@@ -243,7 +251,7 @@ public class Console {
 
 	public void stage1() {
 		println("Enter ID of worker you wish to create : ");
-		createWorker(scanner.next());
+		softwareHouse.createWorker(scanner.next());
 		options();
 	}
 
@@ -498,9 +506,11 @@ public class Console {
 		String startOrEnd;
 		if (startEnd) {
 			startOrEnd = "start";
+
 		} else {
 			startOrEnd = "end";
 		}
+
 		Scanner scanner = new Scanner(System.in);
 
 		Date date = new Date();
@@ -525,6 +535,91 @@ public class Console {
 		date.setDate(year, week);
 
 		return date;
+	}
+	
+	
+	public void printAllProjectsInfo() {
+		
+		System.out.println("LIST OF ALL PROJECTS AND CORRESPONDING ACITIVITIES");
+		System.out.println("_____________________________________");
+		
+		for(Project p : softwareHouse.getListOfProjects()) {
+			String projectInfo = String.format("Project:\n "
+					+ "%s ID: %s Date: %s - %s", p.getTitle(),p.getID(),p.getStartDate().print(),p.getEndDate().print()
+					+ "\n - - - - - - - - \n"
+					+ "Activities:");
+			
+			System.out.println(projectInfo);
+			for(Activity a : p.getActivities()) {
+				String activityInfo = String.format("%s Date: %s-%s",a.getTitle(),a.getStartDate().print(),a.getEndDate().print());
+				
+				System.out.println(activityInfo);
+			}
+			System.out.println("_____________________________________");
+		}
+		
+		
+	}
+	
+	public void example() {
+//		Workers
+		softwareHouse.createWorker("MARK");
+		softwareHouse.createWorker("MART");
+		softwareHouse.createWorker("HARA");
+		softwareHouse.createWorker("NICK");
+		Worker worker1 = softwareHouse.getWorker(0);
+		Worker worker2 = softwareHouse.getWorker(1);
+		Worker worker3 = softwareHouse.getWorker(2);
+		Worker worker4 = softwareHouse.getWorker(3);
+
+//		Projects
+		softwareHouse.createProject(new Date(2025, 1), new Date(2025, 52));
+		softwareHouse.createProject(new Date(2020, 4), new Date(2020, 42));
+		Project project1 = softwareHouse.getListOfProjects().get(0);
+		Project project2 = softwareHouse.getListOfProjects().get(1);
+		String projectID1 = project1.getID();
+		String projectID2 = project2.getID();
+
+//		Project leaders
+		project1.appointProjectLeader(worker1);
+		project1.setProjectTitle("Birthday");
+		project2.appointProjectLeader(worker1);
+
+		softwareHouse.logIn(worker1.getID());
+//		Activities
+		project1.createActivity("Balloons", project1.getStartDate(), project1.getEndDate());
+		project1.createActivity("BakeCake", new Date(2025, 7), new Date(2025, 8));
+		project1.createActivity("PlanBirthday", new Date(2025, 30), new Date(2025, 32));
+
+		Activity activity1 = project1.getActivities().get(0);
+		Activity activity2 = project1.getActivities().get(1);
+		Activity activity3 = project1.getActivities().get(2);
+		
+//		Expected time
+		activity1.setExpectedWorkingHours(80);
+		activity2.setExpectedWorkingHours(150);
+		activity3.setExpectedWorkingHours(90);
+//		Worker added to activity
+		activity1.assignWorker(worker1);
+		activity1.assignWorker(worker2);
+		activity1.assignWorker(worker3);
+		activity1.assignWorker(worker4);
+		
+		activity2.assignWorker(worker1);
+		activity2.assignWorker(worker2);
+		
+		activity3.assignWorker(worker1);
+		activity3.assignWorker(worker3);
+
+//		Add time sheets for workers
+		activity1.inputWorkTime(worker1, 12, 30, new Date(2025, 12));
+		activity1.inputWorkTime(worker2, 2, 30, new Date(2025, 7));
+		activity1.inputWorkTime(worker2, 5, 0, new Date(2025, 3));
+		activity1.inputWorkTime(worker3, 20, 0, new Date(2025, 4));
+		activity1.inputWorkTime(worker1, 12, 30, new Date(2025,40));
+		
+		activity3.inputWorkTime(worker1, 40, 30, new Date(2025, 30));
+		activity3.inputWorkTime(worker1, 35, 30, new Date(2025, 31));
 
 	}
 	
@@ -555,6 +650,24 @@ public class Console {
 
 		return date;
 
+		ArrayList<Activity> arr = project1.getActivities();
+		Random r = new Random();
+		
+//		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
+		
+		for (int i = 0; i < 5; i++) {
+			for (Activity a : arr) {
+				a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
+						.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
+			}
+		}
+		
+		project1.printWeekReport(new Date(2025,31));
+		
+		softwareHouse.logOut();
+		
+//		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
 	}
+
 
 }

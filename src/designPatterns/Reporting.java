@@ -9,5 +9,6 @@ public interface Reporting {
 	public String getID();
 	public String getTitle();
 	public void generateWeekReport(Date date);
+	public void printWeekReport(Date date);
 	
 }

@@ -35,8 +35,6 @@ public class Activity implements Observer, Reporting {
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
 		this.workerLoggedIn = softwareHouse.getWorkerLoggedIn();
-
-
 	}
 	
 	@Override
@@ -45,7 +43,7 @@ public class Activity implements Observer, Reporting {
 	}
 
 //	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
-	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) {
+	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws IllegalArgumentException{
 		if (hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
 		if (this.searchWorker(worker.getID()) == null)
@@ -60,7 +58,7 @@ public class Activity implements Observer, Reporting {
 	
 
 
-	public void assignWorker(Worker worker) {
+	public void assignWorker(Worker worker) throws IllegalArgumentException {
 		if (workerLoggedIn == project.getProjectLeader()) {
 			if (searchWorker(worker.getID()) == null) {
 				this.listWorkersActivity.add(worker);
@@ -73,15 +71,24 @@ public class Activity implements Observer, Reporting {
 		}
 	}
 
-	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) {
+	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) throws IllegalArgumentException{
+		
+		assert worker != null && minutes < 60: "Pre condition for inputWorkTime()";
+		
+		if(this.startDate.after(date) || this.getEndDate().before(date)) {
+			throw new IllegalArgumentException("Date incongruent with project period");
+		}
 		if(hours < 0 || minutes < 0) // 1 || 2
-			throw new IllegalArgumentException("Only positive work time");
+			throw new IllegalArgumentException("Invalid input");
 		if(this.searchWorker(worker.getID()) == null) // Whitebox 3
 			throw new IllegalArgumentException("Worker is not assigned to activity");
 		TimeSheet time = new TimeSheet(worker,date); // 3
 		time.addtimeWorked(hours, minutes);
 		timeSheets.add(time);
-
+		
+		assert timeSheets.get(timeSheets.size()-1).getWorker().equals(worker) : "Post condition for inputWorkTime()";
+		assert timeSheets.get(timeSheets.size()-1).getHoursWorked() == hours : "Post condition for inputWorkTime()";
+		assert timeSheets.get(timeSheets.size()-1).getMinutesInputed() == minutes: "Post condition for inputWorkTime()";
 	}
 
 	public Worker searchWorker(String ID) {
@@ -151,11 +158,11 @@ public class Activity implements Observer, Reporting {
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
 		
-		if (cal.get(Calendar.YEAR) < date.getYear()
-				|| (cal.get(Calendar.YEAR) == date.getYear() 
-				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
-			throw new IllegalArgumentException("Illgeal date entered");
-		}
+//		if (cal.get(Calendar.YEAR) < date.getYear()
+//				|| (cal.get(Calendar.YEAR) == date.getYear() 
+//				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+//			throw new IllegalArgumentException("Illgeal date entered");
+//		}
 		
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {
@@ -188,6 +195,13 @@ public class Activity implements Observer, Reporting {
 			}
 		}
 		return null;
+	}
+	
+	public void printWeekReport(Date date) {
+		for(WeekReport r : weekReports) {
+			if(r.getDate().equals(date))
+				r.printWeekReport();
+		}
 	}
 
 }
