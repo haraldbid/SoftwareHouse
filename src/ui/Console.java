@@ -29,7 +29,6 @@ public class Console {
 		while (!exitProgram) {
 			console.displayOptions();
 		}
-
 	}
 
 	// run() is the method which control logic of the program
@@ -210,6 +209,7 @@ public class Console {
 	}
 
 
+	
 	public void options() {
 		println("\nPress 0 to go back.\n" + "Press " + stage + " to repeat action.\n");
 		stage = scanner.nextInt();
@@ -349,8 +349,7 @@ public class Console {
 			println("Enter title of activity : ");
 			String activityTitle = scanner.next();
 			try {
-				softwareHouse.getProject(projectID).createActivity(activityTitle, SE[0], SE[1],
-						softwareHouse.getProject(projectID));
+				softwareHouse.getProject(projectID).createActivity(activityTitle, SE[0], SE[1]);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -600,30 +599,61 @@ public class Console {
 		activity2.setExpectedWorkingHours(150);
 		activity3.setExpectedWorkingHours(90);
 //		Worker added to activity
-		activity1.assignWorker(worker1);
-		activity1.assignWorker(worker2);
-		activity1.assignWorker(worker3);
-		activity1.assignWorker(worker4);
-		
-		activity2.assignWorker(worker1);
-		activity2.assignWorker(worker2);
-		
-		activity3.assignWorker(worker1);
-		activity3.assignWorker(worker3);
+		try {
+			activity1.assignWorker(worker1);
+			activity1.assignWorker(worker2);
+			activity1.assignWorker(worker3);
+			activity1.assignWorker(worker4);
+			
+			activity2.assignWorker(worker1);
+			activity2.assignWorker(worker2);
+			
+			activity3.assignWorker(worker1);
+			activity3.assignWorker(worker3);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 //		Add time sheets for workers
-		activity1.inputWorkTime(worker1, 12, 30, new Date(2025, 12));
-		activity1.inputWorkTime(worker2, 2, 30, new Date(2025, 7));
-		activity1.inputWorkTime(worker2, 5, 0, new Date(2025, 3));
-		activity1.inputWorkTime(worker3, 20, 0, new Date(2025, 4));
-		activity1.inputWorkTime(worker1, 12, 30, new Date(2025,40));
 		
-		activity3.inputWorkTime(worker1, 40, 30, new Date(2025, 30));
-		activity3.inputWorkTime(worker1, 35, 30, new Date(2025, 31));
+		try {
+			activity1.inputWorkTime(worker1, 12, 30, new Date(2025, 12));
+			activity1.inputWorkTime(worker2, 2, 30, new Date(2025, 7));
+			activity1.inputWorkTime(worker2, 5, 0, new Date(2025, 3));
+			activity1.inputWorkTime(worker3, 20, 0, new Date(2025, 4));
+			activity1.inputWorkTime(worker1, 12, 30, new Date(2025,40));
+			
+			activity3.inputWorkTime(worker1, 40, 30, new Date(2025, 30));
+			activity3.inputWorkTime(worker1, 35, 30, new Date(2025, 31));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		ArrayList<Activity> arr = project1.getActivities();
+		Random r = new Random();
+		
+//		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
+		
+		for (int i = 0; i < 5; i++) {
+			for (Activity a : arr) {
+				try {
+					a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
+							.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		project1.printWeekReport(new Date(2025,31));
+		
+		softwareHouse.logOut();
+		
+//		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
 	}
 	
-	public Date enterDate() {
+	public Date enterDate() throws IllegalArgumentException{
 
 		Scanner scanner = new Scanner(System.in);
 
@@ -650,23 +680,7 @@ public class Console {
 
 		return date;
 
-		ArrayList<Activity> arr = project1.getActivities();
-		Random r = new Random();
-		
-//		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
-		
-		for (int i = 0; i < 5; i++) {
-			for (Activity a : arr) {
-				a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
-						.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
-			}
-		}
-		
-		project1.printWeekReport(new Date(2025,31));
-		
-		softwareHouse.logOut();
-		
-//		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
+
 	}
 
 

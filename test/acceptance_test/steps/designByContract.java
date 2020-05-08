@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import app.Activity;
+import app.Project;
 import app.SoftwareHouse;
 import app.Worker;
 import designPatterns.Date;
@@ -13,20 +14,27 @@ public class designByContract {
 	// https://www.youtube.com/watch?v=4CNrRcc8Cwc
 	
 	@Test
-	public void addTimeContract() {
+	public void addTimeContract() throws Exception {
 
 		int minutes = 30;
 		int hours = 8;
 		String ID = "bbb";
-		
+		Activity activity = null;
 		SoftwareHouse softwareHouse = new SoftwareHouse();
-		Activity activity = new Activity("Test",new Date(10,20),new Date(12,20));
+		softwareHouse.createProject(new Date(2020,10), new Date(2020,12));
+		softwareHouse.createWorker("aaa");
+		Project p = softwareHouse.getListOfProjects().get(0);
+		p.appointProjectLeader(softwareHouse.getWorkerByIndex("aaa"));
+		softwareHouse.logIn("aaa");
+		p.createActivity("Test",new Date(2020,10),new Date(2020,12));
+		activity = p.getActivity("Test");
 		softwareHouse.createWorker(ID);
 		activity.assignWorker(softwareHouse.getWorkerByIndex(ID));
 		
-		activity.inputWorkTime(softwareHouse.getWorkerByIndex(ID), hours, minutes, new Date(11,20));
+		activity.inputWorkTime(softwareHouse.getWorkerByIndex(ID), hours, minutes, new Date(11,2020));
 		
 	}
+	
 	@Test
 	public void workerContract() {
 

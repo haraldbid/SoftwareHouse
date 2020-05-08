@@ -73,7 +73,6 @@ public class Project implements Observer, Reporting {
 
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
-		System.out.print("Project " + this.getID() + " successfully got title : " + projectTitle);
 	}
 
 	public boolean hasProjectTitle() {
@@ -102,10 +101,11 @@ public class Project implements Observer, Reporting {
 		}
 	}
 
-	public Activity getActivty(String activityID) throws Exception {
-
-		for (Activity a : listOfActivities) {
-			if (a.getTitle().equals(activityID)) {
+	
+	public Activity getActivity(String title) throws Exception {
+		
+		for(Activity a : listOfActivities) {
+			if (a.getTitle().equals(title)) {
 				return a;
 			}
 		}
@@ -164,6 +164,7 @@ public class Project implements Observer, Reporting {
 		this.workerLoggedIn = loggedIn;
 	}
 
+
 	public void generateWeekReport(Date date) {
 
 		boolean weekReportExists = false;
@@ -179,6 +180,15 @@ public class Project implements Observer, Reporting {
 //		}
 
 		/*
+	
+public void generateWeekReport(Date date) throws IllegalArgumentException {
+		
+		boolean weekReportExists = false;
+		Calendar cal = new GregorianCalendar();
+		
+		if(date.after(this.endDate))
+			throw new IllegalArgumentException("Date incongruent with activity date");		
+		/* 
 		 * Checks if a week report already exists for that date
 		 */
 		for (WeekReport r : weekReports) {

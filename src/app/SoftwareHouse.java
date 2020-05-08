@@ -34,7 +34,7 @@ public class SoftwareHouse implements Observable {
 	}
 
 	public String generateProjectID(Date startDate) {
-
+		
 		String year = Integer.toString(startDate.getYear()).substring(2, 4);
 
 		String runningCount = "";

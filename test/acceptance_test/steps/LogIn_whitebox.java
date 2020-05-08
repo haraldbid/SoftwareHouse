@@ -46,7 +46,4 @@ public class LogIn_whitebox {
 		assertTrue(softwarehouse.loggedIn());
 	}
 	
-	public static boolean assertionsDisabled() {
-	    return !SoftwareHouse.class.desiredAssertionStatus();
-	}
 }
