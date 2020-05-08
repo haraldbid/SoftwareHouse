@@ -528,7 +528,8 @@ public class Console {
 			}
 		}
 		
-		project1.printWeekReport(new Date(2025,31));
+		//Fairly good example to show weekreport
+//		project1.printWeekReport(new Date(2025,31));
 		
 		softwareHouse.logOut();
 		
@@ -561,8 +562,6 @@ public class Console {
 		date.setDate(year, week);
 
 		return date;
-
-
 	}
 
 
