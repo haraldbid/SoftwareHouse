@@ -44,13 +44,20 @@ public class Project implements Observer, Reporting{
 
 	public void modifyProjectNumberID (int year) {
 		
-		String yearStr = Integer.toString(year);
+		String yearStr = Integer.toString(startDate.getYear()).substring(2, 4);
 		String runningCount = projectNumberID.substring(2,6);
 		
 		this.projectNumberID = yearStr + runningCount;
 	}
 
-
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+		modifyProjectNumberID(startDate.getYear());
+	}
+	
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 
 	public void setStartDate(int year, int week) {
 		startDate.setDate(year, week);
@@ -70,6 +77,7 @@ public class Project implements Observer, Reporting{
 
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
+		System.out.print("Project " + this.getID() + " successfully got title : " + projectTitle);
 	}
 
 	public boolean hasProjectTitle() {
