@@ -83,7 +83,7 @@ public class SoftwareHouse implements Observable {
 
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 			System.out.println(
-					listOfWorkers.get(i).getID() + " : " + listOfWorkers.get(i).getNumActivities(startDate, endDate));
+					listOfWorkers.get(i).getID() + " will be working on " + listOfWorkers.get(i).getNumActivities(startDate, endDate) + " activities.");
 		}
 	}
 
