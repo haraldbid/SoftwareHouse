@@ -65,6 +65,7 @@ public class Worker {
 		}
 		return count;
 	}
+	
 
 	// sick leave, holiday
 	public void setUnavailable(Date startDate, Date endDate) {
@@ -77,9 +78,7 @@ public class Worker {
 							|| listOfActivities.get(i).getEndDate().before(endDate))) {
 				listOfActivities.remove(i);
 			}
-
 		}
-
 	}
 
 	public void addActivity(Activity activity) {

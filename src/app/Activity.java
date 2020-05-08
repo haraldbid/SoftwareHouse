@@ -66,6 +66,7 @@ public class Activity implements Observer, Reporting {
 		} else {
 			throw new IllegalArgumentException("Only Project Leader can assign a worker to an activity.");
 		}
+		
 	}
 
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) throws Exception{
@@ -196,3 +197,4 @@ public class Activity implements Observer, Reporting {
 	}
 
 }
+

@@ -54,17 +54,13 @@ public class SoftwareHouse implements Observable {
 		assert ID.length() > 0 : "Precondition for logIn()";
 		assert ID.length() < 5 : "Precondition for logIn()";
 		for (int i = 0; i < listOfWorkers.size(); i++) {
-
 			if (listOfWorkers.get(i).getID().equals(ID)) {
 				loggedIn = listOfWorkers.get(i);
 				notifyObserver();
-//				System.out.println("Worker " + ID + " has logged in succesfully.");
 			}
 		}
 
 		if (!loggedIn()) {
-
-//			System.out.println("Login failed.");
 			throw new IllegalArgumentException("Login failed.");
 		}
 		assert loggedIn != null : "Postcondition for logIn()";
@@ -75,11 +71,8 @@ public class SoftwareHouse implements Observable {
 		if (loggedIn()) {
 			loggedIn = null;
 			notifyObserver();
-//			System.out.println("Logout successful.");
 		} else {
-//			System.out.println("No worker is logged in.");
 		}
-
 	}
 
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
@@ -148,9 +141,6 @@ public class SoftwareHouse implements Observable {
 		Worker worker = new Worker(this, ID);
 
 		this.listOfWorkers.add(worker);
-
-//		System.out.print(getNbWorkers());
-
 	}
 
 	public int getNbWorkers() {
