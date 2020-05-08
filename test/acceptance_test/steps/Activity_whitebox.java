@@ -29,7 +29,7 @@ public class Activity_whitebox {
 		
 		project.createActivity("testAC", new Date(2020,10), new Date(2020,14));
 		try {
-			activity = project.getActivty("testAC");
+			activity = project.getActivity("testAC");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

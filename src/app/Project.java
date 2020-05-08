@@ -102,10 +102,10 @@ public class Project implements Observer, Reporting{
 		}
 	}
 	
-public Activity getActivty(String activityID) throws Exception {
+public Activity getActivity(String title) throws Exception {
 		
 		for(Activity a : listOfActivities) {
-			if (a.getID().equals(activityID)) {
+			if (a.getTitle().equals(title)) {
 				return a;
 			}	
 		}
