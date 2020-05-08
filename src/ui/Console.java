@@ -116,99 +116,6 @@ public class Console {
 		}
 
 	}
-
-
-	public void getAllNumberActivities(Date startDate, Date endDate) {
-		softwareHouse.getAllWorkersActivities(startDate, endDate);
-	}
-
-	public void createWorker(String ID) {
-		try {
-			softwareHouse.createWorker(ID);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-	public void createProject(Date startDate, Date endDate) {
-		softwareHouse.createProject(startDate, endDate);
-	}
-
-	public void appointProjectLeader(String workerID, String projectID) throws Exception {
-		softwareHouse.getProject(projectID).appointProjectLeader(softwareHouse.getWorker(workerID));
-	}
-
-	public void createActivity(String projectID, String activityTitle, Date startDate, Date endDate) throws Exception {
-		softwareHouse.getProject(projectID).createActivity(activityTitle, startDate, endDate,
-				softwareHouse.getProject(projectID));
-	}
-
-	public void addWorker(String projectID, String activityTitle, String workerID) throws Exception {
-		softwareHouse.getProject(projectID).getActivity(activityTitle).assignWorker(softwareHouse.getWorker(workerID));
-
-	}
-
-	public void logIn(String ID) {
-		softwareHouse.logIn(ID);
-	}
-
-	public void logOut() {
-		softwareHouse.logOut();
-	}
-
-	public void example() {
-
-//		softwareHouse.createWorker("Nick");
-//		softwareHouse.createWorker("Markus");
-//		Worker worker1 = softwareHouse.getWorker(0);
-//		Worker worker2 = softwareHouse.getWorker(1);
-		softwareHouse.createProject(new Date(2020, 4), new Date(2021, 4));
-//		softwareHouse.createProject(new Date, endDate);
-
-//		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
-
-		createWorker("AB");
-		createWorker("CDDD");
-		createWorker("RFE");
-		createProject(new Date(2020, 5), new Date(2023, 15));
-		createProject(new Date(2023, 6), new Date(2040, 17));
-
-		try {
-			appointProjectLeader("RFE", "200000");
-			appointProjectLeader("RFE", "200001");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		logIn("RFE");
-
-		try {
-			createActivity("200000", "test", new Date(20, 7), new Date(20, 9));
-			createActivity("200000", "test1", new Date(20, 7), new Date(20, 14));
-			createActivity("200001", "test2", new Date(20, 8), new Date(20, 12));
-			createActivity("200001", "test3", new Date(20, 9), new Date(20, 15));
-			createActivity("200001", "test5", new Date(20, 10), new Date(20, 16));
-
-			addWorker("200000", "test", "AB");
-			addWorker("200000", "test1", "AB");
-			addWorker("200001", "test2", "RFE");
-			addWorker("200001", "test3", "RFE");
-
-			addWorker("200001", "test2", "AB");
-			addWorker("200001", "test5", "AB");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		getAllNumberActivities(new Date(20, 15), new Date(20, 20));
-
-		logOut();
-
-	}
-
-
 	
 	public void options() {
 		println("\nPress 0 to go back.\n" + "Press " + stage + " to repeat action.\n");
@@ -491,7 +398,29 @@ public class Console {
 	}
 	
 	public void stage15(){
+		for (Project p : softwareHouse.getListOfProjects()) {
+			String project = String.format("Project ID : %s    Title : %s     Start date : %s       End date : %s",p.getID(),p.getTitle(),p.getStartDate().print(),p.getEndDate().print());
+			System.out.println(project);
+		}
+		space();
+		options();
+	}
+	
+	public void stage16() {
+		println("Enter ID of project you wish to see activities of :");
+		String projectID = scanner.next();
+		println("Activities of project " + projectID + " :\n"); 
+		try {
+			for (Activity a : softwareHouse.getProject(projectID).getActivities()) {
+				println("Activity " + a.getTitle() + " :  Start date : " + a.getStartDate().print() + "    End Date : " + a.getEndDate().print());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		space();
+		options();
 	}
 
 	public Date[] startAndEndDate() {
