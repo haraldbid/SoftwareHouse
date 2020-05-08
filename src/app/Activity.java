@@ -43,20 +43,19 @@ public class Activity implements Observer, Reporting {
 	}
 
 
-	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws IllegalArgumentException{
+	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws Exception{
 		if (hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
 		if (this.searchWorker(worker.getID()) == null)
 			throw new IllegalArgumentException("Worker is not assigned to activity");
-		// Maybe throw exception if helper doesnt exist in software house?
-
+		
 		TimeSheet t = new TimeSheet(worker, date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
 		this.timeSheets.add(t);
 	}
 
-	public void assignWorker(Worker worker) throws IllegalArgumentException {
+	public void assignWorker(Worker worker) throws Exception {
 		if (workerLoggedIn == project.getProjectLeader()) {
 			if (searchWorker(worker.getID()) == null) {
 				this.listWorkersActivity.add(worker);
@@ -69,7 +68,7 @@ public class Activity implements Observer, Reporting {
 		}
 	}
 
-	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) throws IllegalArgumentException{
+	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) throws Exception{
 		
 		assert worker != null && minutes < 60: "Pre condition for inputWorkTime()";
 		
@@ -94,7 +93,7 @@ public class Activity implements Observer, Reporting {
 			if (worker.getID().equals(ID))
 				return worker;
 		}
-		return null; // Throw exception?
+		return null;
 	}
 
 	public String getTitle() {
@@ -155,12 +154,6 @@ public class Activity implements Observer, Reporting {
 		
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
-		
-//		if (cal.get(Calendar.YEAR) < date.getYear()
-//				|| (cal.get(Calendar.YEAR) == date.getYear() 
-//				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
-//			throw new IllegalArgumentException("Illgeal date entered");
-//		}
 		
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {

@@ -175,19 +175,13 @@ public Activity getActivity(String title) throws Exception {
 	}
 
 	
-public void generateWeekReport(Date date) {
+public void generateWeekReport(Date date) throws IllegalArgumentException {
 		
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
 		
-		/*The first conditional checks if the entered date has not occured yet
-		 */
-//		if (cal.get(Calendar.YEAR) < date.getYear()
-//				|| (cal.get(Calendar.YEAR) == date.getYear() 
-//				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
-//			throw new IllegalArgumentException("Illgeal date entered");
-//		}
-		
+		if(date.after(this.endDate))
+			throw new IllegalArgumentException("Date incongruent with activity date");		
 		/* 
 		 * Checks if a week report already exists for that date
 		 */
