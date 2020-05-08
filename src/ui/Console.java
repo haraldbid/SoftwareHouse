@@ -29,7 +29,6 @@ public class Console {
 		while (!exitProgram) {
 			console.displayOptions();
 		}
-
 	}
 
 	// run() is the method which control logic of the program
@@ -115,7 +114,6 @@ public class Console {
 			commandError = true;
 			stage = 0;
 		}
-
 	}
 
 	public void options() {
@@ -257,8 +255,7 @@ public class Console {
 			println("Enter title of activity : ");
 			String activityTitle = scanner.next();
 			try {
-				softwareHouse.getProject(projectID).createActivity(activityTitle, SE[0], SE[1],
-						softwareHouse.getProject(projectID));
+				softwareHouse.getProject(projectID).createActivity(activityTitle, SE[0], SE[1]);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

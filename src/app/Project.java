@@ -77,7 +77,6 @@ public class Project implements Observer, Reporting{
 
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
-		System.out.print("Project " + this.getID() + " successfully got title : " + projectTitle);
 	}
 
 	public boolean hasProjectTitle() {

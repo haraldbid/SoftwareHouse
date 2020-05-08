@@ -42,7 +42,7 @@ public class Activity implements Observer, Reporting {
 		this.workerLoggedIn = loggedIn;
 	}
 
-//	TODO: HELPER SKAL SELV REGISTRERE TIDEN :)
+
 	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws IllegalArgumentException{
 		if (hours < 0 || minutes < 0)
 			throw new IllegalArgumentException("Only positive work time");
@@ -55,8 +55,6 @@ public class Activity implements Observer, Reporting {
 		t.setHelper(helper);
 		this.timeSheets.add(t);
 	}
-	
-
 
 	public void assignWorker(Worker worker) throws IllegalArgumentException {
 		if (workerLoggedIn == project.getProjectLeader()) {
