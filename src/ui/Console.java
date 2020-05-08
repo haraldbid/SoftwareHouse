@@ -505,6 +505,23 @@ public class Console {
 		activity3.inputWorkTime(worker1, 40, 30, new Date(2025, 30));
 		activity3.inputWorkTime(worker1, 35, 30, new Date(2025, 31));
 
+		ArrayList<Activity> arr = project1.getActivities();
+		Random r = new Random();
+		
+//		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
+		
+		for (int i = 0; i < 5; i++) {
+			for (Activity a : arr) {
+				a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
+						.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
+			}
+		}
+		
+		project1.printWeekReport(new Date(2025,31));
+		
+		softwareHouse.logOut();
+		
+//		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
 	}
 	
 	public Date enterDate() {
@@ -534,23 +551,7 @@ public class Console {
 
 		return date;
 
-		ArrayList<Activity> arr = project1.getActivities();
-		Random r = new Random();
-		
-//		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
-		
-		for (int i = 0; i < 5; i++) {
-			for (Activity a : arr) {
-				a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
-						.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
-			}
-		}
-		
-		project1.printWeekReport(new Date(2025,31));
-		
-		softwareHouse.logOut();
-		
-//		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
+
 	}
 
 
