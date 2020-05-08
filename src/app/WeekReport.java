@@ -54,7 +54,7 @@ public class WeekReport {
 				if (a.getEndDate().getWeekNumber() == date.getWeekNumber()+criticalTime
 						&& a.getEndDate().getYear() == date.getYear()) {
 					System.out.println(a.getTitle());
-				}	
+				}
 			}
 			System.out.println("________________________________");
 		}

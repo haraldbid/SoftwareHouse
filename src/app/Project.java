@@ -22,8 +22,6 @@ public class Project implements Observer, Reporting{
 	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
 	private Date startDate = new Date();
 	private Date endDate = new Date();
-
-
 	private Observable softwareHouse;
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 	
@@ -130,6 +128,10 @@ public Activity getActivty(String activityID) throws Exception {
 	// JUST A SHELL
 	public void createActivity(String title, Date startDate, Date endDate) {
 
+		if(this.startDate.after(startDate) || this.endDate.before(endDate)) {
+			throw new IllegalArgumentException("Activity period is incongruent with project period");
+		}
+		
 		if (isProjectLeaderLoggedIn()) {
 			
 			Activity activity = new Activity (softwareHouse, title, startDate, endDate, this);

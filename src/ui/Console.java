@@ -146,7 +146,7 @@ public class Console {
 //		Activities
 		project1.createActivity("TestActivity1", project1.getStartDate(), project1.getEndDate());
 		project1.createActivity("testActivity2", new Date(2025, 7), new Date(2025, 8));
-		project2.createActivity("testActivity3", new Date(2025, 30), new Date(2025, 32));
+		project2.createActivity("testActivity3", new Date(2020, 30), new Date(2020, 32));
 
 		Activity activity1 = project1.getActivities().get(0);
 		Activity activity2 = project1.getActivities().get(1);
