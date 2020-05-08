@@ -21,7 +21,7 @@ public class WeekReport {
 	public WeekReport(Reporting report, Date date) {
 		this.report = report;
 		this.numMinSpent = report.numMinSpent(date);
-		this.expectedWorkingHours = report.getExpectedWorkingHours()/60;
+		this.expectedWorkingHours = report.getExpectedWorkingHours();
 		this.remainingHours = (report.getExpectedWorkingHours() - this.numMinSpent[0]/60);
 		this.date = date;
 
@@ -31,7 +31,6 @@ public class WeekReport {
 			reportType = "Project";
 			this.activities = ((Project) report).getActivities();
 		}
-
 	}
 
 	public void printWeekReport() {
@@ -42,9 +41,10 @@ public class WeekReport {
 				+ reportType + " title: " + report.getTitle() + "\n"
 				+ "Week: " + date.getWeekNumber() + " Year: " + date.getYear() +"\n"
 				+ "-------------------------------- \n" 
-				+ "Total working hours spent: " + numMinSpent[0]/60 + "\n"
+				+ "Expected working hours: " + this.expectedWorkingHours + "\n"
+				+ "Total working hours spent: " + this.numMinSpent[0]/60 + "\n"
 				+ "Total working hours remaining: " + remainingHours + "\n" 
-				+ "Week " + date.getWeekNumber() + " working hours: " + numMinSpent[1]/60 + "\n" 
+				+ "Week " + date.getWeekNumber() + " working hours: " + this.numMinSpent[1]/60 + "\n" 
 				+ "________________________________" + "\n");
 
 //		Print activities that are critical (1 week left)
@@ -58,18 +58,6 @@ public class WeekReport {
 			}
 			System.out.println("________________________________");
 		}
-	}
-
-//	public int[] getNumMinSpent() {
-//		return this.numMinSpent;
-//	}
-
-	public int getExpectedWorkingHours() {
-		return this.expectedWorkingHours;
-	}
-
-	public int getRemainingHours() {
-		return this.remainingHours;
 	}
 	
 	public Date getDate() {

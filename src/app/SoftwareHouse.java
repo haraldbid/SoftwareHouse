@@ -45,7 +45,7 @@ public class SoftwareHouse implements Observable {
 		}
 		runningCount += listOfProjects.size();
 
-		System.out.println("Project " + year + "" + runningCount + " was just created.");
+//		System.out.println("Project " + year + "" + runningCount + " was just created.");
 
 		return year + runningCount;
 	}
@@ -58,13 +58,13 @@ public class SoftwareHouse implements Observable {
 			if (listOfWorkers.get(i).getID().equals(ID)) {
 				loggedIn = listOfWorkers.get(i);
 				notifyObserver();
-				System.out.println("Worker " + ID + " has logged in succesfully.");
+//				System.out.println("Worker " + ID + " has logged in succesfully.");
 			}
 		}
 
 		if (!loggedIn()) {
 
-			System.out.println("Login failed.");
+//			System.out.println("Login failed.");
 			throw new IllegalArgumentException("Login failed.");
 		}
 		assert loggedIn != null : "Postcondition for logIn()";
@@ -75,9 +75,9 @@ public class SoftwareHouse implements Observable {
 		if (loggedIn()) {
 			loggedIn = null;
 			notifyObserver();
-			System.out.println("Logout successful.");
+//			System.out.println("Logout successful.");
 		} else {
-			System.out.println("No worker is logged in.");
+//			System.out.println("No worker is logged in.");
 		}
 
 	}

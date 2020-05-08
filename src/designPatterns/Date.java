@@ -64,7 +64,7 @@ public class Date {
 	}
 
 	public String print() {
-		String print = String.format("Week %s Year %s", this.weekNumber, this.year);
+		String print = String.format("%s/%s", this.year, this.weekNumber);
 		return print;
 	}
 	

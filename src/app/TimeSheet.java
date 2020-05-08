@@ -15,7 +15,6 @@ public class TimeSheet {
 		this.worker = worker;
 		this.minutesWorked = 0;
 		this.date = week;
-		
 	}
 	public void addtimeWorked(int hours, int minutes) {
 		this.minutesWorked += (hours*60 + minutes);

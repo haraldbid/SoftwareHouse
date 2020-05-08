@@ -83,11 +83,7 @@ public class Project implements Observer, Reporting{
 
 	public String getTitle() {
 
-		if (hasProjectTitle()) {
-			return "Project title : " + projectTitle;
-		} else {
-			return "Project has no title yet";
-		}
+		return this.projectTitle;
 	}
 
 	public String getID() {
@@ -128,7 +124,7 @@ public Activity getActivty(String activityID) throws Exception {
 		else
 			throw new IllegalArgumentException("Project has leader assigned");
 
-		System.out.println("\nWorker " + appointedProjectLeader.getID() + " is appointed project leader of " + this.getID());
+//		System.out.println("\nWorker " + appointedProjectLeader.getID() + " is appointed project leader of " + this.getID());
 
 	}
 
@@ -136,7 +132,7 @@ public Activity getActivty(String activityID) throws Exception {
 	public void createActivity(String title, Date startDate, Date endDate) {
 
 		if(this.startDate.after(startDate) || this.endDate.before(endDate)) {
-			throw new IllegalArgumentException("Activity period is incongruent with project period");
+			throw new IllegalArgumentException("Date incongruent with project period");
 		}
 		
 		if (isProjectLeaderLoggedIn()) {
@@ -147,7 +143,7 @@ public Activity getActivty(String activityID) throws Exception {
 
 		} else {
 
-			System.out.println("Only the Project Leader may add an activity.");
+//			System.out.println("Only the Project Leader may add an activity.");
 		}
 	}
 	
@@ -238,15 +234,10 @@ public void generateWeekReport(Date date) {
 		for (Activity a : listOfActivities) {
 			expectedWorkingHours += a.getExpectedWorkingHours();
 		}
-
 		return expectedWorkingHours;
-	
 	}
 
 	public ArrayList<Activity> getActivities(){
 		return this.listOfActivities;
 	}
-
-
-
 }
