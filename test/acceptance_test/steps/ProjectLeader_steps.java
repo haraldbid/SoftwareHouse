@@ -18,7 +18,7 @@ public class ProjectLeader_steps {
 	@Given("that a project {string} exist")
 	public void thatAProjectExist(String string) {
 	    shouse = new SoftwareHouse();
-	    shouse.createProject(new Date(20,10), new Date(20,15), string);
+	    shouse.createProject(new Date(2020,10), new Date(2020,15));
 	    assertTrue(shouse.getListOfProjects().size()>0);
 	
 	}
