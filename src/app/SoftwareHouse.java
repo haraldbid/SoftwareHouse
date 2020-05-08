@@ -27,9 +27,10 @@ public class SoftwareHouse implements Observable {
 	public SoftwareHouse() {
 	}
 
-	public void createProject(Date startDate, Date endDate) {
+	public void createProject(Date startDate, Date endDate,String title) {
 
-		Project project = new Project(this, startDate, endDate, generateProjectID(startDate));
+
+		Project project = new Project(this, startDate, endDate,generateProjectID(startDate),title);
 		listOfProjects.add(project);
 	}
 
@@ -50,7 +51,8 @@ public class SoftwareHouse implements Observable {
 
 
 	public void logIn(String ID) {
-
+		assert ID.length() > 0 : "Precondition for logIn()";
+		assert ID.length() < 5 : "Precondition for logIn()";
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 
 			if (listOfWorkers.get(i).getID().equals(ID)) {
@@ -61,8 +63,11 @@ public class SoftwareHouse implements Observable {
 		}
 
 		if (!loggedIn()) {
-			throw new IllegalArgumentException("Login failed");
+
+			System.out.println("Login failed.");
+			throw new IllegalArgumentException("Login failed.");
 		}
+		assert loggedIn != null : "Postcondition for logIn()";
 	}
 	
 	public void logOut() {
@@ -144,7 +149,7 @@ public class SoftwareHouse implements Observable {
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
 
-		listOfWorkers.add(worker);
+		this.listOfWorkers.add(worker);
 
 //		System.out.print(getNbWorkers());
 
@@ -218,9 +223,19 @@ public class SoftwareHouse implements Observable {
 		}
 
 	}
-	
-	
-	
-	
 
+	public Worker getWorkerByIndex(String ID) {
+		for (Worker worker : listOfWorkers) {
+			if(worker.getID().equals(ID))
+				return worker;
+		}
+		return null;
+	}
+	public Project getProjectByID(String ID) {
+		for (Project project : listOfProjects) {
+			if(project.getID().equals(ID))
+				return project;
+		}
+		return null;
+	}
 }

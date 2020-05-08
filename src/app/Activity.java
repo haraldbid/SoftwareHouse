@@ -72,6 +72,9 @@ public class Activity implements Observer, Reporting {
 	}
 
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) {
+		
+		assert worker != null && minutes < 60: "Pre condition for inputWorkTime()";
+		
 		if(hours < 0 || minutes < 0) // 1 || 2
 			throw new IllegalArgumentException("Only positive work time");
 		if(this.searchWorker(worker.getID()) == null) // Whitebox 3
@@ -79,7 +82,10 @@ public class Activity implements Observer, Reporting {
 		TimeSheet time = new TimeSheet(worker,date); // 3
 		time.addtimeWorked(hours, minutes);
 		timeSheets.add(time);
-
+		
+		assert timeSheets.get(timeSheets.size()-1).getWorker().equals(worker) : "Post condition for inputWorkTime()";
+		assert timeSheets.get(timeSheets.size()-1).getHoursWorked() == hours : "Post condition for inputWorkTime()";
+		assert timeSheets.get(timeSheets.size()-1).getMinutesInputed() == minutes: "Post condition for inputWorkTime()";
 	}
 
 	public Worker searchWorker(String ID) {
