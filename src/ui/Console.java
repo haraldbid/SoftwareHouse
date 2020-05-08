@@ -123,18 +123,39 @@ public class Console {
 	}
 
 
-	public void exampleData() {
-
-		softwareHouse.createWorker("Nick");
-		softwareHouse.createWorker("Markus");
+	public void example() {
+//		Workers
+		softwareHouse.createWorker("MARK");
+		softwareHouse.createWorker("MART");
+		softwareHouse.createWorker("HARA");
+		softwareHouse.createWorker("NICK");
 		Worker worker1 = softwareHouse.getWorker(0);
 		Worker worker2 = softwareHouse.getWorker(1);
-		softwareHouse.createProject(new Date(2020,4), new Date(2021,4));
-		softwareHouse.createProject(new Date, endDate);
+		Worker worker3 = softwareHouse.getWorker(2);
+		Worker worker4 = softwareHouse.getWorker(3);
 
-		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
-		
+//		Projects
 
+		softwareHouse.createProject(new Date(2025, 1), new Date(2025, 52));
+		softwareHouse.createProject(new Date(2020, 4), new Date(2020, 42));
+		Project project1 = softwareHouse.getListOfProjects().get(0);
+		Project project2 = softwareHouse.getListOfProjects().get(1);
+		String projectID1 = project1.getID();
+		String projectID2 = project2.getID();
+
+//		Project leaders
+		project1.appointProjectLeader(worker1);
+		project2.appointProjectLeader(worker1);
+
+		softwareHouse.logIn(worker1.getID());
+//		Activities
+		project1.createActivity("TestActivity1", project1.getStartDate(), project1.getEndDate());
+		project1.createActivity("testActivity2", new Date(2025, 7), new Date(2025, 8));
+		project2.createActivity("testActivity3", new Date(2020, 30), new Date(2020, 32));
+
+		Activity activity1 = project1.getActivities().get(0);
+		Activity activity2 = project1.getActivities().get(1);
+		Activity activity3 = project2.getActivities().get(0);
 		
 //		Expected time
 		activity1.setExpectedWorkingHours(80);
@@ -183,16 +204,6 @@ public class Console {
 
 	}
 
-	public Date enterDate() {
-
-
-		getAllNumberActivities(new Date(20, 15), new Date(20, 20));
-
-
-		logOut();
-
-	}
-	
 	public void options() {
 		println("\nPress 0 to go back.\n"
 				+ "Press " + stage + " to repeat action.\n");
@@ -236,7 +247,7 @@ public class Console {
 	
 	public void stage1() {
 		println("Enter ID of worker you wish to create : ");
-		createWorker(scanner.next());
+		softwareHouse.createWorker(scanner.next());
 		options();
 	}
 	
@@ -320,8 +331,6 @@ public class Console {
 		date.setDate(year, week);
 
 		return date;
-
-
 	}
 	
 	
