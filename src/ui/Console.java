@@ -69,7 +69,7 @@ public class Console {
 		} else if (stage == 3) {
 			stage3();
 		} else if (stage == 4) {
-
+			stage4();
 		} else if (stage == 5) {
 
 		} else if (stage == 6) {
@@ -236,14 +236,14 @@ public class Console {
 	public void stage0() {
 		System.out.println("Press 1 to create a worker.\n" + "\n" + "Press 2 to create project.\n"
 				+ "Press 3 to appoint project leader\n" + "Press 4 to view project timeframe\n"
-				+ "Press 4 to edit project timeframe.\n" + "Press 5 to give a project a title.\n" + "\n"
-				+ "Press 5 to create activity.\n" + "Press 6 to view activity timeframe\n"
-				+ "Press 6 to edit activity timeframe\n" + "Press 7 to add worker to activity\n"
-				+ "Press 8 to check workers availabilities.\n" + "\n" + "Press 9 to fill timesheet.\n"
-				+ "Press 10 to seek assistance.\n" + "Press 11 to fill assistance timesheet.\n" + "\n"
-				+ "Press 11 to see all projects.\n" + "Press 12 to see all activities of a project.\n"
-				+ "Press 13 to see number of activities workers are assigned to within a given period.\n" + "\n"
-				+ "Press 16 to give worker sick leave, holliday, ect.\n" + "\n" + "Press 17 to get week report.\n"
+				+ "Press 5 to edit project timeframe.\n" + "Press 6 to give a project a title.\n" + "\n"
+				+ "Press 7 to create activity.\n" + "Press 8 to view activity timeframe\n"
+				+ "Press 9 to edit activity timeframe\n" + "Press 10 to add worker to activity\n"
+				+ "Press 11 to check workers availabilities.\n" + "\n" + "Press 12 to fill timesheet.\n"
+				+ "Press 13 to seek assistance.\n" + "Press 14 to fill assistance timesheet.\n" + "\n"
+				+ "Press 15 to see all projects.\n" + "Press 16 to see all activities of a project.\n"
+				+ "Press 17 to see number of activities workers are assigned to within a given period.\n" + "\n"
+				+ "Press 18 to give worker sick leave, holliday, ect.\n" + "\n" + "Press 19 to get week report.\n"
 				+ "\n" + "Press 80 to log out.\n" + "\n" + "Press 99 to exit program\n");
 
 		if (commandError) {
@@ -284,6 +284,25 @@ public class Console {
 		space();
 		options();
 
+	}
+	
+	public void stage4() {
+		println("Enter project ID of project you wish to see timeframe of :");
+		String projectID = scanner.next();
+		try {
+			println("Start date : " + softwareHouse.getProject(projectID).getStartDate().print());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			println("End date : " + softwareHouse.getProject(projectID).getEndDate().print());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		space();
+		options();
 	}
 	
 	public Date[] startAndEndDate() {

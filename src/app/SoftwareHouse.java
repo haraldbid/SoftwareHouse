@@ -20,9 +20,8 @@ public class SoftwareHouse implements Observable {
 	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
 
 	private ArrayList<Worker> sortedArr = new ArrayList<Worker>();
-	
-	private boolean exitRequest = false;
 
+	private boolean exitRequest = false;
 
 	public SoftwareHouse() {
 	}
@@ -35,7 +34,7 @@ public class SoftwareHouse implements Observable {
 
 	public String generateProjectID(Date startDate) {
 
-		String year = Integer.toString(startDate.getYear()).substring(2,4);
+		String year = Integer.toString(startDate.getYear()).substring(2, 4);
 
 		String runningCount = "";
 
@@ -44,12 +43,11 @@ public class SoftwareHouse implements Observable {
 			runningCount += "0";
 		}
 		runningCount += listOfProjects.size();
-		
+
 		System.out.println("Project " + year + "" + runningCount + " was just created.");
-		
+
 		return year + runningCount;
 	}
-
 
 	public void logIn(String ID) {
 
@@ -66,9 +64,9 @@ public class SoftwareHouse implements Observable {
 			throw new IllegalArgumentException("Login failed");
 		}
 	}
-	
+
 	public void logOut() {
-		
+
 		if (loggedIn()) {
 			loggedIn = null;
 			notifyObserver();
@@ -76,7 +74,7 @@ public class SoftwareHouse implements Observable {
 		} else {
 			System.out.println("No worker is logged in.");
 		}
-		
+
 	}
 
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
@@ -84,12 +82,12 @@ public class SoftwareHouse implements Observable {
 		quickSort(listOfWorkers, 0, listOfWorkers.size() - 1, startDate, endDate);
 
 		for (int i = 0; i < listOfWorkers.size(); i++) {
-			System.out.println(listOfWorkers.get(i).getID() + " : " + listOfWorkers.get(i).getNumActivities(startDate, endDate));
+			System.out.println(
+					listOfWorkers.get(i).getID() + " : " + listOfWorkers.get(i).getNumActivities(startDate, endDate));
 		}
 	}
 
 	public void quickSort(ArrayList<Worker> arr, int low, int high, Date startDate, Date endDate) {
-
 
 		if (arr == null || arr.size() == 0)
 			return;
@@ -136,12 +134,10 @@ public class SoftwareHouse implements Observable {
 		}
 		return true;
 	}
-	
+
 	public Worker getWorkerLoggedIn() {
 		return loggedIn;
 	}
-	
-	
 
 	public void createWorker(String ID) {
 		Worker worker = new Worker(this, ID);
@@ -156,31 +152,30 @@ public class SoftwareHouse implements Observable {
 		return listOfWorkers.size();
 	}
 
-	
-
 	public Worker getWorker(int index) {
-		
+
 		return listOfWorkers.get(index);
 	}
-	
+
 	public Worker getWorker(String ID) throws Exception {
-		
-		for(Worker w : listOfWorkers) {
-			if (w.getID().equals(ID));
-			return w;
+
+		for (Worker w : listOfWorkers) {
+			if (w.getID().equals(ID)) {
+				return w;
+			}
 		}
-		
+
 		throw new Exception("Worker not found");
 	}
-	
+
 	public Project getProject(String projectID) throws Exception {
-		
-		for(Project p : listOfProjects) {
+
+		for (Project p : listOfProjects) {
 			if (p.getID().equals(projectID)) {
 				return p;
-			}	
+			}
 		}
-		
+
 		throw new Exception("Project not found");
 	}
 
@@ -188,29 +183,30 @@ public class SoftwareHouse implements Observable {
 		return listOfProjects;
 
 	}
-	
-
 
 	public List<Worker> getListOfWorkers() {
 		return this.listOfWorkers;
 	}
+
 	public void exit() {
-		this.exitRequest=true;
+		this.exitRequest = true;
 	}
+
 	public boolean getExitRequest() {
 		return this.exitRequest;
 	}
 
-	
-	//OBSERVER PATTERN
+	// OBSERVER PATTERN
 	@Override
 	public void unregister(Observer o) {
 		observers.remove(o);
 	}
+
 	@Override
 	public void register(Observer o) {
 		observers.add(o);
 	}
+
 	@Override
 	public void notifyObserver() {
 		if (!observers.isEmpty()) {
@@ -220,7 +216,5 @@ public class SoftwareHouse implements Observable {
 		}
 
 	}
-	
-	
 
 }

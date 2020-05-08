@@ -62,6 +62,14 @@ public class Project implements Observer, Reporting{
 		endDate.setDate(year, week);
 	}
 	
+	public Date getStartDate() {
+		return startDate;
+	}
+	
+	public Date getEndDate() {
+		return endDate;
+	}
+	
 
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
@@ -115,7 +123,7 @@ public class Project implements Observer, Reporting{
 
 	public void appointProjectLeader(Worker appointedProjectLeader) {
 		this.projectLeader = appointedProjectLeader;
-		System.out.println("\nWorker " + appointedProjectLeader + " is appointed project leader of " + this.getID());
+		System.out.println("\nWorker " + appointedProjectLeader.getID() + " is appointed project leader of " + this.getID());
 	}
 
 	// JUST A SHELL
