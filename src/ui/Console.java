@@ -123,15 +123,16 @@ public class Console {
 	}
 
 
+	public void exampleData() {
 
-//		softwareHouse.createWorker("Nick");
-//		softwareHouse.createWorker("Markus");
-//		Worker worker1 = softwareHouse.getWorker(0);
-//		Worker worker2 = softwareHouse.getWorker(1);
+		softwareHouse.createWorker("Nick");
+		softwareHouse.createWorker("Markus");
+		Worker worker1 = softwareHouse.getWorker(0);
+		Worker worker2 = softwareHouse.getWorker(1);
 		softwareHouse.createProject(new Date(2020,4), new Date(2021,4));
-//		softwareHouse.createProject(new Date, endDate);
+		softwareHouse.createProject(new Date, endDate);
 
-//		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
+		String ProjectID1 = softwareHouse.getListOfProjects().get(0).getID();
 		
 
 		

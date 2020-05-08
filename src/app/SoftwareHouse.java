@@ -26,10 +26,10 @@ public class SoftwareHouse implements Observable {
 	public SoftwareHouse() {
 	}
 
-	public void createProject(Date startDate, Date endDate,String title) {
+	public void createProject(Date startDate, Date endDate) {
 
 
-		Project project = new Project(this, startDate, endDate,generateProjectID(startDate),title);
+		Project project = new Project(this, startDate, endDate,generateProjectID(startDate));
 		listOfProjects.add(project);
 	}
 

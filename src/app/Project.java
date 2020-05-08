@@ -26,18 +26,17 @@ public class Project implements Observer, Reporting{
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 	
 
-	public Project(Observable softwareHouse, Date startDate, Date endDate, String projectNumberID,String title) {
+	public Project(Observable softwareHouse, Date startDate, Date endDate, String projectNumberID) {
 
 		this.softwareHouse = softwareHouse;
 		this.softwareHouse.register(this);
-		
-		this.setProjectTitle(title);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		//this.projectLeader = null;
 		
 		this.projectNumberID = projectNumberID;
 	}
+	
 	
 	
 	
@@ -66,21 +65,6 @@ public class Project implements Observer, Reporting{
 	}
 	public Date getEndDate() {
 		return this.endDate;
-	}
-	
-	public Date getStartDate() {
-		return this.startDate;
-	}
-	public Date getEndDate() {
-		return this.endDate;
-	}
-	
-	public Date getStartDate() {
-		return startDate;
-	}
-	
-	public Date getEndDate() {
-		return endDate;
 	}
 	
 
