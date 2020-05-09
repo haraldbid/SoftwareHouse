@@ -196,6 +196,12 @@ public class Activity implements Observer, Reporting {
 				r.printWeekReport();
 		}
 	}
+
+	@Override
+	public String getID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

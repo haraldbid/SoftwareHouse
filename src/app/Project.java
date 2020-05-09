@@ -171,7 +171,7 @@ public class Project implements Observer, Reporting {
 	}
 
 
-	public void generateWeekReport(Date date) {
+	public WeekReport generateWeekReport(Date date) {
 
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
