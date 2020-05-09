@@ -37,8 +37,14 @@ public class Console {
 
 		if (!softwareHouse.loggedIn()) {
 			System.out.println("You need to enter ID to log in: ");
-			softwareHouse.logIn(scanner.next());
-			stage = 0;
+			try {
+				softwareHouse.logIn(scanner.next());
+				stage = 0;
+			} catch (Exception e) {
+//				stage = -1;
+				System.out.println(e);
+			}
+
 		}
 	}
 
@@ -56,11 +62,11 @@ public class Console {
 			run();
 		}
 
-		if (stage == 0) {
+		else if (stage == 0) {
 			stage0();
 		}
 
-		if (stage == 1) {
+		else if (stage == 1) {
 			stage1();
 		} else if (stage == 2) {
 			stage2();
@@ -81,25 +87,25 @@ public class Console {
 		} else if (stage == 10) {
 			stage10();
 		} else if (stage == 11) {
-
+			stage11();
 		} else if (stage == 12) {
-
+			stage12();
 		} else if (stage == 13) {
-
+			stage13();
 		} else if (stage == 14) {
-
+			stage14();
 		} else if (stage == 15) {
-
+			stage15();
 		} else if (stage == 16) {
-
+			stage16();
 		} else if (stage == 17) {
 
 		} else if (stage == 18) {
-
+			stage18();
 		} else if (stage == 19) {
-
+			stage19();
 		} else if (stage == 20) {
-
+			stage20();
 		} else if (stage == 80) {
 
 			softwareHouse.logOut();
@@ -108,10 +114,12 @@ public class Console {
 
 		} else if (stage == 99) {
 			exitProgram = true;
+			println("Ciao.");
 		} else {
 			commandError = true;
 			stage = 0;
 		}
+
 	}
 
 	public void options() {
@@ -138,8 +146,7 @@ public class Console {
 				+ "Press 9 to edit activity timeframe\n" + "Press 10 to add worker to activity\n"
 				+ "Press 11 to check workers availabilities.\n" + "\n" + "Press 12 to fill timesheet.\n"
 				+ "Press 13 to seek assistance.\n" + "Press 14 to fill assistance timesheet.\n" + "\n"
-				+ "Press 15 to see all projects.\n" + "Press 16 to see all activities of a project.\n"
-				+ "Press 17 to see number of activities workers are assigned to within a given period.\n" + "\n"
+				+ "Press 15 to see all projects.\n" + "Press 16 to see all activities of a project.\n" + "\n"
 				+ "Press 18 to give worker sick leave, holliday, ect.\n" + "\n" + "Press 19 to get week report.\n"
 				+ "\n" + "Press 80 to log out.\n" + "\n" + "Press 99 to exit program\n");
 
@@ -153,20 +160,31 @@ public class Console {
 		space();
 	}
 
+	// Create worker
 	public void stage1() {
 		println("Enter ID of worker you wish to create : ");
-		softwareHouse.createWorker(scanner.next());
+		try {
+			softwareHouse.createWorker(scanner.next());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		options();
 	}
-
-	// TODO mangler exceptions til ulovlige start/end dates
+	
+	// Create project
 	public void stage2() {
 		Date[] SE = startAndEndDate();
-		softwareHouse.createProject(SE[0], SE[1]);
+		try {
+			SE[0].checkChronology(SE[1]);
+			softwareHouse.createProject(SE[0], SE[1]);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		space();
 		options();
 	}
-
+	
+	// Appoint project leader
 	public void stage3() {
 		println("Enter ID of worker you wish to appoint :");
 		String worker = scanner.next();
@@ -175,55 +193,50 @@ public class Console {
 		try {
 			softwareHouse.getProject(project).appointProjectLeader(softwareHouse.getWorker(worker));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				System.out.println(e);
 		}
 		space();
 		options();
 	}
-
+	
+	// View project timeframe
 	public void stage4() {
 		println("Enter ID of project you wish to see timeframe of :");
 		String projectID = scanner.next();
 		try {
 			println("Start date : " + softwareHouse.getProject(projectID).getStartDate().print());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			println("End date : " + softwareHouse.getProject(projectID).getEndDate().print());
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println(e);
 		}
+
 		space();
 		options();
 	}
 
-	// TODO Maybe then user HAS to edit timeframe of activities, if they don't match
-	// the new timeframe ?
+	// Edit project timeframe
 	public void stage5() {
 		println("Enter project ID of project you wish to edit timeframe of : ");
 		String projectID = scanner.next();
 		Date[] SE = startAndEndDate();
+
 		try {
+
+			SE[0].checkChronology(SE[1]);
 			softwareHouse.getProject(projectID).setEndDate(SE[1]);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			softwareHouse.getProject(projectID).setStartDate(SE[0]);
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.print(e);
 		}
 
 		space();
 		options();
 	}
-
+	
+	// Give project a title
 	public void stage6() {
 		println("Enter ID of project you wish to give a title to : ");
 		String projectID = scanner.next();
@@ -233,15 +246,14 @@ public class Console {
 			softwareHouse.getProject(projectID).setProjectTitle(title);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
 
 		space();
 		options();
 	}
 
-	// TODO Handle exceptions and create "activity out of project timeframe
-	// exceptions AND Title already exists exception)
+	// Create activities
 	public void stage7() {
 		println("Enter ID of project you wish to create an activity for : ");
 		String projectID = scanner.next();
@@ -255,14 +267,15 @@ public class Console {
 				softwareHouse.getProject(projectID).createActivity(activityTitle, SE[0], SE[1]);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e);
 			}
 			println("");
 		}
 		space();
 		options();
 	}
-
+	
+	// View activity timeframe
 	public void stage8() {
 		println("Enter ID of project of activity you wish to view timeframe of : ");
 		String projectID = scanner.next();
@@ -270,21 +283,19 @@ public class Console {
 		String title = scanner.next();
 		try {
 			println("Start date : " + softwareHouse.getProject(projectID).getActivity(title).getStartDate().print());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			println("End date : " + softwareHouse.getProject(projectID).getActivity(title).getEndDate().print());
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
+
 		space();
 		options();
 	}
 
-	// TODO exception if activity is out of project timeframe ?
+	// Edit activity timeframe
+
 	public void stage9() {
 		println("Enter ID of project you wish to edit activity timeframe of : ");
 		String projectID = scanner.next();
@@ -295,16 +306,13 @@ public class Console {
 			String activityTitle = scanner.next();
 			Date[] SE = startAndEndDate();
 			try {
+				SE[0].checkChronology(SE[1]);
 				softwareHouse.getProject(projectID).getActivity(activityTitle).setStartDate(SE[0]);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
 				softwareHouse.getProject(projectID).getActivity(activityTitle).setEndDate(SE[1]);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+				System.out.println(e);
 			}
 			println("");
 		}
@@ -313,6 +321,7 @@ public class Console {
 		options();
 	}
 
+	// Add workers to activities
 	public void stage10() {
 		println("Enter ID of project that contains the activities you wish to add workers to :");
 		String projectID = scanner.next();
@@ -331,7 +340,7 @@ public class Console {
 							.assignWorker(softwareHouse.getWorker(workerID));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println(e);
 				}
 			}
 		}
@@ -339,20 +348,29 @@ public class Console {
 		options();
 	}
 
+	
+	// Check workers availabilities
+
 	public void stage11() {
 		println("Enter start and end dates of period you wish to see how many activities each worker is working on :");
 		Date[] SE = startAndEndDate();
-		softwareHouse.getAllWorkersActivities(SE[0], SE[1]);
+		try {
+			SE[0].checkChronology(SE[1]);
+			softwareHouse.getAllWorkersActivities(SE[0], SE[1]);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		space();
 		options();
 	}
-
+	
+	// Fill timesheets
 	public void stage12() {
 		println("Enter project ID of activity you wish to fill timesheet of :");
 		String projectID = scanner.next();
 		println("Enter title of relevant activity :");
 		String activityTitle = scanner.next();
-		Date date = enterDate();
+		Date date = enterDate(0);
 		println("Enter number of hours worked :");
 		int hours = scanner.nextInt();
 		println("Enter number of minutes :");
@@ -362,39 +380,145 @@ public class Console {
 					.inputWorkTime(softwareHouse.getWorkerLoggedIn(), hours, minutes, date);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		space();
 		options();
 	}
 
 	public void stage13() {
+		// REQUEST ASSISTANCE NOT IMPLEMENTED :(
 	}
 
+	
+	// Fill assistance timesheet
 	public void stage14() {
+		println("Enter project ID of activity you've seeked help for : ");
+		String projectID = scanner.next();
+		println("Enter title of relevant activity :");
+		String activityTitle = scanner.next();
+		println("Enter ID of worker who helped you :");
+		String helper = scanner.next();
+		Date date = enterDate(0);
+		println("Enter number of hours :");
+		int hours = scanner.nextInt();
+		println("Enter number of minutes :");
+		int minutes = scanner.nextInt();
+		try {
+			softwareHouse.getProject(projectID).getActivity(activityTitle).inputAssistance(
+					softwareHouse.getWorkerLoggedIn(), softwareHouse.getWorker(helper), hours, minutes, date);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		space();
+		options();
+	}
+	
+	// View all projects
+	public void stage15() {
+		for (Project p : softwareHouse.getListOfProjects()) {
+			String project = String.format("Project ID : %s    Title : %s     Start date : %s       End date : %s",
+					p.getID(), p.getTitle(), p.getStartDate().print(), p.getEndDate().print());
+			System.out.println(project);
+		}
+		space();
+		options();
+	}
+	
+	// View activities of a project
+	public void stage16() {
+		println("Enter ID of project you wish to see activities of :");
+		String projectID = scanner.next();
+		println("Activities of project " + projectID + " :\n");
+		try {
+			for (Activity a : softwareHouse.getProject(projectID).getActivities()) {
+				println("Activity " + a.getTitle() + " :  Start date : " + a.getStartDate().print() + "    End Date : "
+						+ a.getEndDate().print());
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 
+		space();
+		options();
+	}
+	
+	// Set worker unavailable
+	public void stage18() {
+		println("Enter ID of worker you wish to set unavailable :");
+		String workerID = scanner.next();
+		println("Enter timeframe where worker " + workerID + " will be unavailable :");
+		Date[] SE = startAndEndDate();
+		try {
+			SE[0].checkChronology(SE[1]);
+			softwareHouse.getWorker(workerID).setUnavailable(SE[0], SE[1]);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		space();
+		options();
+	}
+
+	// Print activity week report
+	public void stage19() {
+		println("Enter project ID of activity you wish to print week report for :");
+		String projectID = scanner.next();
+		println("Enter title of relevant activity :");
+		String activityTitle = scanner.next();
+		Date date = enterDate(0);
+		try {
+			softwareHouse.getProject(projectID).getActivity(activityTitle).printWeekReport(date);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		space();
+		options();
+	}
+	
+	// Print project week report
+	public void stage20() {
+		println("Enter ID of project you wish to print week report for :");
+		String projectID = scanner.next();
+		Date date = enterDate(0);
+		try {
+			softwareHouse.getProject(projectID).printWeekReport(date);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		space();
+		options();
+	}
+	
+	// Print info of all projects
+	public void stage21() {
+		printAllProjectsInfo();
+		space();
+		options();
 	}
 
 	public Date[] startAndEndDate() {
 		Date[] SE = new Date[2];
-		SE[0] = enterDate(true);
-		SE[1] = enterDate(false);
+		SE[0] = enterDate(1);
+		SE[1] = enterDate(2);
 		return SE;
 	}
 
-	public Date enterDate(boolean startEnd) {
+	public Date enterDate(int scenario) {
 		String startOrEnd;
-		if (startEnd) {
-			startOrEnd = "start";
+		if (scenario == 0) {
+			startOrEnd = "";
 
+		} else if (scenario == 1) {
+			startOrEnd = " start";
 		} else {
-			startOrEnd = "end";
+			startOrEnd = " end";
 		}
 
 		Scanner scanner = new Scanner(System.in);
 
 		Date date = new Date();
-		System.out.println("Please enter " + startOrEnd + " date in the following format: (yyyy - weeknumber)");
+		System.out.println("Please enter" + startOrEnd + " date in the following format: (yyyy - weeknumber)");
 
 		String input = scanner.nextLine();
 
@@ -503,6 +627,7 @@ public class Console {
 
 			activity3.inputWorkTime(worker1, 40, 0, new Date(2025, 30));
 			activity3.inputWorkTime(worker4, 20, 0, new Date(2025,31));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -562,6 +687,7 @@ public class Console {
 		date.setDate(year, week);
 
 		return date;
+
 	}
 
 }

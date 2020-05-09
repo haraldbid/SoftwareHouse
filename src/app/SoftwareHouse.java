@@ -178,6 +178,7 @@ public class SoftwareHouse implements Observable {
 		return listOfProjects;
 
 	}
+	
 
 	public List<Worker> getListOfWorkers() {
 		return this.listOfWorkers;

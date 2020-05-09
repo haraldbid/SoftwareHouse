@@ -1,4 +1,5 @@
 package app;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,20 +12,19 @@ import designPatterns.Observable;
 import designPatterns.Observer;
 import designPatterns.Reporting;
 
-public class Project implements Observer, Reporting{
+public class Project implements Observer, Reporting {
 
 	private Worker workerLoggedIn;
 	private String projectTitle;
 	private String projectNumberID;
 	private Worker projectLeader;
-	
+
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
 	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
 	private Date startDate = new Date();
 	private Date endDate = new Date();
 	private Observable softwareHouse;
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
-	
 
 	public Project(Observable softwareHouse, Date startDate, Date endDate, String projectNumberID) {
 
@@ -32,21 +32,16 @@ public class Project implements Observer, Reporting{
 		this.softwareHouse.register(this);
 		this.startDate = startDate;
 		this.endDate = endDate;
-		//this.projectLeader = null;
-		
+		// this.projectLeader = null;
+
 		this.projectNumberID = projectNumberID;
 	}
-	
-	
-	
-	
 
+	public void modifyProjectNumberID(int year) {
 
-	public void modifyProjectNumberID (int year) {
-		
 		String yearStr = Integer.toString(startDate.getYear()).substring(2, 4);
-		String runningCount = projectNumberID.substring(2,6);
-		
+		String runningCount = projectNumberID.substring(2, 6);
+
 		this.projectNumberID = yearStr + runningCount;
 	}
 
@@ -54,7 +49,7 @@ public class Project implements Observer, Reporting{
 		this.startDate = startDate;
 		modifyProjectNumberID(startDate.getYear());
 	}
-	
+
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
@@ -63,17 +58,18 @@ public class Project implements Observer, Reporting{
 		startDate.setDate(year, week);
 		modifyProjectNumberID(year);
 	}
-	
+
 	public void setEndDate(int year, int week) {
 		endDate.setDate(year, week);
 	}
+
 	public Date getStartDate() {
 		return this.startDate;
 	}
+
 	public Date getEndDate() {
 		return this.endDate;
 	}
-	
 
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
@@ -104,15 +100,16 @@ public class Project implements Observer, Reporting{
 			return true;
 		}
 	}
+
 	
-public Activity getActivity(String title) throws Exception {
+	public Activity getActivity(String title) throws Exception {
 		
 		for(Activity a : listOfActivities) {
 			if (a.getTitle().equals(title)) {
 				return a;
-			}	
+			}
 		}
-		
+
 		throw new Exception("Activity not found");
 	}
 
@@ -126,7 +123,7 @@ public Activity getActivity(String title) throws Exception {
 
 	public void appointProjectLeader(Worker appointedProjectLeader) {
 
-		if(!this.hasProjectLeader())
+		if (!this.hasProjectLeader())
 			this.projectLeader = appointedProjectLeader;
 		else
 			throw new IllegalArgumentException("Project has leader assigned");
@@ -138,13 +135,19 @@ public Activity getActivity(String title) throws Exception {
 	// JUST A SHELL
 	public void createActivity(String title, Date startDate, Date endDate) {
 
-		if(this.startDate.after(startDate) || this.endDate.before(endDate)) {
+		if (this.startDate.after(startDate) || this.endDate.before(endDate)) {
 			throw new IllegalArgumentException("Date incongruent with project period");
 		}
 		
+		for (int i = 0; i < listOfActivities.size(); i++) {
+			if (listOfActivities.get(i).getTitle().contentEquals(title)) {
+				throw new IllegalArgumentException("Title is already taken.");
+			}
+		}
+
 		if (isProjectLeaderLoggedIn()) {
-			
-			Activity activity = new Activity (softwareHouse, title, startDate, endDate, this);
+
+			Activity activity = new Activity(softwareHouse, title, startDate, endDate, this);
 
 			listOfActivities.add(activity);
 
@@ -153,8 +156,6 @@ public Activity getActivity(String title) throws Exception {
 //			System.out.println("Only the Project Leader may add an activity.");
 		}
 	}
-	
-	
 
 	public boolean isProjectLeaderLoggedIn() {
 		if (workerLoggedIn.equals(projectLeader)) {
@@ -164,16 +165,27 @@ public Activity getActivity(String title) throws Exception {
 		}
 	}
 
-
-
-
-
-
 	@Override
 	public void update(Worker loggedIn) {
 		this.workerLoggedIn = loggedIn;
 	}
 
+
+	public void generateWeekReport(Date date) {
+
+		boolean weekReportExists = false;
+		Calendar cal = new GregorianCalendar();
+
+		/*
+		 * The first conditional checks if the entered date has not occured yet
+		 */
+//		if (cal.get(Calendar.YEAR) < date.getYear()
+//				|| (cal.get(Calendar.YEAR) == date.getYear() 
+//				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
+//			throw new IllegalArgumentException("Illgeal date entered");
+//		}
+
+		/*
 	
 public WeekReport generateWeekReport(Date date) {
 		
@@ -189,29 +201,29 @@ public WeekReport generateWeekReport(Date date) {
 				return r; 
 			}
 		}
-		/* 
+		/*
 		 * Report added to list if no reports have been genereated for the given date
 		 */
-		if(!weekReportExists) {
-			WeekReport report = new WeekReport(this,date);
-			
+		if (!weekReportExists) {
+			WeekReport report = new WeekReport(this, date);
+
 			weekReports.add(report);
 			return report;
 		}
 		return null;
 	}
 
-	
 	@Override
 	public int[] numMinSpent(Date date) {
-		/* 1. Entry of NumMinSpent is the total hours spent on project
-		 * 2. Entry of NumMinSpent is the hours spent at the specified week
-		*/
-		int[] numMinSpent = {0,0}; 
-		
-		/* 
-		 * For each activity, a report is generated for the given date.
-		 * Then the total number of hours spent on each activity is added to the array.
+		/*
+		 * 1. Entry of NumMinSpent is the total hours spent on project 2. Entry of
+		 * NumMinSpent is the hours spent at the specified week
+		 */
+		int[] numMinSpent = { 0, 0 };
+
+		/*
+		 * For each activity, a report is generated for the given date. Then the total
+		 * number of hours spent on each activity is added to the array.
 		 */
 		for (Activity a : listOfActivities) {
 			a.generateWeekReport(date);
@@ -223,29 +235,32 @@ public WeekReport generateWeekReport(Date date) {
 		}
 		return numMinSpent;
 	}
+
 	
 	public void printWeekReport(Date date) throws IllegalArgumentException {
 		if(date.after(this.endDate))
 			throw new IllegalArgumentException("Date incongruent with activity date");
-		
+
 		generateWeekReport(date);
-		for(WeekReport r : weekReports) {
-			if(r.getDate().equals(date))
+		for (WeekReport r : weekReports) {
+			if (r.getDate().equals(date))
 				r.printWeekReport();
 		}
 	}
 
 	@Override
 	public int getExpectedWorkingHours() {
-		int expectedWorkingHours = 0; 
-		
+		int expectedWorkingHours = 0;
+
 		for (Activity a : listOfActivities) {
 			expectedWorkingHours += a.getExpectedWorkingHours();
 		}
 		return expectedWorkingHours;
 	}
 
-	public ArrayList<Activity> getActivities(){
+	public ArrayList<Activity> getActivities() {
 		return this.listOfActivities;
 	}
+	
+
 }

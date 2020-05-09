@@ -197,10 +197,6 @@ public class Activity implements Observer, Reporting {
 		}
 	}
 	
-	@Override
-	public String getID() {
-		
-		return this.activityID;
-	}
+
 }
 
