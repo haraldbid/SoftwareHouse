@@ -37,8 +37,14 @@ public class Console {
 
 		if (!softwareHouse.loggedIn()) {
 			System.out.println("You need to enter ID to log in: ");
+			try {
 			softwareHouse.logIn(scanner.next());
 			stage = 0;
+			} catch (Exception e) {
+//				stage = -1;
+				System.out.println(e);
+			}
+
 		}
 	}
 
@@ -56,11 +62,11 @@ public class Console {
 			run();
 		}
 
-		if (stage == 0) {
+		else if (stage == 0) {
 			stage0();
 		}
 
-		if (stage == 1) {
+		else if (stage == 1) {
 			stage1();
 		} else if (stage == 2) {
 			stage2();
@@ -97,9 +103,9 @@ public class Console {
 		} else if (stage == 18) {
 			stage18();
 		} else if (stage == 19) {
-
+			stage19();
 		} else if (stage == 20) {
-
+			stage20();
 		} else if (stage == 80) {
 
 			softwareHouse.logOut();
@@ -473,10 +479,12 @@ public class Console {
 			// TODO Auto-generated catch block
 			System.out.println(e);
 		}
+		space();
+		options();
 	}
 
 	public void stage20() {
-		println("Enter project ID of activity you wish to print week report for :");
+		println("Enter ID of project you wish to print week report for :");
 		String projectID = scanner.next();
 		Date date = enterDate();
 		try {
@@ -485,6 +493,8 @@ public class Console {
 			// TODO Auto-generated catch block
 			System.out.println(e);
 		}
+		space();
+		options();
 	}
 
 	public Date[] startAndEndDate() {
