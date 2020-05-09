@@ -172,7 +172,7 @@ public Activity getActivity(String title) throws Exception {
 	}
 
 	
-public void generateWeekReport(Date date) {
+public WeekReport generateWeekReport(Date date) {
 		
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
@@ -191,6 +191,7 @@ public void generateWeekReport(Date date) {
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {
 				weekReportExists = true;
+				return r; 
 			}
 		}
 		/* 
@@ -200,7 +201,9 @@ public void generateWeekReport(Date date) {
 			WeekReport report = new WeekReport(this,date);
 			
 			weekReports.add(report);
+			return report;
 		}
+		return null;
 	}
 
 	
