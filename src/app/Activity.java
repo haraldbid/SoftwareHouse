@@ -150,11 +150,10 @@ public class Activity implements Observer, Reporting {
 	
 
 	public WeekReport generateWeekReport(Date date) {
-
 		boolean weekReportExists = false;
 		
 		if(this.startDate.after(date) && this.endDate.before(date))
-			return;
+			return null;
 		
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {
