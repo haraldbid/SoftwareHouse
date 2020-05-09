@@ -138,6 +138,12 @@ public class Project implements Observer, Reporting {
 		if (this.startDate.after(startDate) || this.endDate.before(endDate)) {
 			throw new IllegalArgumentException("Date incongruent with project period");
 		}
+		
+		for (int i = 0; i < listOfActivities.size(); i++) {
+			if (listOfActivities.get(i).getTitle().contentEquals(title)) {
+				throw new IllegalArgumentException("Title is already taken.");
+			}
+		}
 
 		if (isProjectLeaderLoggedIn()) {
 
