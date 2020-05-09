@@ -152,13 +152,13 @@ public class Project implements Observer, Reporting {
 			listOfActivities.add(activity);
 
 		} else {
-
+			throw new IllegalArgumentException("Only project leader may add an activity.");
 //			System.out.println("Only the Project Leader may add an activity.");
 		}
 	}
 
 	public boolean isProjectLeaderLoggedIn() {
-		if (workerLoggedIn.equals(projectLeader)) {
+		if (workerLoggedIn == projectLeader) {
 			return true;
 		} else {
 			return false;

@@ -61,6 +61,8 @@ public class Worker {
 					|| ((listOfActivities.get(i).getEndDate().after(startDate) || listOfActivities.get(i).getEndDate().equals(startDate))
 							&& (listOfActivities.get(i).getEndDate().before(endDate) || listOfActivities.get(i).getEndDate().equals(endDate)))) {
 				count++;
+			} else if (listOfActivities.get(i).getStartDate().before(startDate) && listOfActivities.get(i).getEndDate().after(endDate)) {
+				count++;
 			}
 		}
 		return count;
@@ -76,8 +78,9 @@ public class Worker {
 					|| listOfActivities.get(i).getStartDate().after(startDate))
 					&& (listOfActivities.get(i).getEndDate().equals(endDate)
 							|| listOfActivities.get(i).getEndDate().before(endDate))) {
+				listOfActivities.get(i).deleteWorker(this);
 				listOfActivities.remove(i);
-			}
+			} 
 		}
 	}
 

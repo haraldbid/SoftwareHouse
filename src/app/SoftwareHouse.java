@@ -72,6 +72,7 @@ public class SoftwareHouse implements Observable {
 			loggedIn = null;
 			notifyObserver();
 		} else {
+			
 		}
 	}
 
