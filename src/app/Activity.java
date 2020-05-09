@@ -150,7 +150,7 @@ public class Activity implements Observer, Reporting {
 		return this.weekReports.get(weekReports.size() - 1);
 	}
 	
-	public void generateWeekReport(Date date) {
+	public WeekReport generateWeekReport(Date date) {
 		
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
@@ -164,6 +164,7 @@ public class Activity implements Observer, Reporting {
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {
 				weekReportExists = true;
+				return r;
 			}
 		}
 		
@@ -171,7 +172,9 @@ public class Activity implements Observer, Reporting {
 			WeekReport report = new WeekReport(this,date);
 			
 			weekReports.add(report);
+			return report;
 		}
+		return null;
 	}
 
 	@Override
