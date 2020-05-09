@@ -15,7 +15,6 @@ public class Activity implements Observer, Reporting {
 	private String activityID;
 	private String title;
 	private int expectedWorkingHours;
-	private int[] numMinSpent;
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Date startDate;
 	private Date endDate;
@@ -141,8 +140,6 @@ public class Activity implements Observer, Reporting {
 			}
 		}
 		
-		this.numMinSpent = numMinSpent;
-		
 		return numMinSpent;
 
 	}
@@ -151,10 +148,11 @@ public class Activity implements Observer, Reporting {
 		return this.weekReports.get(weekReports.size() - 1);
 	}
 	
-	public void generateWeekReport(Date date) {
-		
+	public void generateWeekReport(Date date){
 		boolean weekReportExists = false;
-		Calendar cal = new GregorianCalendar();
+		
+		if(this.startDate.after(date) && this.endDate.before(date))
+			return;
 		
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {
@@ -167,12 +165,6 @@ public class Activity implements Observer, Reporting {
 			
 			weekReports.add(report);
 		}
-	}
-
-	@Override
-	public String getID() {
-		
-		return this.activityID;
 	}
 
 	@Override
@@ -189,12 +181,22 @@ public class Activity implements Observer, Reporting {
 		return null;
 	}
 	
-	public void printWeekReport(Date date) {
+	public void printWeekReport(Date date) throws IllegalArgumentException {
+		
+		if(date.after(this.endDate))
+			throw new IllegalArgumentException("Date incongruent with activity date");
+		
+		generateWeekReport(date);
 		for(WeekReport r : weekReports) {
 			if(r.getDate().equals(date))
 				r.printWeekReport();
 		}
 	}
-
+	
+	@Override
+	public String getID() {
+		
+		return this.activityID;
+	}
 }
 

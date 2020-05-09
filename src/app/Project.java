@@ -175,13 +175,11 @@ public Activity getActivity(String title) throws Exception {
 	}
 
 	
-public void generateWeekReport(Date date) throws IllegalArgumentException {
+public void generateWeekReport(Date date) {
 		
 		boolean weekReportExists = false;
 		Calendar cal = new GregorianCalendar();
-		
-		if(date.after(this.endDate))
-			throw new IllegalArgumentException("Date incongruent with activity date");		
+			
 		/* 
 		 * Checks if a week report already exists for that date
 		 */
@@ -214,13 +212,19 @@ public void generateWeekReport(Date date) throws IllegalArgumentException {
 		 */
 		for (Activity a : listOfActivities) {
 			a.generateWeekReport(date);
+			
+			if(a.getWeekReport(date) != null) {
 			numMinSpent[0] += a.getWeekReport(date).numMinSpent[0];
 			numMinSpent[1] += a.getWeekReport(date).numMinSpent[1];
+			}
 		}
 		return numMinSpent;
 	}
 	
-	public void printWeekReport(Date date) {
+	public void printWeekReport(Date date) throws IllegalArgumentException {
+		if(date.after(this.endDate))
+			throw new IllegalArgumentException("Date incongruent with activity date");
+		
 		generateWeekReport(date);
 		for(WeekReport r : weekReports) {
 			if(r.getDate().equals(date))
