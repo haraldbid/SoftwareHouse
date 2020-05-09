@@ -68,7 +68,11 @@ public class Date {
 		return print;
 	}
 	
-	
+	public void checkChronology(Date endDate) {
+		if (this.after(endDate)) {
+			throw new IllegalArgumentException("Start date can't be after end date.");
+		}
+	}
 	
 //	TODO: Find a home for this method
 	public Date enterDate() {
