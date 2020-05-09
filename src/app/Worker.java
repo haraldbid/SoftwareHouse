@@ -85,5 +85,11 @@ public class Worker {
 	public void addActivity(Activity activity) {
 		listOfActivities.add(activity);
 	}
+	
+	public ArrayList<Activity> getListOfActivities() {
+		return listOfActivities;
+	}
+	
+
 
 }

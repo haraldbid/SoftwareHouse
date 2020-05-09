@@ -194,5 +194,6 @@ public class Activity implements Observer, Reporting {
 				r.printWeekReport();
 		}
 	}
+	
 
 }

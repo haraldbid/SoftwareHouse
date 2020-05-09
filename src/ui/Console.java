@@ -83,23 +83,23 @@ public class Console {
 		} else if (stage == 10) {
 			stage10();
 		} else if (stage == 11) {
-
+			stage11();
 		} else if (stage == 12) {
-
+			stage12();
 		} else if (stage == 13) {
-
+			stage13();
 		} else if (stage == 14) {
-
+			stage14();
 		} else if (stage == 15) {
-
+			stage15();
 		} else if (stage == 16) {
-
+			stage16();
 		} else if (stage == 17) {
-
+			
 		} else if (stage == 18) {
-
+			stage18();
 		} else if (stage == 19) {
-
+			
 		} else if (stage == 20) {
 
 		} else if (stage == 80) {
@@ -142,7 +142,7 @@ public class Console {
 				+ "Press 11 to check workers availabilities.\n" + "\n" + "Press 12 to fill timesheet.\n"
 				+ "Press 13 to seek assistance.\n" + "Press 14 to fill assistance timesheet.\n" + "\n"
 				+ "Press 15 to see all projects.\n" + "Press 16 to see all activities of a project.\n"
-				+ "Press 17 to see number of activities workers are assigned to within a given period.\n" + "\n"
+				+ "\n"
 				+ "Press 18 to give worker sick leave, holliday, ect.\n" + "\n" + "Press 19 to get week report.\n"
 				+ "\n" + "Press 80 to log out.\n" + "\n" + "Press 99 to exit program\n");
 
@@ -419,6 +419,22 @@ public class Console {
 			e.printStackTrace();
 		}
 		
+		space();
+		options();
+	}
+	
+	
+	public void stage18() {
+		println("Enter ID of worker you wish to set unavailable :");
+		String workerID = scanner.next();
+		println("Enter timeframe where worker " + workerID + " will be unavailable :");
+		Date[] SE = startAndEndDate();
+		try {
+			softwareHouse.getWorker(workerID).setUnavailable(SE[0], SE[1]);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		space();
 		options();
 	}

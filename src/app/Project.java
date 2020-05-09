@@ -247,4 +247,6 @@ public void generateWeekReport(Date date) throws IllegalArgumentException {
 	public ArrayList<Activity> getActivities() {
 		return this.listOfActivities;
 	}
+	
+
 }
