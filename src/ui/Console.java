@@ -180,7 +180,6 @@ public class Console {
 		}
 		space();
 		options();
-
 	}
 
 	public void stage4() {
@@ -260,7 +259,6 @@ public class Console {
 			}
 			println("");
 		}
-
 		space();
 		options();
 	}
@@ -514,21 +512,21 @@ public class Console {
 
 //		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
 
-//		for (int i = 0; i < 5; i++) {
-//			for (Activity a : arr) {
-//				try {
-//					a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
-//							.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
+		for (int i = 0; i < 5; i++) {
+			for (Activity a : arr) {
+				try {
+					a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
+							.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
 		// Fairly good example to show weekreport
 		try {
-//			project1.printWeekReport(new Date(2025, 12));
-			activity3.printWeekReport(new Date(2025, 31));
+			project1.printWeekReport(new Date(2025, 12));
+//			activity3.printWeekReport(new Date(2025, 31));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
