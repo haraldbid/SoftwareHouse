@@ -709,7 +709,7 @@ public class Console {
 		for (int i = 0; i < 5; i++) {
 			for (Activity a : arr) {
 				try {
-					a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
+					a.inputWorkTime(worker1, 1+r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
 							.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
 				} catch (Exception e) {
 					e.printStackTrace();
