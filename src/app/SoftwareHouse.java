@@ -23,7 +23,9 @@ public class SoftwareHouse implements Observable {
 
 	private boolean exitRequest = false;
 
+	
 	private SoftwareHouse() {
+		
 	}
 	
 	public static SoftwareHouse getInstance() {
@@ -32,7 +34,10 @@ public class SoftwareHouse implements Observable {
 		}
 		return softwareHouse;
 	}
-
+	public static void deleteSoftwareHouse() {
+		if(softwareHouse != null)
+			softwareHouse = null;
+	}
 	public void createProject(Date startDate, Date endDate) {
 
 
