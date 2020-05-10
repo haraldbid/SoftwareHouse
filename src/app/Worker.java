@@ -105,14 +105,13 @@ public class Worker {
 	}
 
 	public void printWorkerWeek(Date date) {
-		System.out.println("---- Time worker for " + getID() + ", week:" + date.getWeekNumber() + "----");
+		System.out.println("---- Time worked for " + getID() + ", week : " + date.getWeekNumber() + "    year : " + date.getYear() + " ---- " );
 		for (Activity activity : getListActivitys()) {
 			System.out.println("Activity: " + activity.getTitle());
-			System.out.println("--------------------");
 			int sum_h = 0;
 			int sum_m = 0;
 			for (TimeSheet time : activity.getTimeSheets()) {
-				if (time.getWorker() == this && time.getDate().getWeekNumber() == date.getWeekNumber()) {
+				if (time.getWorker() == this && time.getDate().equals(date)) {
 					sum_h += time.getHoursWorked();
 					sum_m += time.getMinutesInputed();
 					
@@ -121,8 +120,8 @@ public class Worker {
 						sum_h += 1;
 					}
 				}
-				System.out.println(sum_h + " Hours, " + sum_m + " minutes worked");
 			}
+			System.out.println(sum_h + " Hours, " + sum_m + " minutes worked");
 			System.out.println("--------------------");
 		}
 	}

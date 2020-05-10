@@ -146,7 +146,10 @@ public class Console {
 				+ "Press 43 to view week timesheet of a worker.\n" + "\nPress 50 to register a new worker.\n" + "\nPress 60 to get week project report.\n"
 				+ "Press 61 to get week activity report.\n" + "\n" + "Press 70 to log in.\n" + "Press 80 to log out.\n"
 				+ "\n" + "Press 99 to exit program.\n");
-
+		
+		if (softwareHouse.loggedIn()) {
+			println(softwareHouse.getWorkerLoggedIn().getID() + " is logged in.");
+		}
 		if (commandError) {
 			System.out.println("Command not recognized.");
 			commandError = false;
@@ -160,6 +163,8 @@ public class Console {
 			stage = 0;
 			commandError = true;
 		}
+		
+	
 		space();
 	}
 
