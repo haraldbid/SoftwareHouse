@@ -1,3 +1,5 @@
+# Harald
+
 Feature: Assign project leader
 	Description: A worker is assigned as project leader
 	Actors: Worker

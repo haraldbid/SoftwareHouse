@@ -1,3 +1,5 @@
+# Nicklas
+
 Feature: User login
 	Description: The user logs in
 	Actors: Worker

@@ -9,6 +9,11 @@ import app.SoftwareHouse;
 import app.Worker;
 import designPatterns.Date;
 
+
+/**
+*@author Martin
+*/
+
 public class createActivity_whitebox {
 	private SoftwareHouse softwareHouse;
 	private Project project;

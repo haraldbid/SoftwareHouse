@@ -7,6 +7,10 @@ import org.junit.Test;
 import app.SoftwareHouse;
 import app.Worker;
 
+/**
+*@author Markus
+*/
+
 public class Worker_whitebox {
 	
 	@Test

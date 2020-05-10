@@ -10,6 +10,10 @@ import app.SoftwareHouse;
 import app.Worker;
 import designPatterns.Date;
 
+/**
+*@author Harald
+*/
+
 public class Activity_whitebox {	
 	private SoftwareHouse softwareHouse;
 	private Project project;

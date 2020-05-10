@@ -6,6 +6,9 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import io.cucumber.junit.CucumberOptions.SnippetType;
 
+/**
+*@author Harald
+*/
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "use_cases", 

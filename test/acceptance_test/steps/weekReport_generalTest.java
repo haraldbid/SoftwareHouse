@@ -12,6 +12,10 @@ import app.Worker;
 import designPatterns.Date;
 import io.cucumber.java.en.When;
 
+/**
+*@author Martin
+*/
+
 public class weekReport_generalTest {
 		private SoftwareHouse softwareHouse;
 		private Activity activity;

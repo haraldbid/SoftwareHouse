@@ -14,6 +14,12 @@ import designPatterns.Date;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+
+/**
+*@author Harald
+*/
+
 public class AddTime_Activity {
 	private static SoftwareHouse softwarehouse;
 	private static Activity activity;
@@ -29,7 +35,6 @@ public class AddTime_Activity {
 		softwarehouse.createProject(new Date(2020,10), new Date(2020,12));
 		softwarehouse.createWorker("m");
 		Project p = softwarehouse.getListOfProjects().get(0);
-//		System.out.print(p.getProjectLeader().getID());
 		p.appointProjectLeader(softwarehouse.getWorkerByIndex("m"));
 		try {
 			

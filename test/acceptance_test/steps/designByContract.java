@@ -10,8 +10,12 @@ import app.SoftwareHouse;
 import app.Worker;
 import designPatterns.Date;
 
+
+/**
+*@author Martin
+*/
+
 public class designByContract {
-	// https://www.youtube.com/watch?v=4CNrRcc8Cwc
 	
 	@Test
 	public void addTimeContract() throws Exception {

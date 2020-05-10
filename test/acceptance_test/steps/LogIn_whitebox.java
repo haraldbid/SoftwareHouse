@@ -9,6 +9,10 @@ import app.SoftwareHouse;
 import app.Worker;
 import designPatterns.Date;
 
+/**
+*@author Nicklas
+*/
+
 public class LogIn_whitebox {
 	@Test
 	public void testInputA() {

@@ -196,8 +196,6 @@ public class SoftwareHouse implements Observable {
 		return this.exitRequest;
 	}
 	
-//	TODO: print all Projects and their corresponding activities
-
 	// OBSERVER PATTERN
 	@Override
 	public void unregister(Observer o) {
@@ -216,7 +214,7 @@ public class SoftwareHouse implements Observable {
 				o.update(loggedIn);
 			}
 		}
-	}
+			}
 
 	public Worker getWorkerByIndex(String ID) {
 		for (Worker worker : listOfWorkers) {
@@ -225,6 +223,7 @@ public class SoftwareHouse implements Observable {
 		}
 		return null;
 	}
+	
 	public Project getProjectByID(String ID) {
 		for (Project project : listOfProjects) {
 			if(project.getID().equals(ID))

@@ -1,3 +1,5 @@
+# Harald
+
 Feature: add time to activity
 	Description: time worked is added to activity
 	Actors: worker

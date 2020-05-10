@@ -14,6 +14,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+/**
+*@author Martin
+*/
+
 public class weekReport_test {
 
 	private SoftwareHouse softwareHouse;

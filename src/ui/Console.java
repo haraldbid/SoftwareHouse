@@ -111,7 +111,7 @@ public class Console {
 			temp = scanner.nextInt();
 		} catch (Exception e) {
 			scanner.next();
-			println("COmmand not recognized.");
+			println("Command not recognized.");
 			options();
 			return;
 		}
@@ -170,14 +170,14 @@ public class Console {
 		space();
 	}
 
-	// Print info of all projects
+	// Print info of all projects  Markus
 	public void stage1() {
 		printAllProjectsInfo();
 		space();
 		options();
 	}
 
-	// View all projects
+	// View all projects   Markus
 	public void stage2() {
 		for (Project p : softwareHouse.getListOfProjects()) {
 			String project = String.format("Project ID : %s    Title : %s     Start date : %s       End date : %s",
@@ -188,7 +188,7 @@ public class Console {
 		options();
 	}
 
-	// View activities of a project
+	// View activities of a project   Nicklas
 	public void stage3() {
 		println("Enter ID of project you wish to see activities of :");
 		String projectID = scanner.next();
@@ -206,7 +206,7 @@ public class Console {
 		options();
 	}
 
-	// Create project
+	// Create project   Nicklas
 	public void stage10() {
 		try {
 			Date[] SE = startAndEndDate();
@@ -219,7 +219,7 @@ public class Console {
 		options();
 	}
 
-	// Edit project timeframe
+	// Edit project timeframe  Martin
 	public void stage11() {
 		println("Enter project ID of project you wish to edit timeframe of : ");
 		String projectID = scanner.next();
@@ -237,7 +237,7 @@ public class Console {
 		options();
 	}
 
-	// Give project a title
+	// Give project a title   Martin
 	public void stage12() {
 		println("Enter ID of project you wish to give a title to : ");
 		String projectID = scanner.next();
@@ -254,7 +254,7 @@ public class Console {
 		options();
 	}
 
-	// Appoint project leader
+	// Appoint project leader   Harald
 	public void stage13() {
 		println("Enter ID of worker you wish to appoint :");
 		String worker = scanner.next();
@@ -269,7 +269,7 @@ public class Console {
 		options();
 	}
 
-	// View project timeframe
+	// View project timeframe   Harald
 	public void stage14() {
 		println("Enter ID of project you wish to see timeframe of :");
 		String projectID = scanner.next();
@@ -286,7 +286,7 @@ public class Console {
 		options();
 	}
 
-	// Create activities
+	// Create activities   Markus
 	public void stage20() {
 		println("Enter ID of project you wish to create an activity for : ");
 		String projectID = scanner.next();
@@ -314,7 +314,7 @@ public class Console {
 		options();
 	}
 
-	// Edit activity timeframe
+	// Edit activity timeframe   Markus
 	public void stage21() {
 		println("Enter ID of project you wish to edit activity timeframe of : ");
 		String projectID = scanner.next();
@@ -344,7 +344,7 @@ public class Console {
 		options();
 	}
 
-	// View activity timeframe
+	// View activity timeframe   Nicklas
 	public void stage22() {
 		println("Enter ID of project of activity you wish to view timeframe of : ");
 		String projectID = scanner.next();
@@ -363,7 +363,7 @@ public class Console {
 		options();
 	}
 
-	// Fill timesheets
+	// Fill timesheets    Nicklas
 
 	public void stage30() {
 		println("Enter your ID :");
@@ -404,7 +404,7 @@ public class Console {
 		options();
 	}
 
-	// Fill assistance timesheet
+	// Fill assistance timesheet   Martin
 	public void stage31() {
 		println("Enter your ID :");
 		String worker = scanner.next();
@@ -445,7 +445,7 @@ public class Console {
 		options();
 	}
 
-	// Check workers availabilities
+	// Check workers availabilities    Martin
 
 	public void stage40() {
 		println("Enter start and end dates of period you wish to see how many activities each worker is working on :");
@@ -460,7 +460,7 @@ public class Console {
 		options();
 	}
 
-	// Add workers to activities
+	// Add workers to activities   Harald
 	public void stage41() {
 		println("Enter ID of project that contains the activities you wish to add workers to :");
 		String projectID = scanner.next();
@@ -501,7 +501,7 @@ public class Console {
 		options();
 	}
 
-	// Set worker unavailable
+	// Set worker unavailable    Harald
 	public void stage42() {
 		println("Enter ID of worker you wish to set unavailable :");
 		String workerID = scanner.next();
@@ -517,6 +517,8 @@ public class Console {
 		options();
 	}
 	
+	
+	// View week timesheet of a worker     Martin
 	public void stage43() {
 		println("Enter ID of worker you wish to view week timesheet of :");
 		String workerID = scanner.next();
@@ -531,7 +533,7 @@ public class Console {
 		
 	}
 
-	// Create worker
+	// Create worker    Markus
 	public void stage50() {
 		println("Enter ID of worker you wish to create : ");
 		try {
@@ -543,7 +545,7 @@ public class Console {
 		options();
 	}
 
-	// Print project week report
+	// Print project week report   Harald
 	public void stage60() {
 		println("Enter ID of project you wish to print week report for :");
 		String projectID = scanner.next();
@@ -557,7 +559,7 @@ public class Console {
 		options();
 	}
 
-	// Print activity week report
+	// Print activity week report     Markus
 	public void stage61() {
 		println("Enter project ID of activity you wish to print week report for :");
 		String projectID = scanner.next();
@@ -572,7 +574,9 @@ public class Console {
 		space();
 		options();
 	}
-
+	
+	
+	// Log in    Martin
 	public void stage70() {
 
 	
@@ -586,14 +590,16 @@ public class Console {
 
 		
 	}
-
+	
+	// Markus
 	public Date[] startAndEndDate() {
 		Date[] SE = new Date[2];
 		SE[0] = enterDate(1);
 		SE[1] = enterDate(2);
 		return SE;
 	}
-
+	
+	// Nicklas
 	public Date enterDate(int scenario) {
 		String startOrEnd;
 		if (scenario == 0) {
@@ -630,7 +636,8 @@ public class Console {
 
 		return date;
 	}
-
+	
+	// Nicklas
 	public void printAllProjectsInfo() {
 
 		System.out.println("LIST OF ALL PROJECTS AND CORRESPONDING ACITIVITIES");
@@ -652,7 +659,8 @@ public class Console {
 		}
 
 	}
-
+	
+	// Nicklas
 	public void example() {
 //		Workers
 		softwareHouse.createWorker("MARK");
