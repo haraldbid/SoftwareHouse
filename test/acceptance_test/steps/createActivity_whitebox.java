@@ -16,8 +16,8 @@ public class createActivity_whitebox {
 	
 	public createActivity_whitebox() {
 		softwareHouse = SoftwareHouse.getInstance();
-		softwareHouse.createWorker("aa");
-		worker = softwareHouse.getWorkerByIndex("aa");
+		softwareHouse.createWorker("yyyy");
+		worker = softwareHouse.getWorkerByIndex("yyyy");
 		
 		softwareHouse.createProject(new Date(2020,10),new Date(2020,20));
 		project = softwareHouse.getListOfProjects().get(0);
@@ -31,7 +31,7 @@ public class createActivity_whitebox {
 	}
 	@Test
 	public void testInputA() {
-		softwareHouse.logIn("aa");
+		softwareHouse.logIn("yyyy");
 		String eMeg = null;
 		try {
 			project.createActivity("testAC", new Date(2020,8), new Date(2020,14));		
@@ -39,10 +39,11 @@ public class createActivity_whitebox {
 			eMeg = e.getMessage(); 
 		}
 		assertTrue(eMeg.equals("Activity period is incongruent with project period"));
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 	@Test
 	public void testInputB() {
-		softwareHouse.logIn("aa");
+		softwareHouse.logIn("yyyy");
 		String eMeg = null;
 		try {
 			project.createActivity("testAC", new Date(2020,10), new Date(2020,22));		
@@ -50,6 +51,7 @@ public class createActivity_whitebox {
 			eMeg = e.getMessage(); 
 		}
 		assertTrue(eMeg.equals("Activity period is incongruent with project period"));
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 	@Test
 	public void testInputC() {
@@ -60,11 +62,12 @@ public class createActivity_whitebox {
 			eMeg = e.getMessage(); 
 			System.out.print(e.getMessage());
 		}
-		assertTrue(eMeg.equals("Only the Project Leader may add an activity."));
+		assertTrue(eMeg.equals("Only project leader may add an activity."));
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 	@Test
 	public void testInputD() {
-		softwareHouse.logIn("aa");
+		softwareHouse.logIn("yyyy");
 		String eMeg = null;
 		try {
 			project.createActivity("testAC", new Date(2020,10), new Date(2020,14));		
@@ -72,5 +75,6 @@ public class createActivity_whitebox {
 			eMeg = e.getMessage(); 
 		}
 		assertTrue(project.getActivities().size() > 0);
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 }

@@ -9,7 +9,6 @@ import app.Project;
 import app.SoftwareHouse;
 import app.Worker;
 import designPatterns.Date;
-import sun.security.jca.GetInstance;
 
 public class Activity_whitebox {	
 	private SoftwareHouse softwareHouse;

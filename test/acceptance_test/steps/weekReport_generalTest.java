@@ -3,10 +3,6 @@ package acceptance_test.steps;
 
 import org.junit.Test;
 
-/*
- * Class only used to test the print funtion of weekreport
- * Therefore no assertStatements, since the output of interest is printed in console
- */
 
 import app.Activity;
 import app.Project;
@@ -21,8 +17,12 @@ public class weekReport_generalTest {
 		private Activity activity;
 		private Project project;
 		private Worker worker;
-		
-	public weekReport_generalTest() {
+		/*
+		 * Class only used to test the print funtion of weekreport
+		 * Therefore no assertStatements, since the output of interest is printed in console
+		 */
+
+	public weekReport_generalTest() throws Exception {
 		
 		softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("aa");
@@ -47,6 +47,7 @@ public class weekReport_generalTest {
 	public void printTest() {
 		WeekReport week = activity.generateWeekReport(new Date(2020,12));
 		week.printWeekReport();
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 	@Test
 	public void printProjectTest() {
@@ -73,6 +74,7 @@ public class weekReport_generalTest {
 	
 		
 		week2.printWeekReport();
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 	
 }
