@@ -199,7 +199,7 @@ public class Console {
 						+ a.getEndDate().print());
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 
 		space();
@@ -213,7 +213,7 @@ public class Console {
 			SE[0].checkChronology(SE[1]);
 			softwareHouse.createProject(SE[0], SE[1]);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -231,7 +231,7 @@ public class Console {
 			softwareHouse.getProject(projectID).setStartDate(SE[0]);
 
 		} catch (Exception e) {
-			System.out.print(e);
+			System.out.print(e.getMessage());
 		}
 		space();
 		options();
@@ -247,7 +247,7 @@ public class Console {
 			softwareHouse.getProject(projectID).setProjectTitle(title);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 
 		space();
@@ -263,7 +263,7 @@ public class Console {
 		try {
 			softwareHouse.getProject(project).appointProjectLeader(softwareHouse.getWorker(worker));
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -279,7 +279,7 @@ public class Console {
 
 		} catch (Exception e) {
 
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 
 		space();
@@ -306,7 +306,7 @@ public class Console {
 				Date[] SE = startAndEndDate();
 				softwareHouse.getProject(projectID).createActivity(activityTitle, SE[0], SE[1]);
 			} catch (Exception e) {
-				System.out.println(e);
+				System.out.println(e.getMessage());
 			}
 			println("");
 		}
@@ -335,7 +335,7 @@ public class Console {
 				softwareHouse.getProject(projectID).getActivity(activityTitle).setStartDate(SE[0]);
 				softwareHouse.getProject(projectID).getActivity(activityTitle).setEndDate(SE[1]);
 			} catch (Exception e) {
-				System.out.println(e);
+				System.out.println(e.getMessage());
 			}
 			println("");
 		}
@@ -356,7 +356,7 @@ public class Console {
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 
 		space();
@@ -398,7 +398,7 @@ public class Console {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			scanner.nextLine();
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -439,7 +439,7 @@ public class Console {
 					softwareHouse.getWorker(worker), softwareHouse.getWorker(helper), hours, minutes, date);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -454,7 +454,7 @@ public class Console {
 			SE[0].checkChronology(SE[1]);
 			softwareHouse.getAllWorkersActivities(SE[0], SE[1]);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -493,7 +493,7 @@ public class Console {
 							.assignWorker(softwareHouse.getWorker(workerID));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.out.println(e);
+					System.out.println(e.getMessage());
 				}
 			}
 		}
@@ -511,7 +511,7 @@ public class Console {
 			SE[0].checkChronology(SE[1]);
 			softwareHouse.getWorker(workerID).setUnavailable(SE[0], SE[1]);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -524,7 +524,7 @@ public class Console {
 		try {
 			softwareHouse.getWorker(workerID).printWorkerWeek(date);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -537,7 +537,7 @@ public class Console {
 		try {
 			softwareHouse.createWorker(scanner.next());
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -551,7 +551,7 @@ public class Console {
 			Date date = enterDate(0);
 			softwareHouse.getProject(projectID).printWeekReport(date);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -567,7 +567,7 @@ public class Console {
 			Date date = enterDate(0);
 			softwareHouse.getProject(projectID).getActivity(activityTitle).printWeekReport(date);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		space();
 		options();
@@ -581,7 +581,7 @@ public class Console {
 				softwareHouse.logIn(scanner.next());
 				stage = 0;
 			} catch (Exception e) {
-				System.out.println(e);
+				System.out.println(e.getMessage());
 			}
 
 		
