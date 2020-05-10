@@ -43,7 +43,7 @@ public class Worker_whitebox {
 			E_meg = e.getMessage();
 		}
 		assertTrue(E_meg.equals("ID must be composed of letters."));
-		
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 	@Test
 	public void testInputD() {
@@ -57,7 +57,7 @@ public class Worker_whitebox {
 			E_meg = e.getMessage();
 		}
 		assertTrue(E_meg.equals("ID is already used by another worker."));
-		
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 	@Test
 	public void testInputE() {
@@ -71,6 +71,6 @@ public class Worker_whitebox {
 			E_meg = e.getMessage();
 		}
 		assertTrue(house.getListOfWorkers().size()>0);
-		
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 }

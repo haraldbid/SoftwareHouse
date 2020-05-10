@@ -24,11 +24,12 @@ public class AddTime_Activity {
 	@Given("that an activity {string} exist")
 	public void that_an_activity_exist(String string) {
 	    // Write code here that turns the phrase above into concrete actions
+		SoftwareHouse.deleteSoftwareHouse();
 		softwarehouse = SoftwareHouse.getInstance();
 		softwarehouse.createProject(new Date(2020,10), new Date(2020,12));
 		softwarehouse.createWorker("m");
 		Project p = softwarehouse.getListOfProjects().get(0);
-		System.out.print(p.getProjectLeader().getID());
+//		System.out.print(p.getProjectLeader().getID());
 		p.appointProjectLeader(softwarehouse.getWorkerByIndex("m"));
 		try {
 			

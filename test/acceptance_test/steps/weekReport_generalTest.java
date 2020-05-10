@@ -23,14 +23,14 @@ public class weekReport_generalTest {
 		 */
 
 	public weekReport_generalTest() throws Exception {
-		
+		SoftwareHouse.deleteSoftwareHouse();
 		softwareHouse = SoftwareHouse.getInstance();
-		softwareHouse.createWorker("aa");
-		worker = softwareHouse.getWorkerByIndex("aa");
+		softwareHouse.createWorker("oooo");
+		worker = softwareHouse.getWorkerByIndex("oooo");
 		softwareHouse.createProject(new Date(2020,10), new Date(2020,14));
 		project = softwareHouse.getListOfProjects().get(0);
-		project.appointProjectLeader(softwareHouse.getWorkerByIndex("aa"));
-		softwareHouse.logIn("aa");
+		project.appointProjectLeader(softwareHouse.getWorkerByIndex("oooo"));
+		softwareHouse.logIn("oooo");
 		project.createActivity("Activity", new Date(2020,10), new Date(2020,14));
 		
 		try {
@@ -47,7 +47,7 @@ public class weekReport_generalTest {
 	public void printTest() {
 		WeekReport week = activity.generateWeekReport(new Date(2020,12));
 		week.printWeekReport();
-		SoftwareHouse.deleteSoftwareHouse();
+	
 	}
 	@Test
 	public void printProjectTest() {
@@ -74,7 +74,7 @@ public class weekReport_generalTest {
 	
 		
 		week2.printWeekReport();
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	
 }
