@@ -151,9 +151,14 @@ public class Console {
 			commandError = false;
 		}
 		
-		
+		try {
 		stage = scanner.nextInt();
-
+		} catch (Exception e) {
+			scanner.next();
+			System.out.print("Command not recognized.");
+			stage = 0;
+			commandError = true;
+		}
 		space();
 	}
 
@@ -387,7 +392,7 @@ public class Console {
 		// REQUEST ASSISTANCE NOT IMPLEMENTED :(
 	}
 
-	
+	// TODO EXCEPTION FOR INPUT MISMATCH SCANNNER.NEXTINT()
 	// Fill assistance timesheet
 	public void stage14() {
 		println("Enter your ID :");
@@ -398,6 +403,7 @@ public class Console {
 		String projectID = scanner.next();
 		println("Enter title of relevant activity :");
 		String activityTitle = scanner.next();
+		
 		println("Enter number of hours :");
 		int hours = scanner.nextInt();
 		println("Enter number of minutes :");
