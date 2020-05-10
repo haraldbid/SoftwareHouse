@@ -134,7 +134,7 @@ public Activity getActivity(String title) throws Exception {
 
 	// JUST A SHELL
 	public void createActivity(String title, Date startDate, Date endDate) {
-
+		assert title.length() > 0 : "Precondition for createActivity()";
 		if(this.startDate.after(startDate) || this.endDate.before(endDate)) {
 			throw new IllegalArgumentException("Activity period is incongruent with project period");
 		}
@@ -146,15 +146,17 @@ public Activity getActivity(String title) throws Exception {
 			listOfActivities.add(activity);
 
 		} else {
-
-			System.out.println("Only the Project Leader may add an activity.");
+			throw new IllegalArgumentException("Only the Project Leader may add an activity.");
+			//System.out.println("Only the Project Leader may add an activity.");
+			
 		}
+		assert getActivities().size() > 0 : "Postcondition for createActivity()";
 	}
 	
 	
 
 	public boolean isProjectLeaderLoggedIn() {
-		if (workerLoggedIn.equals(projectLeader)) {
+		if (workerLoggedIn == projectLeader) {
 			return true;
 		} else {
 			return false;
