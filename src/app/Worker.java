@@ -56,10 +56,14 @@ public class Worker {
 
 		int count = 0;
 		for (int i = 0; i < listOfActivities.size(); i++) {
-			if (((listOfActivities.get(i).getStartDate().after(startDate) || listOfActivities.get(i).getStartDate().equals(startDate))
-					&& (listOfActivities.get(i).getStartDate().before(endDate) || listOfActivities.get(i).getStartDate().equals(endDate)))
-					|| ((listOfActivities.get(i).getEndDate().after(startDate) || listOfActivities.get(i).getEndDate().equals(startDate))
-							&& (listOfActivities.get(i).getEndDate().before(endDate) || listOfActivities.get(i).getEndDate().equals(endDate)))) {
+			if (((listOfActivities.get(i).getStartDate().after(startDate) || 
+					listOfActivities.get(i).getStartDate().equals(startDate)) && 
+					(listOfActivities.get(i).getStartDate().before(endDate) || 
+					listOfActivities.get(i).getStartDate().equals(endDate))) || 
+					((listOfActivities.get(i).getEndDate().after(startDate) || 
+					listOfActivities.get(i).getEndDate().equals(startDate)) && 
+					(listOfActivities.get(i).getEndDate().before(endDate) || 
+					listOfActivities.get(i).getEndDate().equals(endDate)))) {
 				count++;
 			} else if (listOfActivities.get(i).getStartDate().before(startDate) && listOfActivities.get(i).getEndDate().after(endDate)) {
 				count++;
@@ -81,6 +85,14 @@ public class Worker {
 				listOfActivities.get(i).deleteWorker(this);
 				listOfActivities.remove(i);
 			} 
+			if ((listOfActivities.get(i).getStartDate().equals(startDate)|| 
+				listOfActivities.get(i).getStartDate().after(startDate))&& 
+				(listOfActivities.get(i).getEndDate().equals(endDate) || 
+				listOfActivities.get(i).getEndDate().before(endDate))) {
+				
+					listOfActivities.remove(i);
+			}
+
 		}
 	}
 
@@ -88,10 +100,29 @@ public class Worker {
 		listOfActivities.add(activity);
 	}
 	
-	public ArrayList<Activity> getListOfActivities() {
-		return listOfActivities;
-	}
+
 	
 
 
+
+	public ArrayList<Activity> getListActivitys() {
+		return this.listOfActivities;
+	}
+	public void printWorkerWeek(Worker worker, Date date) {
+		System.out.println("---- Time worker for "+ worker.getID() + ", week:"+date.getWeekNumber()+"----");
+		for (Activity activity : worker.getListActivitys()) {
+			System.out.println("Activity: "+activity.getTitle());
+			System.out.println("--------------------");
+			int sum_h = 0;
+			int sum_m = 0;
+			for (TimeSheet time : activity.getTimeSheets()) {
+				if(time.getWorker() == worker && time.getDate().getWeekNumber() == date.getWeekNumber() && time.getDate().getWeekNumber() == date.getWeekNumber()) {
+					sum_h += time.getHoursWorked();
+					sum_m += time.getMinutesInputed();		
+				}
+				System.out.println(sum_h+" Hours, "+sum_m+" minutes worked");
+			}
+			System.out.println("--------------------");
+		}
+	}
 }

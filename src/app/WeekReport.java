@@ -33,6 +33,7 @@ public class WeekReport {
 		}
 	}
 
+
 	public void printWeekReport() {
 
 		int criticalTime = 1;
