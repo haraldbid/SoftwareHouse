@@ -16,6 +16,7 @@ public class addProject {
 	
 	@When("a project with name {string} is created")
 	public void aProjectWithNameIsCreated(String string) {
+		SoftwareHouse.deleteSoftwareHouse();
 		this.softwareHouse = SoftwareHouse.getInstance();
 		this.softwareHouse.createProject(new Date(2020,10), new Date(2020,14));
 		this.softwareHouse.getListOfProjects().get(0).setProjectTitle(string);
@@ -40,9 +41,9 @@ public class addProject {
 	
 	@Given("the start Date is changed")
 	public void theStartDateIsChanged() {
-		Date start = new Date(21,10);
-		Date end = new Date(21,14);
-	    softwareHouse.getProjectByID("200000").setStartDate(start.getYear(),start.getWeekNumber());;
+		Date start = new Date(2021,10);
+		Date end = new Date(2021,14);
+	    softwareHouse.getProjectByID("200000").setStartDate(start.getYear(),start.getWeekNumber());
 	    softwareHouse.getProjectByID("210000").setEndDate(end.getYear(), end.getWeekNumber());
 	    
 	    assertTrue(softwareHouse.getProjectByID("210000").getStartDate().getYear() == start.getYear());

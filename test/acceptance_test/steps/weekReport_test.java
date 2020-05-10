@@ -27,6 +27,7 @@ public class weekReport_test {
 	}
 	@When("a Activity is created and time is logged")
 	public void aActivityIsCreatedAndTimeIsLogged() throws Exception {
+		SoftwareHouse.deleteSoftwareHouse();
 		softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("aa");
 		worker = softwareHouse.getWorkerByIndex("aa");

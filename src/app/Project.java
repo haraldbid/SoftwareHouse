@@ -39,7 +39,7 @@ public class Project implements Observer, Reporting {
 
 	public void modifyProjectNumberID() {
 
-		String yearStr = Integer.toString(startDate.getYear()).substring(2, 4);
+		String yearStr = Integer.toString(startDate.getYear()).substring(2,4);
 		String runningCount = projectNumberID.substring(2, 6);
 
 		this.projectNumberID = yearStr + runningCount;
