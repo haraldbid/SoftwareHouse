@@ -571,7 +571,7 @@ public class Console {
 
 	public void stage70() {
 
-		if (!softwareHouse.loggedIn()) {
+	
 			System.out.println("You need to enter ID to log in: ");
 			try {
 				softwareHouse.logIn(scanner.next());
@@ -580,7 +580,7 @@ public class Console {
 				System.out.println(e);
 			}
 
-		}
+		
 	}
 
 	public Date[] startAndEndDate() {

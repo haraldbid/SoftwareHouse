@@ -11,7 +11,6 @@ public class Worker {
 	private String workerID;
 	private SoftwareHouse softwareHouse;
 	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
-//	private Calendar calendar = new GregorianCalendar();
 
 	public Worker(SoftwareHouse softwareHouse, String ID) {
 
@@ -51,7 +50,8 @@ public class Worker {
 	public String getID() {
 		return this.workerID;
 	}
-
+	
+	
 	public int getNumActivities(Date startDate, Date endDate) {
 
 		int count = 0;
@@ -85,7 +85,7 @@ public class Worker {
 				listOfActivities.get(i).deleteWorker(this);
 				listOfActivities.remove(i);
 			}
-			if ((listOfActivities.get(i).getStartDate().equals(startDate)
+			else if ((listOfActivities.get(i).getStartDate().equals(startDate)
 					|| listOfActivities.get(i).getStartDate().after(startDate))
 					&& (listOfActivities.get(i).getEndDate().equals(endDate)
 							|| listOfActivities.get(i).getEndDate().before(endDate))) {

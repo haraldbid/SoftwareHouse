@@ -51,6 +51,10 @@ public class SoftwareHouse implements Observable {
 	}
 
 	public void logIn(String ID) {
+		if (loggedIn()) {
+			logOut();
+		}
+		
 		assert ID.length() > 0 : "Precondition for logIn()";
 		assert ID.length() < 5 : "Precondition for logIn()";
 		for (int i = 0; i < listOfWorkers.size(); i++) {
@@ -71,8 +75,6 @@ public class SoftwareHouse implements Observable {
 		if (loggedIn()) {
 			loggedIn = null;
 			notifyObserver();
-		} else {
-			
 		}
 	}
 
