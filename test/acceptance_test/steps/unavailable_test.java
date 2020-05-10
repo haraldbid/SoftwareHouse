@@ -55,6 +55,7 @@ public class unavailable_test {
 	@Then("the worker is unassigned from the activity")
 	public void removeActivity() {
 	    assertTrue(numAct > worker.getNumActivities(new Date(2020,10), new Date(2020,20)));
+	    SoftwareHouse.getInstance();
 	}
 	@And("the activity is not while the worker is unavailable")
 	public void activityNotDuringUnavailable() {
@@ -64,8 +65,9 @@ public class unavailable_test {
 	}
 	@Then("the worker is still assigned to the activity")
 	public void stillAssigned() {
+		
 		 assertTrue(numAct == worker.getNumActivities(new Date(2020,10), new Date(2020,20)));
-	
+		 SoftwareHouse.getInstance();
 	}
 	
 	
