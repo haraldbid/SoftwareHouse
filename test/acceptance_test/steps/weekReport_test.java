@@ -49,21 +49,21 @@ public class weekReport_test {
 	@Given("a weekreport is not created for week {int}")
 	public void aWeekreportIsNotCreatedForWeek(Integer int1) {
 		assertTrue(activity.getWeekReport(new Date(2020,int1)) == null);
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	private WeekReport weekreport; 
 	@Given("a weekreport for week {int} is requested")
 	public void aWeekreportForWeekIsRequested(Integer int1) {
 	    weekreport = activity.generateWeekReport(new Date(2020,int1));
 	    assertTrue(activity.getWeekReport(new Date(2020,int1)) != null);
-	    SoftwareHouse.deleteSoftwareHouse();
+
 	}
 
 	@Given("a weekreport is created for week {int}")
 	public void aWeekreportIsCreatedForWeek(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
 	    assertTrue(activity.getRecentWeekReport() == weekreport);
-	    SoftwareHouse.deleteSoftwareHouse();
+
 	}
 
 	@Then("the existing week report is returned")
@@ -71,7 +71,7 @@ public class weekReport_test {
 	    // Write code here that turns the phrase above into concrete actions
 	    WeekReport newWeek = activity.generateWeekReport(new Date(2020,12));
 	    assertTrue(newWeek == weekreport);
-	    SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	
 }

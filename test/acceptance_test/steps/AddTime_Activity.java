@@ -61,7 +61,6 @@ public class AddTime_Activity {
 	    try {
 			activity.inputWorkTime(worker, 8, 1,new Date(2020,10));
 		} catch (Exception e) {	}
-	    SoftwareHouse.deleteSoftwareHouse();
 	}
 	
 	@Given("worker {string} is not assigned to activity")
@@ -83,7 +82,6 @@ public class AddTime_Activity {
 	public void the_error_message_is_displayed(String string) {
 	    // Write code here that turns the phrase above into concrete actions
 		assertTrue(error.equals(string));
-		SoftwareHouse.deleteSoftwareHouse();
 	}
 	
 }

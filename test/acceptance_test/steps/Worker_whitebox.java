@@ -11,6 +11,7 @@ public class Worker_whitebox {
 	
 	@Test
 	public void testInputA() {
+		SoftwareHouse.deleteSoftwareHouse();
 		String ID = "";
 		String E_meg = "";
 		try {
@@ -23,6 +24,7 @@ public class Worker_whitebox {
 	}
 	@Test
 	public void testInputB() {
+		SoftwareHouse.deleteSoftwareHouse();
 		String ID = "abcdefg";
 		String E_meg = "";
 		try {
@@ -35,6 +37,7 @@ public class Worker_whitebox {
 	}
 	@Test
 	public void testInputC() {
+		SoftwareHouse.deleteSoftwareHouse();
 		String ID = "123";
 		String E_meg = "";
 		try {
@@ -43,10 +46,11 @@ public class Worker_whitebox {
 			E_meg = e.getMessage();
 		}
 		assertTrue(E_meg.equals("ID must be composed of letters."));
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	@Test
 	public void testInputD() {
+		SoftwareHouse.deleteSoftwareHouse();
 		SoftwareHouse house = SoftwareHouse.getInstance();
 		String ID = "abc";
 		house.createWorker(ID);	
@@ -57,10 +61,11 @@ public class Worker_whitebox {
 			E_meg = e.getMessage();
 		}
 		assertTrue(E_meg.equals("ID is already used by another worker."));
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	@Test
 	public void testInputE() {
+		SoftwareHouse.deleteSoftwareHouse();
 		SoftwareHouse house = SoftwareHouse.getInstance();
 		String ID = "abc";
 		
@@ -71,6 +76,6 @@ public class Worker_whitebox {
 			E_meg = e.getMessage();
 		}
 		assertTrue(house.getListOfWorkers().size()>0);
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 }

@@ -15,6 +15,7 @@ public class createActivity_whitebox {
 	private Worker worker;
 	
 	public createActivity_whitebox() {
+		SoftwareHouse.deleteSoftwareHouse();
 		softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("yyyy");
 		worker = softwareHouse.getWorkerByIndex("yyyy");
@@ -39,7 +40,7 @@ public class createActivity_whitebox {
 			eMeg = e.getMessage(); 
 		}
 		assertTrue(eMeg.equals("Activity period is incongruent with project period"));
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	@Test
 	public void testInputB() {
@@ -51,7 +52,7 @@ public class createActivity_whitebox {
 			eMeg = e.getMessage(); 
 		}
 		assertTrue(eMeg.equals("Activity period is incongruent with project period"));
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	@Test
 	public void testInputC() {
@@ -63,7 +64,7 @@ public class createActivity_whitebox {
 			System.out.print(e.getMessage());
 		}
 		assertTrue(eMeg.equals("Only project leader may add an activity."));
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	@Test
 	public void testInputD() {
@@ -75,6 +76,6 @@ public class createActivity_whitebox {
 			eMeg = e.getMessage(); 
 		}
 		assertTrue(project.getActivities().size() > 0);
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 }

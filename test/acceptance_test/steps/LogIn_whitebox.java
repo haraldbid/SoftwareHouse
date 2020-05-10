@@ -12,6 +12,7 @@ import designPatterns.Date;
 public class LogIn_whitebox {
 	@Test
 	public void testInputA() {
+		SoftwareHouse.deleteSoftwareHouse();
 		SoftwareHouse softwarehouse = SoftwareHouse.getInstance();
 		String eMeg = null;
 		try {
@@ -23,6 +24,7 @@ public class LogIn_whitebox {
 	}
 	@Test
 	public void testInputB() {
+		SoftwareHouse.deleteSoftwareHouse();
 		SoftwareHouse softwarehouse = SoftwareHouse.getInstance();
 		softwarehouse.createWorker("bbb");
 		String eMeg = null;
@@ -35,6 +37,7 @@ public class LogIn_whitebox {
 	}
 	@Test
 	public void testInputC() {
+		SoftwareHouse.deleteSoftwareHouse();
 		SoftwareHouse softwarehouse = SoftwareHouse.getInstance();
 		softwarehouse.createWorker("aaa");
 		String eMeg = null;

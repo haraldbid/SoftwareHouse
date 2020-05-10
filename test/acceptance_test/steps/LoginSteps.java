@@ -20,11 +20,13 @@ public class LoginSteps {
 	
 	
 	
-	private SoftwareHouse softwarehouse = SoftwareHouse.getInstance();
+	private SoftwareHouse softwarehouse;
 	
 	
 	@Given("that no user is logged in")
 	public void thatNoUserIsLoggedIn() {
+		SoftwareHouse.deleteSoftwareHouse();
+		softwarehouse = SoftwareHouse.getInstance();
 	    assertFalse(softwarehouse.loggedIn());
 	}
 	@And("user {string} enters ID {string}") 
@@ -39,13 +41,11 @@ public class LoginSteps {
 	public void userIsLoggedIn() {
 	    // Write code here that turns the phrase above into concrete actions
 		assertTrue(softwarehouse.loggedIn());
-		SoftwareHouse.getInstance();
 	}
 	@Then("no user is logged in")
 	public void userIsNotLoggedIn() {
 	    // Write code here that turns the phrase above into concrete actions
 		assertFalse(softwarehouse.loggedIn());
-		SoftwareHouse.getInstance();
 	}
 	
 	

@@ -17,7 +17,7 @@ public class Activity_whitebox {
 	private Worker worker_aa;
 	
 	public Activity_whitebox() {
-	
+			SoftwareHouse.deleteSoftwareHouse();
 			softwareHouse = SoftwareHouse.getInstance();
 			softwareHouse.createWorker("ffff");
 			worker_aa = softwareHouse.getWorkerByIndex("ffff");
@@ -58,7 +58,7 @@ public class Activity_whitebox {
 			eMeg = e.getMessage(); 
 		}
 		assertTrue(eMeg.equals("Invalid input"));
-		SoftwareHouse.deleteSoftwareHouse();
+
 	}
 	@Test
 	public void testInputB() {
@@ -76,7 +76,7 @@ public class Activity_whitebox {
 			eMeg = e.getMessage();
 		}
 		assertTrue(eMeg.equals("Invalid input"));
-		SoftwareHouse.deleteSoftwareHouse();
+
 
 	}
 	@Test
@@ -89,7 +89,7 @@ public class Activity_whitebox {
 			eMeg = e.getMessage();
 		}
 		assertTrue(eMeg.equals("Worker is not assigned to activity"));
-		SoftwareHouse.deleteSoftwareHouse();
+
 
 	}
 	@Test
@@ -103,7 +103,7 @@ public class Activity_whitebox {
 			eMeg = e.getMessage();
 		}
 		assertTrue(activity.getTimeSheets().size()>0);
-		SoftwareHouse.deleteSoftwareHouse();
+
 
 	}
 }
