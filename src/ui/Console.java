@@ -77,6 +77,8 @@ public class Console {
 			stage41();
 		} else if (stage == 42) {
 			stage42();
+		} else if (stage == 43) {
+			stage43();
 		} else if (stage == 50) {
 			stage50();
 		} else if (stage == 60) {
@@ -143,7 +145,7 @@ public class Console {
 				+ "Press 22 to view activity timeframe.\n" + "\n" + "Press 30 to fill timesheet.\n"
 				+ "Press 31 to fill assistance timesheet.\n" + "\nPress 40 to check workers availabilities.\n"
 				+ "Press 41 to add workers to an activity.\n" + "Press 42 to give worker sick leave, holliday, ect.\n"
-				+ "\nPress 50 to register a new worker.\n" + "\nPress 60 to get week project report.\n"
+				+ "Press 43 to view week timesheet of a worker.\n" + "\nPress 50 to register a new worker.\n" + "\nPress 60 to get week project report.\n"
 				+ "Press 61 to get week activity report.\n" + "\n" + "Press 70 to log in.\n" + "Press 80 to log out.\n"
 				+ "\n" + "Press 99 to exit program.\n");
 
@@ -509,6 +511,20 @@ public class Console {
 		space();
 		options();
 	}
+	
+	public void stage43() {
+		println("Enter ID of worker you wish to view week timesheet of :");
+		String workerID = scanner.next();
+		Date date = enterDate(0);
+		try {
+			softwareHouse.getWorker(workerID).printWorkerWeek(date);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		space();
+		options();
+		
+	}
 
 	// Create worker
 	public void stage50() {
@@ -518,6 +534,7 @@ public class Console {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		space();
 		options();
 	}
 

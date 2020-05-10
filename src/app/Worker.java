@@ -14,7 +14,7 @@ public class Worker {
 //	private Calendar calendar = new GregorianCalendar();
 
 	public Worker(SoftwareHouse softwareHouse, String ID) {
-		
+
 		assert softwareHouse != null : "Precondition for Worker()";
 		this.softwareHouse = softwareHouse;
 
@@ -30,7 +30,7 @@ public class Worker {
 			}
 		}
 
-        // ID must be available       
+		// ID must be available
 		for (int i = 0; i < this.softwareHouse.getNbWorkers(); i++) { // 5
 			if (this.softwareHouse.getWorker(i).getID().equals(ID)) { // 6
 
@@ -39,13 +39,13 @@ public class Worker {
 		}
 
 		this.workerID = ID;
-		
+
 		assert this.workerID.length() <= 4 : "Postcondition for Worker()";
 		assert this.workerID.length() > 0 : "Postcondition for Worker()";
 		for (Worker wo : softwareHouse.getListOfWorkers()) {
 			assert !wo.workerID.equals(ID) : "Postcondition for Worker()";
 		}
-	
+
 	}
 
 	public String getID() {
@@ -56,22 +56,22 @@ public class Worker {
 
 		int count = 0;
 		for (int i = 0; i < listOfActivities.size(); i++) {
-			if (((listOfActivities.get(i).getStartDate().after(startDate) || 
-					listOfActivities.get(i).getStartDate().equals(startDate)) && 
-					(listOfActivities.get(i).getStartDate().before(endDate) || 
-					listOfActivities.get(i).getStartDate().equals(endDate))) || 
-					((listOfActivities.get(i).getEndDate().after(startDate) || 
-					listOfActivities.get(i).getEndDate().equals(startDate)) && 
-					(listOfActivities.get(i).getEndDate().before(endDate) || 
-					listOfActivities.get(i).getEndDate().equals(endDate)))) {
+			if (((listOfActivities.get(i).getStartDate().after(startDate)
+					|| listOfActivities.get(i).getStartDate().equals(startDate))
+					&& (listOfActivities.get(i).getStartDate().before(endDate)
+							|| listOfActivities.get(i).getStartDate().equals(endDate)))
+					|| ((listOfActivities.get(i).getEndDate().after(startDate)
+							|| listOfActivities.get(i).getEndDate().equals(startDate))
+							&& (listOfActivities.get(i).getEndDate().before(endDate)
+									|| listOfActivities.get(i).getEndDate().equals(endDate)))) {
 				count++;
-			} else if (listOfActivities.get(i).getStartDate().before(startDate) && listOfActivities.get(i).getEndDate().after(endDate)) {
+			} else if (listOfActivities.get(i).getStartDate().before(startDate)
+					&& listOfActivities.get(i).getEndDate().after(endDate)) {
 				count++;
 			}
 		}
 		return count;
 	}
-	
 
 	// sick leave, holiday
 	public void setUnavailable(Date startDate, Date endDate) {
@@ -84,13 +84,13 @@ public class Worker {
 							|| listOfActivities.get(i).getEndDate().before(endDate))) {
 				listOfActivities.get(i).deleteWorker(this);
 				listOfActivities.remove(i);
-			} 
-			if ((listOfActivities.get(i).getStartDate().equals(startDate)|| 
-				listOfActivities.get(i).getStartDate().after(startDate))&& 
-				(listOfActivities.get(i).getEndDate().equals(endDate) || 
-				listOfActivities.get(i).getEndDate().before(endDate))) {
-				
-					listOfActivities.remove(i);
+			}
+			if ((listOfActivities.get(i).getStartDate().equals(startDate)
+					|| listOfActivities.get(i).getStartDate().after(startDate))
+					&& (listOfActivities.get(i).getEndDate().equals(endDate)
+							|| listOfActivities.get(i).getEndDate().before(endDate))) {
+				listOfActivities.get(i).deleteWorker(this);
+				listOfActivities.remove(i);
 			}
 
 		}
@@ -99,28 +99,29 @@ public class Worker {
 	public void addActivity(Activity activity) {
 		listOfActivities.add(activity);
 	}
-	
-
-	
-
-
 
 	public ArrayList<Activity> getListActivitys() {
 		return this.listOfActivities;
 	}
-	public void printWorkerWeek(Worker worker, Date date) {
-		System.out.println("---- Time worker for "+ worker.getID() + ", week:"+date.getWeekNumber()+"----");
-		for (Activity activity : worker.getListActivitys()) {
-			System.out.println("Activity: "+activity.getTitle());
+
+	public void printWorkerWeek(Date date) {
+		System.out.println("---- Time worker for " + getID() + ", week:" + date.getWeekNumber() + "----");
+		for (Activity activity : getListActivitys()) {
+			System.out.println("Activity: " + activity.getTitle());
 			System.out.println("--------------------");
 			int sum_h = 0;
 			int sum_m = 0;
 			for (TimeSheet time : activity.getTimeSheets()) {
-				if(time.getWorker() == worker && time.getDate().getWeekNumber() == date.getWeekNumber() && time.getDate().getWeekNumber() == date.getWeekNumber()) {
+				if (time.getWorker() == this && time.getDate().getWeekNumber() == date.getWeekNumber()) {
 					sum_h += time.getHoursWorked();
-					sum_m += time.getMinutesInputed();		
+					sum_m += time.getMinutesInputed();
+					
+					if (sum_m == 60) {
+						sum_m = 0;
+						sum_h += 1;
+					}
 				}
-				System.out.println(sum_h+" Hours, "+sum_m+" minutes worked");
+				System.out.println(sum_h + " Hours, " + sum_m + " minutes worked");
 			}
 			System.out.println("--------------------");
 		}
