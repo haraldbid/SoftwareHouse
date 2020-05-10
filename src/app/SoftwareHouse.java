@@ -1,4 +1,5 @@
 package app;
+//Authors: Harald, Martin, Markus, Nicklas
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,34 +13,32 @@ public class SoftwareHouse implements Observable {
 	private static SoftwareHouse softwareHouse;
 	private Worker loggedIn;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
-
 	private List<Project> listOfProjects = new ArrayList<Project>();
 	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
-
 	private boolean exitRequest = false;
-
 	private SoftwareHouse() {
 		
 	}
-	
+//	Author: Nicklas
 	public static SoftwareHouse getInstance() {
 		if(softwareHouse == null) {
 			softwareHouse = new SoftwareHouse();
 		}
 		return softwareHouse;
 	}
+//	Author: Harald
 	public static void deleteSoftwareHouse() {
 		if(softwareHouse != null)
 			softwareHouse = null;
 	}
+//	Author: Martin
 	public void createProject(Date startDate, Date endDate) {
-
 		Project project = new Project(startDate, endDate,generateProjectID(startDate));
 		listOfProjects.add(project);
 	}
 
+//	Author: Markus
 	public String generateProjectID(Date startDate) {
-		
 		String year = Integer.toString(startDate.getYear()).substring(2, 4);
 		String runningCount = "";
 
@@ -51,6 +50,7 @@ public class SoftwareHouse implements Observable {
 		return year + runningCount;
 	}
 
+//	Author: Martin
 	public void logIn(String ID) {
 		if (loggedIn()) {
 			logOut();
@@ -80,6 +80,7 @@ public class SoftwareHouse implements Observable {
 		}
 	}
 
+//	Author: Markus
 	public void getAllWorkersActivities(Date startDate, Date endDate) {
 
 		quickSort(listOfWorkers, 0, listOfWorkers.size() - 1, startDate, endDate);
@@ -90,6 +91,7 @@ public class SoftwareHouse implements Observable {
 		}
 	}
 
+//	Author: Markus
 	public void quickSort(ArrayList<Worker> arr, int low, int high, Date startDate, Date endDate) {
 
 		if (arr == null || arr.size() == 0)
@@ -165,6 +167,7 @@ public class SoftwareHouse implements Observable {
 		throw new Exception("Worker not found");
 	}
 
+//	Author: Harald
 	public Project getProject(String projectID) throws Exception {
 
 		for (Project p : listOfProjects) {
@@ -194,9 +197,11 @@ public class SoftwareHouse implements Observable {
 		return this.exitRequest;
 	}
 	
-//	TODO: print all Projects and their corresponding activities
 
-	// OBSERVER PATTERN
+	/*Observer pattern:
+	 * Author: Nicklas 
+	 */
+	
 	@Override
 	public void unregister(Observer o) {
 		observers.remove(o);
@@ -216,6 +221,7 @@ public class SoftwareHouse implements Observable {
 		}
 	}
 
+//	Author: Harald
 	public Worker getWorkerByIndex(String ID) {
 		for (Worker worker : listOfWorkers) {
 			if(worker.getID().equals(ID))
@@ -223,6 +229,7 @@ public class SoftwareHouse implements Observable {
 		}
 		return null;
 	}
+//	Author: Martin
 	public Project getProjectByID(String ID) {
 		for (Project project : listOfProjects) {
 			if(project.getID().equals(ID))

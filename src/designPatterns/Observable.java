@@ -1,5 +1,5 @@
 package designPatterns;
-
+//Author: Nicklas
 import app.Worker;
 
 public interface Observable {

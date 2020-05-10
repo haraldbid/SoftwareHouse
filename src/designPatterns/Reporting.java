@@ -1,5 +1,5 @@
 package designPatterns;
-
+//	Author: Nicklas
 import app.WeekReport;
 import app.Worker;
 

@@ -1,5 +1,5 @@
 package app;
-
+// Author: Martin, Harald, Nicklas, Markus 
 import java.util.ArrayList;
 
 import designPatterns.Date;
@@ -12,6 +12,7 @@ public class Worker {
 	private SoftwareHouse softwareHouse;
 	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
 
+//	Author: Martin
 	public Worker(String ID) {
 		this.softwareHouse = SoftwareHouse.getInstance();
 		assert softwareHouse != null : "Precondition for Worker()";
@@ -47,10 +48,8 @@ public class Worker {
 
 	}
 
-	public String getID() {
-		return this.workerID;
-	}
 	
+//	Author: Markus
 	
 	public int getNumActivities(Date startDate, Date endDate) {
 
@@ -73,7 +72,10 @@ public class Worker {
 		return count;
 	}
 
-	// sick leave, holiday
+	/* Author: Markus 
+	 sick leave, holiday
+	 
+	 */
 	public void setUnavailable(Date startDate, Date endDate) {
 
 		for (int i = 0; i < listOfActivities.size(); i++) {
@@ -97,14 +99,7 @@ public class Worker {
 		}
 	}
 
-	public void addActivity(Activity activity) {
-		listOfActivities.add(activity);
-	}
-
-	public ArrayList<Activity> getListActivitys() {
-		return this.listOfActivities;
-	}
-
+//	Author: Harald
 	public void printWorkerWeek(Date date) {
 
 		System.out.println("---- Time worked for " + getID() + ", week : " + date.getWeekNumber() + "    year : " + date.getYear() + " ---- " );
@@ -127,5 +122,18 @@ public class Worker {
 			System.out.println(sum_h + " Hours, " + sum_m + " minutes worked");
 			System.out.println("--------------------");
 		}
+	}
+	
+	public void addActivity(Activity activity) {
+		listOfActivities.add(activity);
+	}
+
+	public ArrayList<Activity> getListActivitys() {
+		return this.listOfActivities;
+	}
+
+	
+	public String getID() {
+		return this.workerID;
 	}
 }
