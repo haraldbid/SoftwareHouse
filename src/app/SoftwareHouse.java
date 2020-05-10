@@ -14,12 +14,10 @@ public class SoftwareHouse implements Observable {
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 
 	private List<Project> listOfProjects = new ArrayList<Project>();
-
 	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
 
 	private boolean exitRequest = false;
 
-	
 	private SoftwareHouse() {
 		
 	}
@@ -142,7 +140,7 @@ public class SoftwareHouse implements Observable {
 	}
 
 	public void createWorker(String ID) {
-		Worker worker = new Worker(this, ID);
+		Worker worker = new Worker(ID);
 
 		this.listOfWorkers.add(worker);
 	}

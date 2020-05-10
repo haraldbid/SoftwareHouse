@@ -111,7 +111,7 @@ public class Console {
 			temp = scanner.nextInt();
 		} catch (Exception e) {
 			scanner.next();
-			println("COmmand not recognized.");
+			println("Command not recognized.");
 			options();
 			return;
 		}
@@ -246,7 +246,6 @@ public class Console {
 		try {
 			softwareHouse.getProject(projectID).setProjectTitle(title);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
 
@@ -446,7 +445,6 @@ public class Console {
 	}
 
 	// Check workers availabilities
-
 	public void stage40() {
 		println("Enter start and end dates of period you wish to see how many activities each worker is working on :");
 		try {
@@ -492,7 +490,6 @@ public class Console {
 					softwareHouse.getProject(projectID).getActivity(activityTitle)
 							.assignWorker(softwareHouse.getWorker(workerID));
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					System.out.println(e.getMessage());
 				}
 			}
@@ -705,12 +702,10 @@ public class Console {
 			activity3.assignWorker(worker3);
 			activity3.assignWorker(worker4);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 //		Add time sheets for workers
-
 		try {
 			activity1.inputWorkTime(worker1, 10, 30, new Date(2025, 12));
 
@@ -727,7 +722,6 @@ public class Console {
 		Random r = new Random();
 
 //		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
-
 		for (int i = 0; i < 5; i++) {
 			for (Activity a : arr) {
 				try {
@@ -749,7 +743,6 @@ public class Console {
 
 		softwareHouse.logOut();
 
-//		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
 	}
 
 }

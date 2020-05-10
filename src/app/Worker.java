@@ -12,10 +12,10 @@ public class Worker {
 	private SoftwareHouse softwareHouse;
 	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
 
-	public Worker(SoftwareHouse softwareHouse, String ID) {
-
+	public Worker(String ID) {
+		this.softwareHouse = SoftwareHouse.getInstance();
 		assert softwareHouse != null : "Precondition for Worker()";
-		this.softwareHouse = softwareHouse;
+		this.softwareHouse = SoftwareHouse.getInstance();
 
 		// ID length has to be 1, 2, 3 or 4
 		if (ID.length() == 0 || ID.length() > 4) { // 1 || 2

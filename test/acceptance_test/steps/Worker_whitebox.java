@@ -15,7 +15,7 @@ public class Worker_whitebox {
 		String ID = "";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
+			Worker worker = new Worker(ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}
@@ -28,7 +28,7 @@ public class Worker_whitebox {
 		String ID = "abcdefg";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
+			Worker worker = new Worker(ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}
@@ -41,7 +41,7 @@ public class Worker_whitebox {
 		String ID = "123";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
+			Worker worker = new Worker(ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}

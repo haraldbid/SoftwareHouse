@@ -53,7 +53,7 @@ public class ProjectLeader_steps {
 	public void projectHasAProjectLeader() {
 	    // Write code here that turns the phrase above into concrete actions
 	    assertTrue(!shouse.getListOfProjects().get(0).hasProjectLeader());
-	    shouse.getListOfProjects().get(0).appointProjectLeader(new Worker(shouse,"aaa"));
+	    shouse.getListOfProjects().get(0).appointProjectLeader(new Worker("aaa"));
 	    
 	}
 
