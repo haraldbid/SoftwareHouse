@@ -37,7 +37,7 @@ public class Project implements Observer, Reporting {
 		this.projectNumberID = projectNumberID;
 	}
 
-	public void modifyProjectNumberID(int year) {
+	public void modifyProjectNumberID() {
 
 		String yearStr = Integer.toString(startDate.getYear()).substring(2, 4);
 		String runningCount = projectNumberID.substring(2, 6);
@@ -47,7 +47,7 @@ public class Project implements Observer, Reporting {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-		modifyProjectNumberID(startDate.getYear());
+		modifyProjectNumberID();
 	}
 
 	public void setEndDate(Date endDate) {
