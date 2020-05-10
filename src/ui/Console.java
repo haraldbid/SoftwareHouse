@@ -33,8 +33,6 @@ public class Console {
 
 	// run() is the method which control logic of the program
 
-	
-
 //	TODO: Create method to check valid input (given interval of valid input, and the input.)
 	public boolean checkValidInput(int input, int lowerBound, int upperBound) throws IllegalArgumentException {
 		if (input <= upperBound && input >= lowerBound) {
@@ -45,30 +43,14 @@ public class Console {
 
 	public void displayOptions() {
 
-	
-
 		if (stage == 0) {
 			stage0();
-		}
-
-		else if (stage == 1) {
+		} else if (stage == 1) {
 			stage1();
 		} else if (stage == 2) {
 			stage2();
 		} else if (stage == 3) {
 			stage3();
-		} else if (stage == 4) {
-			stage4();
-		} else if (stage == 5) {
-			stage5();
-		} else if (stage == 6) {
-			stage6();
-		} else if (stage == 7) {
-			stage7();
-		} else if (stage == 8) {
-			stage8();
-		} else if (stage == 9) {
-			stage9();
 		} else if (stage == 10) {
 			stage10();
 		} else if (stage == 11) {
@@ -79,22 +61,31 @@ public class Console {
 			stage13();
 		} else if (stage == 14) {
 			stage14();
-		} else if (stage == 15) {
-			stage15();
-		} else if (stage == 16) {
-			stage16();
-		} else if (stage == 17) {
-
-		} else if (stage == 18) {
-			stage18();
-		} else if (stage == 19) {
-			stage19();
 		} else if (stage == 20) {
 			stage20();
 		} else if (stage == 21) {
 			stage21();
+		} else if (stage == 22) {
+			stage22();
+		} else if (stage == 30) {
+			stage30();
+		} else if (stage == 31) {
+			stage31();
+		} else if (stage == 40) {
+			stage40();
+		} else if (stage == 41) {
+			stage41();
+		} else if (stage == 42) {
+			stage42();
+		} else if (stage == 50) {
+			stage50();
+		} else if (stage == 60) {
+			stage60();
+		} else if (stage == 61) {
+			stage61();
+		} else if (stage == 70) {
+			stage70();
 		} else if (stage == 80) {
-
 			softwareHouse.logOut();
 			stage = 0;
 			space();
@@ -102,8 +93,7 @@ public class Console {
 		} else if (stage == 99) {
 			exitProgram = true;
 			println("Ciao.");
-		} else if (stage == 70) {
-			stage70();
+
 		} else {
 			commandError = true;
 			stage = 0;
@@ -113,14 +103,22 @@ public class Console {
 
 	public void options() {
 		println("\nPress 0 to go back.\nPress 1 to repeat action.\n");
-		int temp = scanner.nextInt();
-		
+
+		int temp = 0;
+		try {
+			temp = scanner.nextInt();
+		} catch (Exception e) {
+			scanner.next();
+			println("COmmand not recognized.");
+			options();
+			return;
+		}
 		if (temp == 0) {
 			stage = temp;
 		} else if (temp != 1) {
 			println("Command not recognized.");
 			options();
-		} 
+		}
 		space();
 		
 	}
@@ -136,24 +134,26 @@ public class Console {
 	}
 
 	public void stage0() {
-		System.out.println("\nPress 1 to create a worker.\n" + "\n" + "Press 2 to create project.\n"
-				+ "Press 3 to appoint project leader\n" + "Press 4 to view project timeframe\n"
-				+ "Press 5 to edit project timeframe.\n" + "Press 6 to give a project a title.\n" + "\n"
-				+ "Press 7 to create activity.\n" + "Press 8 to view activity timeframe\n"
-				+ "Press 9 to edit activity timeframe\n" + "Press 10 to add worker to activity\n"
-				+ "Press 11 to check workers availabilities.\n" + "\n" + "Press 12 to fill timesheet.\n"
-				+ "Press 13 to seek assistance.\n" + "Press 14 to fill assistance timesheet.\n" + "\n"
-				+ "Press 15 to see all projects.\n" + "Press 16 to see all activities of a project.\n" + "\n"
-				+ "Press 18 to give worker sick leave, holliday, ect.\n" + "\n" + "Press 19 to get week report.\n"
-				+ "\n" + "Press 70 to log in.\n" + "Press 80 to log out.\n" + "\n" + "Press 99 to exit program\n");
+
+		System.out.println("\nPress 1 to view all projects/activities info.\n" + "Press 2 to view all projects.\n"
+				+ "Press 3 to view all activities of a project.\n" + "\nPress 10 to create project.\n"
+				+ "Press 11 to edit project timeframe.\n" + "Press 12 to give a project a title.\n"
+				+ "Press 13 to appoint project leader.\n" + "Press 14 to view project timeframe.\n" + "\n"
+				+ "Press 20 to create activities.\n" + "Press 21 to edit activity timeframe.\n"
+				+ "Press 22 to view activity timeframe.\n" + "\n" + "Press 30 to fill timesheet.\n"
+				+ "Press 31 to fill assistance timesheet.\n" + "\nPress 40 to check workers availabilities.\n"
+				+ "Press 41 to add workers to an activity.\n" + "Press 42 to give worker sick leave, holliday, ect.\n"
+				+ "\nPress 50 to register a new worker.\n" + "\nPress 60 to get week project report.\n"
+				+ "Press 61 to get week activity report.\n" + "\n" + "Press 70 to log in.\n" + "Press 80 to log out.\n"
+				+ "\n" + "Press 99 to exit program.\n");
 
 		if (commandError) {
 			System.out.println("Command not recognized.");
 			commandError = false;
 		}
-		
+
 		try {
-		stage = scanner.nextInt();
+			stage = scanner.nextInt();
 		} catch (Exception e) {
 			scanner.next();
 			System.out.print("Command not recognized.");
@@ -163,19 +163,44 @@ public class Console {
 		space();
 	}
 
-	// Create worker
+	// Print info of all projects
 	public void stage1() {
-		println("Enter ID of worker you wish to create : ");
+		printAllProjectsInfo();
+		space();
+		options();
+	}
+
+	// View all projects
+	public void stage2() {
+		for (Project p : softwareHouse.getListOfProjects()) {
+			String project = String.format("Project ID : %s    Title : %s     Start date : %s       End date : %s",
+					p.getID(), p.getTitle(), p.getStartDate().print(), p.getEndDate().print());
+			System.out.println(project);
+		}
+		space();
+		options();
+	}
+
+	// View activities of a project
+	public void stage3() {
+		println("Enter ID of project you wish to see activities of :");
+		String projectID = scanner.next();
+		println("Activities of project " + projectID + " :\n");
 		try {
-			softwareHouse.createWorker(scanner.next());
+			for (Activity a : softwareHouse.getProject(projectID).getActivities()) {
+				println("Activity " + a.getTitle() + " :  Start date : " + a.getStartDate().print() + "    End Date : "
+						+ a.getEndDate().print());
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+
+		space();
 		options();
 	}
-	
+
 	// Create project
-	public void stage2() {
+	public void stage10() {
 		try {
 			Date[] SE = startAndEndDate();
 			SE[0].checkChronology(SE[1]);
@@ -186,41 +211,9 @@ public class Console {
 		space();
 		options();
 	}
-	
-	// Appoint project leader
-	public void stage3() {
-		println("Enter ID of worker you wish to appoint :");
-		String worker = scanner.next();
-		println("Enter ID of project you wish to appoint worker " + worker + " as leader of :");
-		String project = scanner.next();
-		try {
-			softwareHouse.getProject(project).appointProjectLeader(softwareHouse.getWorker(worker));
-		} catch (Exception e) {
-				System.out.println(e);
-		}
-		space();
-		options();
-	}
-	
-	// View project timeframe
-	public void stage4() {
-		println("Enter ID of project you wish to see timeframe of :");
-		String projectID = scanner.next();
-		try {
-			println("Start date : " + softwareHouse.getProject(projectID).getStartDate().print());
-			println("End date : " + softwareHouse.getProject(projectID).getEndDate().print());
-
-		} catch (Exception e) {
-
-			System.out.println(e);
-		}
-
-		space();
-		options();
-	}
 
 	// Edit project timeframe
-	public void stage5() {
+	public void stage11() {
 		println("Enter project ID of project you wish to edit timeframe of : ");
 		String projectID = scanner.next();
 
@@ -236,9 +229,9 @@ public class Console {
 		space();
 		options();
 	}
-	
+
 	// Give project a title
-	public void stage6() {
+	public void stage12() {
 		println("Enter ID of project you wish to give a title to : ");
 		String projectID = scanner.next();
 		println("Enter title : ");
@@ -254,12 +247,51 @@ public class Console {
 		options();
 	}
 
+	// Appoint project leader
+	public void stage13() {
+		println("Enter ID of worker you wish to appoint :");
+		String worker = scanner.next();
+		println("Enter ID of project you wish to appoint worker " + worker + " as leader of :");
+		String project = scanner.next();
+		try {
+			softwareHouse.getProject(project).appointProjectLeader(softwareHouse.getWorker(worker));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		space();
+		options();
+	}
+
+	// View project timeframe
+	public void stage14() {
+		println("Enter ID of project you wish to see timeframe of :");
+		String projectID = scanner.next();
+		try {
+			println("Start date : " + softwareHouse.getProject(projectID).getStartDate().print());
+			println("End date : " + softwareHouse.getProject(projectID).getEndDate().print());
+
+		} catch (Exception e) {
+
+			System.out.println(e);
+		}
+
+		space();
+		options();
+	}
+
 	// Create activities
-	public void stage7() {
+	public void stage20() {
 		println("Enter ID of project you wish to create an activity for : ");
 		String projectID = scanner.next();
 		println("Enter number of activities you wish to create : ");
-		int nbActivities = scanner.nextInt();
+		int nbActivities = 0;
+		try {
+			nbActivities = scanner.nextInt();
+		} catch (Exception e) {
+			scanner.next();
+			println("Command not recognized.");
+			return;
+		}
 		for (int i = 0; i < nbActivities; i++) {
 			println("Enter title of activity : ");
 			String activityTitle = scanner.next();
@@ -274,9 +306,39 @@ public class Console {
 		space();
 		options();
 	}
-	
+
+	// Edit activity timeframe
+	public void stage21() {
+		println("Enter ID of project you wish to edit activity timeframe of : ");
+		String projectID = scanner.next();
+		println("Enter number of activities you wish to edit timeframe of : ");
+		int nbEdits = 0;
+		try {
+			nbEdits = scanner.nextInt();
+		} catch (Exception e) {
+			scanner.next();
+			println("Command nor recognized.");
+		}
+		for (int i = 0; i < nbEdits; i++) {
+			println("Enter title of relevant activity :");
+			String activityTitle = scanner.next();
+			try {
+				Date[] SE = startAndEndDate();
+				SE[0].checkChronology(SE[1]);
+				softwareHouse.getProject(projectID).getActivity(activityTitle).setStartDate(SE[0]);
+				softwareHouse.getProject(projectID).getActivity(activityTitle).setEndDate(SE[1]);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			println("");
+		}
+
+		space();
+		options();
+	}
+
 	// View activity timeframe
-	public void stage8() {
+	public void stage22() {
 		println("Enter ID of project of activity you wish to view timeframe of : ");
 		String projectID = scanner.next();
 		println("Enter title of the activity : ");
@@ -294,44 +356,128 @@ public class Console {
 		options();
 	}
 
-	// Edit activity timeframe
+	// Fill timesheets
 
-	public void stage9() {
-		println("Enter ID of project you wish to edit activity timeframe of : ");
+	public void stage30() {
+		println("Enter your ID :");
+		String worker = scanner.next();
+		println("Enter project ID of activity you wish to fill timesheet of :");
 		String projectID = scanner.next();
-		println("Enter number of activities you wish to edit timeframe of : ");
-		int nbEdits = scanner.nextInt();
-		for (int i = 0; i < nbEdits; i++) {
-			println("Enter title of relevant activity :");
-			String activityTitle = scanner.next();
-			try {
-				Date[] SE = startAndEndDate();
-				SE[0].checkChronology(SE[1]);
-				softwareHouse.getProject(projectID).getActivity(activityTitle).setStartDate(SE[0]);
-				softwareHouse.getProject(projectID).getActivity(activityTitle).setEndDate(SE[1]);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+		println("Enter title of relevant activity :");
+		String activityTitle = scanner.next();
 
-				System.out.println(e);
-			}
-			println("");
+		int hours = 0;
+		int minutes = 0;
+		try {
+			println("Enter number of hours worked :");
+			hours = scanner.nextInt();
+		} catch (Exception e) {
+			scanner.next();
+			println("Command not recognized.");
+			return;
 		}
+		try {
+			println("Enter number of minutes :");
+			minutes = scanner.nextInt();
+		} catch (Exception e) {
+			scanner.next();
+			println("Command not recognized.");
+			return;
+		}
+		try {
+			Date date = enterDate(0);
+			softwareHouse.getProject(projectID).getActivity(activityTitle)
+					.inputWorkTime(softwareHouse.getWorker(worker), hours, minutes, date);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			scanner.nextLine();
+			System.out.println(e);
+		}
+		space();
+		options();
+	}
 
+	// Fill assistance timesheet
+	public void stage31() {
+		println("Enter your ID :");
+		String worker = scanner.next();
+		println("Enter ID of worker who helped you :");
+		String helper = scanner.next();
+		println("Enter project ID of activity you've seeked help for : ");
+		String projectID = scanner.next();
+		println("Enter title of relevant activity :");
+		String activityTitle = scanner.next();
+
+		int hours = 0;
+		int minutes = 0;
+		try {
+			println("Enter number of hours worked :");
+			hours = scanner.nextInt();
+		} catch (Exception e) {
+			scanner.next();
+			println("Command not recognized.");
+			return;
+		}
+		try {
+			println("Enter number of minutes :");
+			minutes = scanner.nextInt();
+		} catch (Exception e) {
+			scanner.next();
+			println("Command not recognized.");
+			return;
+		}
+		try {
+			Date date = enterDate(0);
+			softwareHouse.getProject(projectID).getActivity(activityTitle).inputAssistance(
+					softwareHouse.getWorker(worker), softwareHouse.getWorker(helper), hours, minutes, date);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		space();
+		options();
+	}
+
+	// Check workers availabilities
+
+	public void stage40() {
+		println("Enter start and end dates of period you wish to see how many activities each worker is working on :");
+		try {
+			Date[] SE = startAndEndDate();
+			SE[0].checkChronology(SE[1]);
+			softwareHouse.getAllWorkersActivities(SE[0], SE[1]);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		space();
 		options();
 	}
 
 	// Add workers to activities
-	public void stage10() {
+	public void stage41() {
 		println("Enter ID of project that contains the activities you wish to add workers to :");
 		String projectID = scanner.next();
 		println("Enter number of activities you wish to add workers to :");
-		int nbActivities = scanner.nextInt();
+		int nbActivities = 0;
+		try {
+			nbActivities = scanner.nextInt();
+		} catch (Exception e) {
+			scanner.next();
+			println("Command not recognized.");
+			return;
+		}
 		for (int i = 0; i < nbActivities; i++) {
 			println("Enter title of activity you wish to add workers to :");
 			String activityTitle = scanner.next();
 			println("Enter number of workers you wish to add : ");
-			int nbWorkers = scanner.nextInt();
+			int nbWorkers = 0;
+			try {
+				nbWorkers = scanner.nextInt();
+			} catch (Exception e) {
+				scanner.next();
+				println("Command not recognized");
+				return;
+			}
 			for (int j = 0; j < nbWorkers; j++) {
 				println("Enter ID of worker you wish to add to activity '" + activityTitle + "' :");
 				String workerID = scanner.next();
@@ -348,111 +494,8 @@ public class Console {
 		options();
 	}
 
-	
-	// Check workers availabilities
-
-	public void stage11() {
-		println("Enter start and end dates of period you wish to see how many activities each worker is working on :");
-		try {
-			Date[] SE = startAndEndDate();
-			SE[0].checkChronology(SE[1]);
-			softwareHouse.getAllWorkersActivities(SE[0], SE[1]);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		space();
-		options();
-	}
-	
-	// Fill timesheets
-	public void stage12() {
-		try {
-		println("Enter your ID :");
-		String worker = scanner.next();
-		println("Enter project ID of activity you wish to fill timesheet of :");
-		String projectID = scanner.next();
-		println("Enter title of relevant activity :");
-		String activityTitle = scanner.next();
-		println("Enter number of hours worked :");
-		int hours = scanner.nextInt();
-		println("Enter number of minutes :");
-		int minutes = scanner.nextInt();
-	
-			Date date = enterDate(0);
-			softwareHouse.getProject(projectID).getActivity(activityTitle)
-					.inputWorkTime(softwareHouse.getWorker(worker), hours, minutes, date);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			scanner.nextLine();
-			System.out.println(e);
-		}
-		space();
-		options();
-	}
-
-	public void stage13() {
-		// REQUEST ASSISTANCE NOT IMPLEMENTED :(
-	}
-
-	// TODO EXCEPTION FOR INPUT MISMATCH SCANNNER.NEXTINT()
-	// Fill assistance timesheet
-	public void stage14() {
-		println("Enter your ID :");
-		String worker = scanner.next();
-		println("Enter ID of worker who helped you :");
-		String helper = scanner.next();
-		println("Enter project ID of activity you've seeked help for : ");
-		String projectID = scanner.next();
-		println("Enter title of relevant activity :");
-		String activityTitle = scanner.next();
-		
-		println("Enter number of hours :");
-		int hours = scanner.nextInt();
-		println("Enter number of minutes :");
-		int minutes = scanner.nextInt();
-		try {
-			Date date = enterDate(0);
-			softwareHouse.getProject(projectID).getActivity(activityTitle).inputAssistance(
-					softwareHouse.getWorker(worker), softwareHouse.getWorker(helper), hours, minutes, date);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e);
-		}
-		space();
-		options();
-	}
-	
-	// View all projects
-	public void stage15() {
-		for (Project p : softwareHouse.getListOfProjects()) {
-			String project = String.format("Project ID : %s    Title : %s     Start date : %s       End date : %s",
-					p.getID(), p.getTitle(), p.getStartDate().print(), p.getEndDate().print());
-			System.out.println(project);
-		}
-		space();
-		options();
-	}
-	
-	// View activities of a project
-	public void stage16() {
-		println("Enter ID of project you wish to see activities of :");
-		String projectID = scanner.next();
-		println("Activities of project " + projectID + " :\n");
-		try {
-			for (Activity a : softwareHouse.getProject(projectID).getActivities()) {
-				println("Activity " + a.getTitle() + " :  Start date : " + a.getStartDate().print() + "    End Date : "
-						+ a.getEndDate().print());
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-		space();
-		options();
-	}
-	
 	// Set worker unavailable
-	public void stage18() {
+	public void stage42() {
 		println("Enter ID of worker you wish to set unavailable :");
 		String workerID = scanner.next();
 		println("Enter timeframe where worker " + workerID + " will be unavailable :");
@@ -467,8 +510,33 @@ public class Console {
 		options();
 	}
 
+	// Create worker
+	public void stage50() {
+		println("Enter ID of worker you wish to create : ");
+		try {
+			softwareHouse.createWorker(scanner.next());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		options();
+	}
+
+	// Print project week report
+	public void stage60() {
+		println("Enter ID of project you wish to print week report for :");
+		String projectID = scanner.next();
+		try {
+			Date date = enterDate(0);
+			softwareHouse.getProject(projectID).printWeekReport(date);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		space();
+		options();
+	}
+
 	// Print activity week report
-	public void stage19() {
+	public void stage61() {
 		println("Enter project ID of activity you wish to print week report for :");
 		String projectID = scanner.next();
 		println("Enter title of relevant activity :");
@@ -482,28 +550,7 @@ public class Console {
 		space();
 		options();
 	}
-	
-	// Print project week report
-	public void stage20() {
-		println("Enter ID of project you wish to print week report for :");
-		String projectID = scanner.next();
-		try {
-			Date date = enterDate(0);
-			softwareHouse.getProject(projectID).printWeekReport(date);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		space();
-		options();
-	}
-	
-	// Print info of all projects
-	public void stage21() {
-		printAllProjectsInfo();
-		space();
-		options();
-	}
-	
+
 	public void stage70() {
 
 		if (!softwareHouse.loggedIn()) {
@@ -512,7 +559,6 @@ public class Console {
 				softwareHouse.logIn(scanner.next());
 				stage = 0;
 			} catch (Exception e) {
-//				stage = -1;
 				System.out.println(e);
 			}
 
@@ -569,13 +615,14 @@ public class Console {
 		System.out.println("_____________________________________");
 
 		for (Project p : softwareHouse.getListOfProjects()) {
-			String projectInfo = String.format("Project:\n " + "%s ID: %s Date: %s - %s        Leader : %s", p.getTitle(), p.getID(),
-					p.getStartDate().print(), p.getEndDate().print(), p.getProjectLeader().getID() + "\n - - - - - - - - \n" + "Activities:");
+			String projectInfo = String.format("Project:\n " + "%s ID: %s Date: %s - %s        Leader : %s",
+					p.getTitle(), p.getID(), p.getStartDate().print(), p.getEndDate().print(),
+					p.getProjectLeader().getID() + "\n - - - - - - - - \n" + "Activities:");
 
 			System.out.println(projectInfo);
 			for (Activity a : p.getActivities()) {
-				String activityInfo = String.format("%s Date: %s-%s      Assigned workers : %s", a.getTitle(), a.getStartDate().print(),
-						a.getEndDate().print(), a.stringWorkers());
+				String activityInfo = String.format("%s Date: %s-%s      Assigned workers : %s", a.getTitle(),
+						a.getStartDate().print(), a.getEndDate().print(), a.stringWorkers());
 
 				System.out.println(activityInfo);
 			}
@@ -644,11 +691,11 @@ public class Console {
 
 		try {
 			activity1.inputWorkTime(worker1, 10, 30, new Date(2025, 12));
-			
-			activity2.inputWorkTime(worker2, 50, 30, new Date(2025,8));
+
+			activity2.inputWorkTime(worker2, 50, 30, new Date(2025, 8));
 
 			activity3.inputWorkTime(worker1, 40, 0, new Date(2025, 30));
-			activity3.inputWorkTime(worker4, 20, 0, new Date(2025,31));
+			activity3.inputWorkTime(worker4, 20, 0, new Date(2025, 31));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -677,12 +724,10 @@ public class Console {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		softwareHouse.logOut();
 
 //		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
 	}
-
-
 
 }

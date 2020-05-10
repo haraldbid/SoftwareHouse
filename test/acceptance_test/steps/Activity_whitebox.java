@@ -76,8 +76,7 @@ public class Activity_whitebox {
 	}
 	@Test
 	public void testInputD() {
-		
-
+	
 		activity.assignWorker(worker_aa);
 		String eMeg = null;
 		try {

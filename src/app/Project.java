@@ -37,7 +37,7 @@ public class Project implements Observer, Reporting {
 		this.projectNumberID = projectNumberID;
 	}
 
-	public void modifyProjectNumberID(int year) {
+	public void modifyProjectNumberID() {
 
 		String yearStr = Integer.toString(startDate.getYear()).substring(2, 4);
 		String runningCount = projectNumberID.substring(2, 6);
@@ -47,7 +47,7 @@ public class Project implements Observer, Reporting {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-		modifyProjectNumberID(startDate.getYear());
+		modifyProjectNumberID();
 	}
 
 	public void setEndDate(Date endDate) {
@@ -135,8 +135,9 @@ public class Project implements Observer, Reporting {
 	// JUST A SHELL
 	public void createActivity(String title, Date startDate, Date endDate) {
 
-		if (this.startDate.after(startDate) || this.endDate.before(endDate)) {
-			throw new IllegalArgumentException("Date incongruent with project period");
+		assert title.length() > 0 : "Precondition for createActivity()";
+		if(this.startDate.after(startDate) || this.endDate.before(endDate)) {
+			throw new IllegalArgumentException("Activity period is incongruent with project period");
 		}
 		
 		for (int i = 0; i < listOfActivities.size(); i++) {
@@ -154,7 +155,9 @@ public class Project implements Observer, Reporting {
 		} else {
 			throw new IllegalArgumentException("Only project leader may add an activity.");
 //			System.out.println("Only the Project Leader may add an activity.");
+
 		}
+		assert getActivities().size() > 0 : "Postcondition for createActivity()";
 	}
 
 	public boolean isProjectLeaderLoggedIn() {

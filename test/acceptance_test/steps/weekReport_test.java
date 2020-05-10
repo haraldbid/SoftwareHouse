@@ -10,6 +10,7 @@ import app.SoftwareHouse;
 import app.WeekReport;
 import app.Worker;
 import designPatterns.Date;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -44,19 +45,18 @@ public class weekReport_test {
 		activity.assignWorker(worker);
 		activity.inputWorkTime(worker, 8, 30, new Date(2020,12));
 	}
-	@When("a weekreport is not created for week {int}")
+	@Given("a weekreport is not created for week {int}")
 	public void aWeekreportIsNotCreatedForWeek(Integer int1) {
 		assertTrue(activity.getWeekReport(new Date(2020,int1)) == null);
 	}
 	private WeekReport weekreport; 
-	@When("a weekreport for week {int} is requested")
+	@Given("a weekreport for week {int} is requested")
 	public void aWeekreportForWeekIsRequested(Integer int1) {
 	    weekreport = activity.generateWeekReport(new Date(2020,int1));
 	    assertTrue(activity.getWeekReport(new Date(2020,int1)) != null);
 	}
 
-
-	@When("a weekreport is created for week {int}")
+	@Given("a weekreport is created for week {int}")
 	public void aWeekreportIsCreatedForWeek(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
 	    assertTrue(activity.getRecentWeekReport() == weekreport);

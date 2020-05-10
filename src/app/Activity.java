@@ -152,6 +152,7 @@ public class Activity implements Observer, Reporting {
 
 	}
 
+
 	public WeekReport getRecentWeekReport() {
 		return this.weekReports.get(weekReports.size() - 1);
 	}

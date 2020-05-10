@@ -94,11 +94,9 @@ public class SoftwareHouse implements Observable {
 		if (low >= high)
 			return;
 
-		// pick the pivot
 		int middle = low + (high - low) / 2;
 		int pivot = arr.get(middle).getNumActivities(startDate, endDate);
 
-		// make left < pivot and right > pivot
 		int i = low, j = high;
 		while (i <= j) {
 			while (arr.get(i).getNumActivities(startDate, endDate) < pivot) {
@@ -118,7 +116,6 @@ public class SoftwareHouse implements Observable {
 			}
 		}
 
-		// recursively sort two sub parts
 		if (low < j)
 			quickSort(arr, low, j, startDate, endDate);
 
