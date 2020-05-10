@@ -56,7 +56,7 @@ public class Project implements Observer, Reporting {
 
 	public void setStartDate(int year, int week) {
 		startDate.setDate(year, week);
-		modifyProjectNumberID(year);
+		modifyProjectNumberID();
 	}
 
 	public void setEndDate(int year, int week) {
