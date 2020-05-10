@@ -213,7 +213,6 @@ public class SoftwareHouse implements Observable {
 				o.update(loggedIn);
 			}
 		}
-
 	}
 
 	public Worker getWorkerByIndex(String ID) {
