@@ -113,8 +113,8 @@ public class Console {
 
 	public void options() {
 		println("\nPress 0 to go back.\nPress 1 to repeat action.\n");
-
 		int temp = scanner.nextInt();
+		
 		if (temp == 0) {
 			stage = temp;
 		} else if (temp != 1) {
@@ -122,6 +122,7 @@ public class Console {
 			options();
 		} 
 		space();
+		
 	}
 
 	public void space() {
@@ -232,7 +233,6 @@ public class Console {
 		} catch (Exception e) {
 			System.out.print(e);
 		}
-
 		space();
 		options();
 	}
@@ -366,6 +366,7 @@ public class Console {
 	
 	// Fill timesheets
 	public void stage12() {
+		try {
 		println("Enter your ID :");
 		String worker = scanner.next();
 		println("Enter project ID of activity you wish to fill timesheet of :");
@@ -376,12 +377,13 @@ public class Console {
 		int hours = scanner.nextInt();
 		println("Enter number of minutes :");
 		int minutes = scanner.nextInt();
-		try {
+	
 			Date date = enterDate(0);
 			softwareHouse.getProject(projectID).getActivity(activityTitle)
 					.inputWorkTime(softwareHouse.getWorker(worker), hours, minutes, date);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			scanner.nextLine();
 			System.out.println(e);
 		}
 		space();
@@ -670,7 +672,7 @@ public class Console {
 
 		// Fairly good example to show weekreport
 		try {
-			project1.printWeekReport(new Date(2025, 12));
+//			project1.printWeekReport(new Date(2025, 12));
 //			activity3.printWeekReport(new Date(2025, 31));
 		} catch (Exception e) {
 			e.printStackTrace();
