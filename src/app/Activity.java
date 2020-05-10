@@ -40,19 +40,37 @@ public class Activity implements Observer, Reporting {
 	public void update(Worker loggedIn) {
 		this.workerLoggedIn = loggedIn;
 	}
-
-	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws Exception {
-		if (hours < 0 || minutes < 0)
-			throw new IllegalArgumentException("Only positive work time");
-		if (this.searchWorker(worker.getID()) == null)
+	public void checkTimeInputs(Worker worker, int hours, int minutes, Date date)throws Exception{
+		if (this.startDate.after(date) || this.getEndDate().before(date)) {
+			throw new IllegalArgumentException("Date incongruent with project period");
+		}
+		if (hours < 0 || minutes < 0) // 1 || 2
+			throw new IllegalArgumentException("Invalid input");
+		if (this.searchWorker(worker.getID()) == null) // Whitebox 3
 			throw new IllegalArgumentException("Worker is not assigned to activity");
-
+	}
+	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws Exception {
+		this.checkTimeInputs(worker, hours, minutes,date);
 		TimeSheet t = new TimeSheet(worker, date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
 		this.timeSheets.add(t);
 	}
 
+	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) throws Exception {
+		
+		assert worker != null && minutes < 60 : "Pre condition for inputWorkTime()";
+		this.checkTimeInputs(worker, hours, minutes, date);
+
+		TimeSheet time = new TimeSheet(worker, date); // 3
+		time.addtimeWorked(hours, minutes);
+		timeSheets.add(time);
+		
+		assert timeSheets.get(timeSheets.size() - 1).getWorker().equals(worker) : "Post condition for inputWorkTime()";
+		assert timeSheets.get(timeSheets.size() - 1).getHoursWorked() == hours : "Post condition for inputWorkTime()";
+		assert timeSheets.get(timeSheets.size() - 1)
+		.getMinutesInputed() == minutes : "Post condition for inputWorkTime()";
+	}
 	public void assignWorker(Worker worker) throws Exception {
 		if (workerLoggedIn == project.getProjectLeader()) {
 			if (searchWorker(worker.getID()) == null) {
@@ -67,26 +85,6 @@ public class Activity implements Observer, Reporting {
 
 	}
 
-	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) throws Exception {
-
-		assert worker != null && minutes < 60 : "Pre condition for inputWorkTime()";
-
-		if (this.startDate.after(date) || this.getEndDate().before(date)) {
-			throw new IllegalArgumentException("Date incongruent with project period");
-		}
-		if (hours < 0 || minutes < 0) // 1 || 2
-			throw new IllegalArgumentException("Invalid input");
-		if (this.searchWorker(worker.getID()) == null) // Whitebox 3
-			throw new IllegalArgumentException("Worker is not assigned to activity");
-		TimeSheet time = new TimeSheet(worker, date); // 3
-		time.addtimeWorked(hours, minutes);
-		timeSheets.add(time);
-
-		assert timeSheets.get(timeSheets.size() - 1).getWorker().equals(worker) : "Post condition for inputWorkTime()";
-		assert timeSheets.get(timeSheets.size() - 1).getHoursWorked() == hours : "Post condition for inputWorkTime()";
-		assert timeSheets.get(timeSheets.size() - 1)
-				.getMinutesInputed() == minutes : "Post condition for inputWorkTime()";
-	}
 
 	public Worker searchWorker(String ID) {
 		for (Worker worker : listWorkersActivity) {

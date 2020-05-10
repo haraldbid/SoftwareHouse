@@ -43,6 +43,7 @@ public class weekReport_test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		activity.setExpectedWorkingHours(10);
 		activity.assignWorker(worker);
 		activity.inputWorkTime(worker, 8, 30, new Date(2020,12));
 	}
