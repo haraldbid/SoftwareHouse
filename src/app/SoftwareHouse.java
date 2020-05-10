@@ -1,8 +1,6 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import designPatterns.Date;
@@ -18,8 +16,6 @@ public class SoftwareHouse implements Observable {
 	private List<Project> listOfProjects = new ArrayList<Project>();
 
 	private ArrayList<Worker> listOfWorkers = new ArrayList<Worker>();
-
-	private ArrayList<Worker> sortedArr = new ArrayList<Worker>();
 
 	private boolean exitRequest = false;
 
@@ -40,24 +36,19 @@ public class SoftwareHouse implements Observable {
 	}
 	public void createProject(Date startDate, Date endDate) {
 
-
-		Project project = new Project(this, startDate, endDate,generateProjectID(startDate));
+		Project project = new Project(startDate, endDate,generateProjectID(startDate));
 		listOfProjects.add(project);
 	}
 
 	public String generateProjectID(Date startDate) {
 		
 		String year = Integer.toString(startDate.getYear()).substring(2, 4);
-
 		String runningCount = "";
 
 		for (int i = 0; i < 4 - Integer.toString(listOfProjects.size()).length(); i++) {
-
 			runningCount += "0";
 		}
 		runningCount += listOfProjects.size();
-
-//		System.out.println("Project " + year + "" + runningCount + " was just created.");
 
 		return year + runningCount;
 	}
@@ -65,6 +56,7 @@ public class SoftwareHouse implements Observable {
 	public void logIn(String ID) {
 		assert ID.length() > 0 : "Precondition for logIn()";
 		assert ID.length() < 5 : "Precondition for logIn()";
+		
 		for (int i = 0; i < listOfWorkers.size(); i++) {
 			if (listOfWorkers.get(i).getID().equals(ID)) {
 				loggedIn = listOfWorkers.get(i);

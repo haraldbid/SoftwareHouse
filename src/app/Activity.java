@@ -12,7 +12,6 @@ import designPatterns.Reporting;
 
 public class Activity implements Observer, Reporting {
 
-	private String activityID;
 	private String title;
 	private int expectedWorkingHours;
 	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
@@ -25,13 +24,13 @@ public class Activity implements Observer, Reporting {
 	private List<TimeSheet> timeSheets = new ArrayList<TimeSheet>();
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 
-	public Activity(Observable softwareHouse, String title, Date startDate, Date endDate, Project project) {
+	public Activity(String title, Date startDate, Date endDate, Project project) {
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
 
 		this.project = project;
-		this.softwareHouse = softwareHouse;
+		this.softwareHouse = SoftwareHouse.getInstance();
 		this.softwareHouse.register(this);
 		this.workerLoggedIn = softwareHouse.getWorkerLoggedIn();
 	}
@@ -50,7 +49,9 @@ public class Activity implements Observer, Reporting {
 			throw new IllegalArgumentException("Worker is not assigned to activity");
 	}
 	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws Exception {
+		
 		this.checkTimeInputs(worker, hours, minutes,date);
+		
 		TimeSheet t = new TimeSheet(worker, date);
 		t.addtimeWorked(hours, minutes);
 		t.setHelper(helper);
@@ -60,6 +61,7 @@ public class Activity implements Observer, Reporting {
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) throws Exception {
 		
 		assert worker != null && minutes < 60 : "Pre condition for inputWorkTime()";
+		
 		this.checkTimeInputs(worker, hours, minutes, date);
 
 		TimeSheet time = new TimeSheet(worker, date); // 3
@@ -68,8 +70,7 @@ public class Activity implements Observer, Reporting {
 		
 		assert timeSheets.get(timeSheets.size() - 1).getWorker().equals(worker) : "Post condition for inputWorkTime()";
 		assert timeSheets.get(timeSheets.size() - 1).getHoursWorked() == hours : "Post condition for inputWorkTime()";
-		assert timeSheets.get(timeSheets.size() - 1)
-		.getMinutesInputed() == minutes : "Post condition for inputWorkTime()";
+		assert timeSheets.get(timeSheets.size() - 1).getMinutesInputed() == minutes : "Post condition for inputWorkTime()";
 	}
 	public void assignWorker(Worker worker) throws Exception {
 		if (workerLoggedIn == project.getProjectLeader()) {
@@ -221,7 +222,6 @@ public class Activity implements Observer, Reporting {
 
 	@Override
 	public String getID() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
