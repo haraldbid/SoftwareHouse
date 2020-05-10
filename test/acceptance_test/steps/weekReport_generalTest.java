@@ -2,6 +2,11 @@ package acceptance_test.steps;
 
 import org.junit.Test;
 
+/*
+ * Class only used to test the print funtion of weekreport
+ * Therefore no assertStatements, since the output of interest is printed in console
+ */
+
 import app.Activity;
 import app.Project;
 import app.SoftwareHouse;

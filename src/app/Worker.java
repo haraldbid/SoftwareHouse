@@ -56,10 +56,14 @@ public class Worker {
 
 		int count = 0;
 		for (int i = 0; i < listOfActivities.size(); i++) {
-			if (((listOfActivities.get(i).getStartDate().after(startDate) || listOfActivities.get(i).getStartDate().equals(startDate))
-					&& (listOfActivities.get(i).getStartDate().before(endDate) || listOfActivities.get(i).getStartDate().equals(endDate)))
-					|| ((listOfActivities.get(i).getEndDate().after(startDate) || listOfActivities.get(i).getEndDate().equals(startDate))
-							&& (listOfActivities.get(i).getEndDate().before(endDate) || listOfActivities.get(i).getEndDate().equals(endDate)))) {
+			if (((listOfActivities.get(i).getStartDate().after(startDate) || 
+					listOfActivities.get(i).getStartDate().equals(startDate)) && 
+					(listOfActivities.get(i).getStartDate().before(endDate) || 
+					listOfActivities.get(i).getStartDate().equals(endDate))) || 
+					((listOfActivities.get(i).getEndDate().after(startDate) || 
+					listOfActivities.get(i).getEndDate().equals(startDate)) && 
+					(listOfActivities.get(i).getEndDate().before(endDate) || 
+					listOfActivities.get(i).getEndDate().equals(endDate)))) {
 				count++;
 			}
 		}
@@ -71,11 +75,12 @@ public class Worker {
 
 		for (int i = 0; i < listOfActivities.size(); i++) {
 
-			if ((listOfActivities.get(i).getStartDate().equals(startDate)
-					|| listOfActivities.get(i).getStartDate().after(startDate))
-					&& (listOfActivities.get(i).getEndDate().equals(endDate)
-							|| listOfActivities.get(i).getEndDate().before(endDate))) {
-				listOfActivities.remove(i);
+			if ((listOfActivities.get(i).getStartDate().equals(startDate)|| 
+				listOfActivities.get(i).getStartDate().after(startDate))&& 
+				(listOfActivities.get(i).getEndDate().equals(endDate) || 
+				listOfActivities.get(i).getEndDate().before(endDate))) {
+				
+					listOfActivities.remove(i);
 			}
 
 		}
@@ -85,5 +90,7 @@ public class Worker {
 	public void addActivity(Activity activity) {
 		listOfActivities.add(activity);
 	}
-
+	public ArrayList<Activity> getListActivitys() {
+		return this.listOfActivities;
+	}
 }

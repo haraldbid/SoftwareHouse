@@ -56,7 +56,6 @@ public class weekReport_test {
 	    assertTrue(activity.getWeekReport(new Date(2020,int1)) != null);
 	}
 
-
 	@Given("a weekreport is created for week {int}")
 	public void aWeekreportIsCreatedForWeek(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
