@@ -3,14 +3,12 @@ package acceptance_test.steps;
 
 import org.junit.Test;
 
-
 import app.Activity;
 import app.Project;
 import app.SoftwareHouse;
 import app.WeekReport;
 import app.Worker;
 import designPatterns.Date;
-import io.cucumber.java.en.When;
 
 public class weekReport_generalTest {
 		private SoftwareHouse softwareHouse;
@@ -36,7 +34,7 @@ public class weekReport_generalTest {
 		try {
 			activity = softwareHouse.getListOfProjects().get(0).getActivity("Activity");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		activity.assignWorker(worker);
@@ -51,28 +49,10 @@ public class weekReport_generalTest {
 	}
 	@Test
 	public void printProjectTest() {
-		WeekReport week = activity.generateWeekReport(new Date(2020,12));
-
-//		project.createActivity("ac2", new Date(2020,11), new Date(2020,18));
-//
-//		try {
-//			project.getActivity("ac2").assignWorker(worker);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			project.getActivity("ac2").inputWorkTime(worker, 5, 12, new Date(2020,16));
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		activity.inputWorkTime(worker, 12, 9, new Date(2020,16));
+		
 		WeekReport week2 = null;
 
 		week2 = project.generateWeekReport(new Date(2020,14));
-	
-		
 		week2.printWeekReport();
 
 	}

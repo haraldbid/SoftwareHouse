@@ -1,6 +1,5 @@
 package acceptance_test.steps;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import app.Activity;
@@ -22,6 +21,7 @@ public class unavailable_test {
 	
 	@Given("that a worker is assigned to an activity")
 	public void workerIsAssigned() {
+		
 		SoftwareHouse.deleteSoftwareHouse();
 		softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("llll");
@@ -39,9 +39,6 @@ public class unavailable_test {
 		} catch (Exception e) {	}
 		softwareHouse.logOut();
 		numAct = worker.getNumActivities(new Date(2020,10), new Date(2020,20));
-		//worker = softwareHouse.getWorkerByIndex("bb");
-		//softwareHouse.logIn("bb");
-		
 		
 	}
 	@And("the worker becomes unavailable")

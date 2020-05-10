@@ -32,7 +32,6 @@ public class Activity_whitebox {
 			try {
 				activity = project.getActivity("testAC");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -47,7 +46,6 @@ public class Activity_whitebox {
 		try {
 			activity.assignWorker(worker_aa);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -63,12 +61,6 @@ public class Activity_whitebox {
 	@Test
 	public void testInputB() {
 		
-//		try {
-//			activity.assignWorker(worker_aa);
-//		} catch (Exception e1) {
-//			// TODO Auto-generated catch block
-//			
-//		}
 		String eMeg = null;
 		try {
 			activity.inputWorkTime(worker_aa, 5, -20, new Date(2020,12));			

@@ -1,13 +1,10 @@
 package acceptance_test.steps;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 import app.Activity;
 import app.Project;
 import app.SoftwareHouse;
-import app.Worker;
 import designPatterns.Date;
 
 public class designByContract {
@@ -50,9 +47,8 @@ public class designByContract {
 		softwareHouse.createWorker(ID2);
 		softwareHouse.createWorker(ID3);
 		softwareHouse.createWorker(ID4);
-
-
 	}
+	
 	@Test
 	public void logInContract() {
 
@@ -61,9 +57,8 @@ public class designByContract {
 		SoftwareHouse softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker(ID);
 		softwareHouse.logIn(ID);
-
-
 	}
+	
 	@Test
 	public void createActivityContract() {
 		SoftwareHouse.deleteSoftwareHouse();

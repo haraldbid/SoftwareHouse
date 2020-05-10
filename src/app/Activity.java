@@ -45,7 +45,7 @@ public class Activity implements Observer, Reporting {
 		}
 		if (hours < 0 || minutes < 0) // 1 || 2
 			throw new IllegalArgumentException("Invalid input");
-		if (this.searchWorker(worker.getID()) == null) // Whitebox 3
+		if (this.checkWorkerAssigned(worker.getID()) == null) // Whitebox 3
 			throw new IllegalArgumentException("Worker is not assigned to activity");
 	}
 	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws Exception {
@@ -74,7 +74,7 @@ public class Activity implements Observer, Reporting {
 	}
 	public void assignWorker(Worker worker) throws Exception {
 		if (workerLoggedIn == project.getProjectLeader()) {
-			if (searchWorker(worker.getID()) == null) {
+			if (checkWorkerAssigned(worker.getID()) == null) {
 				this.listWorkersActivity.add(worker);
 				worker.addActivity(this);
 			} else {
@@ -86,8 +86,7 @@ public class Activity implements Observer, Reporting {
 
 	}
 
-
-	public Worker searchWorker(String ID) {
+	public Worker checkWorkerAssigned(String ID) {
 		for (Worker worker : listWorkersActivity) {
 			if (worker.getID().equals(ID))
 				return worker;

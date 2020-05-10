@@ -74,35 +74,5 @@ public class Date {
 		}
 	}
 	
-//	TODO: Find a home for this method
-	public Date enterDate() {
-		Scanner scanner = new Scanner(System.in);
-
-		Date date = new Date();
-		System.out.println("Please enter date in the following format: (yyyy - weeknumber)");
-
-		String input = scanner.nextLine();
-
-		if (input.length() != 7) {
-			throw new IllegalArgumentException("Date not correct format");
-		}
-
-		for (int i = 0; i < input.length(); i++) {
-
-			if (Character.isAlphabetic(input.charAt(i))) {
-				throw new IllegalArgumentException("Date not correct format");
-			}
-		}
-
-		int year = Integer.parseInt(input.substring(0, 4));
-		int week = Integer.parseInt(input.substring(5, 7));
-
-		date.setDate(year, week);
-
-		System.out.println("valid date entered: " + print());
-
-		return date;
-
-	}
 
 }
