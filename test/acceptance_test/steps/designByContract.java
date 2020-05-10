@@ -42,13 +42,13 @@ public class designByContract {
 		String ID2= "bbb";
 		String ID3 = "ddd";
 		String ID4= "ccc";
-		SoftwareHouse softwareHouse = new SoftwareHouse();
+		SoftwareHouse softwareHouse = SoftwareHouse.getInstance();
 		
 		softwareHouse.createWorker(ID);
 		softwareHouse.createWorker(ID2);
 		softwareHouse.createWorker(ID3);
 		softwareHouse.createWorker(ID4);
-	
+		SoftwareHouse.deleteSoftwareHouse();
 
 	}
 	@Test
@@ -56,20 +56,20 @@ public class designByContract {
 
 		String ID = "aaa";
 
-		SoftwareHouse softwareHouse = new SoftwareHouse();
+		SoftwareHouse softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker(ID);
 		softwareHouse.logIn(ID);
-	
+		SoftwareHouse.deleteSoftwareHouse();
 
 	}
 	@Test
 	public void createActivityContract() {
-		SoftwareHouse softwareHouse = new SoftwareHouse();
+		SoftwareHouse softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("aaa");
 		softwareHouse.createProject(new Date(2020,10),new Date(2020,20));
 		softwareHouse.getListOfProjects().get(0).appointProjectLeader(softwareHouse.getWorkerByIndex("aaa"));
 		softwareHouse.logIn("aaa");
 		softwareHouse.getListOfProjects().get(0).createActivity("testAc", new Date(2020,12), new Date(2020,14));
-		
+		SoftwareHouse.deleteSoftwareHouse();
 	}
 }

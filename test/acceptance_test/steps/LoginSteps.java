@@ -39,11 +39,13 @@ public class LoginSteps {
 	public void userIsLoggedIn() {
 	    // Write code here that turns the phrase above into concrete actions
 		assertTrue(softwarehouse.loggedIn());
+		SoftwareHouse.getInstance();
 	}
 	@Then("no user is logged in")
 	public void userIsNotLoggedIn() {
 	    // Write code here that turns the phrase above into concrete actions
 		assertFalse(softwarehouse.loggedIn());
+		SoftwareHouse.getInstance();
 	}
 	
 	
