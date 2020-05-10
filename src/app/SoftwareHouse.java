@@ -23,7 +23,14 @@ public class SoftwareHouse implements Observable {
 
 	private boolean exitRequest = false;
 
-	public SoftwareHouse() {
+	private SoftwareHouse() {
+	}
+	
+	public static SoftwareHouse getInstance() {
+		if(softwareHouse == null) {
+			softwareHouse = new SoftwareHouse();
+		}
+		return softwareHouse;
 	}
 
 	public void createProject(Date startDate, Date endDate) {

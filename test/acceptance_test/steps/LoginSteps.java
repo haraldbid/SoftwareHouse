@@ -20,7 +20,7 @@ public class LoginSteps {
 	
 	
 	
-	private SoftwareHouse softwarehouse = new SoftwareHouse();
+	private SoftwareHouse softwarehouse = SoftwareHouse.getInstance();
 	
 	
 	@Given("that no user is logged in")

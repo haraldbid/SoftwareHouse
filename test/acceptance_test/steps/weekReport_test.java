@@ -27,7 +27,7 @@ public class weekReport_test {
 	}
 	@When("a Activity is created and time is logged")
 	public void aActivityIsCreatedAndTimeIsLogged() {
-		softwareHouse = new SoftwareHouse();
+		softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("aa");
 		worker = softwareHouse.getWorkerByIndex("aa");
 		softwareHouse.createProject(new Date(2020,10), new Date(2020,14));

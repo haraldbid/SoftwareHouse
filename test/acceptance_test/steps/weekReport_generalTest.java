@@ -23,7 +23,7 @@ public class weekReport_generalTest {
 		
 	public weekReport_generalTest() {
 		
-		softwareHouse = new SoftwareHouse();
+		softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("aa");
 		worker = softwareHouse.getWorkerByIndex("aa");
 		softwareHouse.createProject(new Date(2020,10), new Date(2020,14));

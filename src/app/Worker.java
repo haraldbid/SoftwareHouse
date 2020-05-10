@@ -105,7 +105,7 @@ public class Worker {
 	}
 
 	public void printWorkerWeek(Date date) {
-		System.out.println("---- Time worker for " + getID() + ", week:" + date.getWeekNumber() + "----");
+		System.out.println("---- Time worked for " + getID() + ", week:" + date.getWeekNumber() + "----");
 		for (Activity activity : getListActivitys()) {
 			System.out.println("Activity: " + activity.getTitle());
 			System.out.println("--------------------");
@@ -121,8 +121,9 @@ public class Worker {
 						sum_h += 1;
 					}
 				}
-				System.out.println(sum_h + " Hours, " + sum_m + " minutes worked");
+				
 			}
+			System.out.println(sum_h + " Hours, " + sum_m + " minutes worked");
 			System.out.println("--------------------");
 		}
 	}

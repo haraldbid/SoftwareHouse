@@ -21,7 +21,7 @@ public class unavailable_test {
 	
 	@Given("that a worker is assigned to an activity")
 	public void workerIsAssigned() {
-		softwareHouse = new SoftwareHouse();
+		softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("aa");
 		
 		softwareHouse.createProject(new Date(2020,10), new Date(2020,20));

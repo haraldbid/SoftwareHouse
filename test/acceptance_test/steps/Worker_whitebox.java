@@ -14,7 +14,7 @@ public class Worker_whitebox {
 		String ID = "";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(new SoftwareHouse(), ID);			
+			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}
@@ -26,7 +26,7 @@ public class Worker_whitebox {
 		String ID = "abcdefg";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(new SoftwareHouse(), ID);			
+			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}
@@ -38,7 +38,7 @@ public class Worker_whitebox {
 		String ID = "123";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(new SoftwareHouse(), ID);			
+			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}
@@ -47,7 +47,7 @@ public class Worker_whitebox {
 	}
 	@Test
 	public void testInputD() {
-		SoftwareHouse house = new SoftwareHouse();
+		SoftwareHouse house = SoftwareHouse.getInstance();
 		String ID = "abc";
 		house.createWorker(ID);	
 		String E_meg = "";
@@ -61,7 +61,7 @@ public class Worker_whitebox {
 	}
 	@Test
 	public void testInputE() {
-		SoftwareHouse house = new SoftwareHouse();
+		SoftwareHouse house = SoftwareHouse.getInstance();
 		String ID = "abc";
 		
 		String E_meg = "";

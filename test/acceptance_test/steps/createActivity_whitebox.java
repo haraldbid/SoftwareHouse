@@ -15,7 +15,7 @@ public class createActivity_whitebox {
 	private Worker worker;
 	
 	public createActivity_whitebox() {
-		softwareHouse = new SoftwareHouse();
+		softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createWorker("aa");
 		worker = softwareHouse.getWorkerByIndex("aa");
 		

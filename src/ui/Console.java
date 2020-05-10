@@ -13,7 +13,7 @@ import designPatterns.Date;
 
 public class Console {
 
-	SoftwareHouse softwareHouse = new SoftwareHouse();
+	SoftwareHouse softwareHouse = SoftwareHouse.getInstance();
 	Scanner scanner = new Scanner(System.in);
 	static int stage = 0;
 	static boolean commandError = false;

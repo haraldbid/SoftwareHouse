@@ -20,7 +20,7 @@ public class designByContract {
 		int hours = 8;
 		String ID = "bbb";
 		Activity activity = null;
-		SoftwareHouse softwareHouse = new SoftwareHouse();
+		SoftwareHouse softwareHouse = SoftwareHouse.getInstance();
 		softwareHouse.createProject(new Date(2020,10), new Date(2020,12));
 		softwareHouse.createWorker("aaa");
 		Project p = softwareHouse.getListOfProjects().get(0);

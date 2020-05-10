@@ -16,7 +16,7 @@ public class addProject {
 	
 	@When("a project with name {string} is created")
 	public void aProjectWithNameIsCreated(String string) {
-		this.softwareHouse = new SoftwareHouse();
+		this.softwareHouse = SoftwareHouse.getInstance();
 		this.softwareHouse.createProject(new Date(2020,10), new Date(2020,14));
 		this.softwareHouse.getListOfProjects().get(0).setProjectTitle(string);
 	}
