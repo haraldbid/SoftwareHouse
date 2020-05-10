@@ -93,4 +93,21 @@ public class Worker {
 	public ArrayList<Activity> getListActivitys() {
 		return this.listOfActivities;
 	}
+	public void printWorkerWeek(Worker worker, Date date) {
+		System.out.println("---- Time worker for "+ worker.getID() + ", week:"+date.getWeekNumber()+"----");
+		for (Activity activity : worker.getListActivitys()) {
+			System.out.println("Activity: "+activity.getTitle());
+			System.out.println("--------------------");
+			int sum_h = 0;
+			int sum_m = 0;
+			for (TimeSheet time : activity.getTimeSheets()) {
+				if(time.getWorker() == worker && time.getDate().getWeekNumber() == date.getWeekNumber() && time.getDate().getWeekNumber() == date.getWeekNumber()) {
+					sum_h += time.getHoursWorked();
+					sum_m += time.getMinutesInputed();		
+				}
+				System.out.println(sum_h+" Hours, "+sum_m+" minutes worked");
+			}
+			System.out.println("--------------------");
+		}
+	}
 }
