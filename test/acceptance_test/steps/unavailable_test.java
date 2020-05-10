@@ -1,5 +1,6 @@
 package acceptance_test.steps;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import app.Activity;
@@ -21,16 +22,17 @@ public class unavailable_test {
 	
 	@Given("that a worker is assigned to an activity")
 	public void workerIsAssigned() {
-		softwareHouse = new SoftwareHouse();
-		softwareHouse.createWorker("aa");
+		SoftwareHouse.deleteSoftwareHouse();
+		softwareHouse = SoftwareHouse.getInstance();
+		softwareHouse.createWorker("llll");
 		
 		softwareHouse.createProject(new Date(2020,10), new Date(2020,20));
 		project = softwareHouse.getListOfProjects().get(0);
-		project.appointProjectLeader(softwareHouse.getWorkerByIndex("aa"));
-		softwareHouse.logIn("aa");
+		project.appointProjectLeader(softwareHouse.getWorkerByIndex("llll"));
+		softwareHouse.logIn("llll");
 		project.createActivity("Activity", new Date(2020,12), new Date(2020,14));
-		softwareHouse.createWorker("bb");
-		worker = softwareHouse.getWorkerByIndex("bb");
+		softwareHouse.createWorker("zzzz");
+		worker = softwareHouse.getWorkerByIndex("zzzz");
 		try {
 			activity = project.getActivity("Activity");
 			activity.assignWorker(worker);
@@ -55,6 +57,7 @@ public class unavailable_test {
 	@Then("the worker is unassigned from the activity")
 	public void removeActivity() {
 	    assertTrue(numAct > worker.getNumActivities(new Date(2020,10), new Date(2020,20)));
+	    
 	}
 	@And("the activity is not while the worker is unavailable")
 	public void activityNotDuringUnavailable() {
@@ -64,8 +67,9 @@ public class unavailable_test {
 	}
 	@Then("the worker is still assigned to the activity")
 	public void stillAssigned() {
+		
 		 assertTrue(numAct == worker.getNumActivities(new Date(2020,10), new Date(2020,20)));
-	
+		
 	}
 	
 	

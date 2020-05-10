@@ -84,8 +84,9 @@ public class Worker {
 							|| listOfActivities.get(i).getEndDate().before(endDate))) {
 				listOfActivities.get(i).deleteWorker(this);
 				listOfActivities.remove(i);
-			}
-			else if ((listOfActivities.get(i).getStartDate().equals(startDate)
+
+			}else if ((listOfActivities.get(i).getStartDate().equals(startDate)
+
 					|| listOfActivities.get(i).getStartDate().after(startDate))
 					&& (listOfActivities.get(i).getEndDate().equals(endDate)
 							|| listOfActivities.get(i).getEndDate().before(endDate))) {
@@ -105,6 +106,7 @@ public class Worker {
 	}
 
 	public void printWorkerWeek(Date date) {
+
 		System.out.println("---- Time worked for " + getID() + ", week : " + date.getWeekNumber() + "    year : " + date.getYear() + " ---- " );
 		for (Activity activity : getListActivitys()) {
 			System.out.println("Activity: " + activity.getTitle());
@@ -120,6 +122,7 @@ public class Worker {
 						sum_h += 1;
 					}
 				}
+
 			}
 			System.out.println(sum_h + " Hours, " + sum_m + " minutes worked");
 			System.out.println("--------------------");

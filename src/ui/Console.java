@@ -13,7 +13,7 @@ import designPatterns.Date;
 
 public class Console {
 
-	SoftwareHouse softwareHouse = new SoftwareHouse();
+	SoftwareHouse softwareHouse = SoftwareHouse.getInstance();
 	Scanner scanner = new Scanner(System.in);
 	static int stage = 0;
 	static boolean commandError = false;
@@ -105,6 +105,7 @@ public class Console {
 
 	public void options() {
 		println("\nPress 0 to go back.\nPress 1 to repeat action.\n");
+
 		int temp = 0;
 		try {
 			temp = scanner.nextInt();
@@ -121,6 +122,7 @@ public class Console {
 			options();
 		}
 		space();
+		
 	}
 
 	public void space() {
@@ -231,7 +233,6 @@ public class Console {
 		} catch (Exception e) {
 			System.out.print(e);
 		}
-
 		space();
 		options();
 	}
@@ -363,6 +364,7 @@ public class Console {
 	}
 
 	// Fill timesheets
+
 	public void stage30() {
 		println("Enter your ID :");
 		String worker = scanner.next();
@@ -370,6 +372,7 @@ public class Console {
 		String projectID = scanner.next();
 		println("Enter title of relevant activity :");
 		String activityTitle = scanner.next();
+
 		int hours = 0;
 		int minutes = 0;
 		try {
@@ -394,6 +397,7 @@ public class Console {
 					.inputWorkTime(softwareHouse.getWorker(worker), hours, minutes, date);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			scanner.nextLine();
 			System.out.println(e);
 		}
 		space();
@@ -727,7 +731,7 @@ public class Console {
 		for (int i = 0; i < 5; i++) {
 			for (Activity a : arr) {
 				try {
-					a.inputWorkTime(worker1, r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
+					a.inputWorkTime(worker1, 1+r.nextInt(20), 30, new Date(2025, ThreadLocalRandom.current()
 							.nextInt(a.getStartDate().getWeekNumber(), (a.getEndDate().getWeekNumber() + 1))));
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -737,7 +741,7 @@ public class Console {
 
 		// Fairly good example to show weekreport
 		try {
-			project1.printWeekReport(new Date(2025, 12));
+//			project1.printWeekReport(new Date(2025, 12));
 //			activity3.printWeekReport(new Date(2025, 31));
 		} catch (Exception e) {
 			e.printStackTrace();

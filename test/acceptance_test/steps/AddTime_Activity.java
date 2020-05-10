@@ -24,14 +24,17 @@ public class AddTime_Activity {
 	@Given("that an activity {string} exist")
 	public void that_an_activity_exist(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-		softwarehouse = new SoftwareHouse();
+		SoftwareHouse.deleteSoftwareHouse();
+		softwarehouse = SoftwareHouse.getInstance();
 		softwarehouse.createProject(new Date(2020,10), new Date(2020,12));
-		softwarehouse.createWorker("aaa");
+		softwarehouse.createWorker("m");
 		Project p = softwarehouse.getListOfProjects().get(0);
-		p.appointProjectLeader(softwarehouse.getWorkerByIndex("aaa"));
-		softwarehouse.logIn("aaa");
-		p.createActivity(string,new Date(2020,10),new Date(2020,12));
+//		System.out.print(p.getProjectLeader().getID());
+		p.appointProjectLeader(softwarehouse.getWorkerByIndex("m"));
 		try {
+			
+			softwarehouse.logIn("m");
+			p.createActivity(string,new Date(2020,10),new Date(2020,12));
 			activity = p.getActivity(string);
 		} catch (Exception e) {}
 	}
@@ -46,15 +49,18 @@ public class AddTime_Activity {
 	@Given("worker {string} is assigned to activity")
 	public void worker_is_assigned_to_activity(String string){
 	    // Write code here that turns the phrase above into concrete actions
-		activity.assignWorker(worker);
+		try {
+			activity.assignWorker(worker);
+		} catch (Exception e) {}
 //	    assertTrue(activity.searchWorker(string).getID().equals(string));
 	}
 
 	@Then("timesheet with {string} and {string} is added to list in {string}")
 	public void timesheet_with_and_is_added_to_list_in(String string, String string2, String string3) {
 	    // Write code here that turns the phrase above into concrete actions
-	    activity.inputWorkTime(worker, 8, 1,new Date(2020,10));
-	    
+	    try {
+			activity.inputWorkTime(worker, 8, 1,new Date(2020,10));
+		} catch (Exception e) {	}
 	}
 	
 	@Given("worker {string} is not assigned to activity")

@@ -20,11 +20,13 @@ public class LoginSteps {
 	
 	
 	
-	private SoftwareHouse softwarehouse = new SoftwareHouse();
+	private SoftwareHouse softwarehouse;
 	
 	
 	@Given("that no user is logged in")
 	public void thatNoUserIsLoggedIn() {
+		SoftwareHouse.deleteSoftwareHouse();
+		softwarehouse = SoftwareHouse.getInstance();
 	    assertFalse(softwarehouse.loggedIn());
 	}
 	@And("user {string} enters ID {string}") 

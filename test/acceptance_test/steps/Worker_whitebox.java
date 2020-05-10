@@ -11,10 +11,11 @@ public class Worker_whitebox {
 	
 	@Test
 	public void testInputA() {
+		SoftwareHouse.deleteSoftwareHouse();
 		String ID = "";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(new SoftwareHouse(), ID);			
+			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}
@@ -23,10 +24,11 @@ public class Worker_whitebox {
 	}
 	@Test
 	public void testInputB() {
+		SoftwareHouse.deleteSoftwareHouse();
 		String ID = "abcdefg";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(new SoftwareHouse(), ID);			
+			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}
@@ -35,19 +37,21 @@ public class Worker_whitebox {
 	}
 	@Test
 	public void testInputC() {
+		SoftwareHouse.deleteSoftwareHouse();
 		String ID = "123";
 		String E_meg = "";
 		try {
-			Worker worker = new Worker(new SoftwareHouse(), ID);			
+			Worker worker = new Worker(SoftwareHouse.getInstance(), ID);			
 		} catch (Exception e) {
 			E_meg = e.getMessage();
 		}
 		assertTrue(E_meg.equals("ID must be composed of letters."));
-		
+
 	}
 	@Test
 	public void testInputD() {
-		SoftwareHouse house = new SoftwareHouse();
+		SoftwareHouse.deleteSoftwareHouse();
+		SoftwareHouse house = SoftwareHouse.getInstance();
 		String ID = "abc";
 		house.createWorker(ID);	
 		String E_meg = "";
@@ -57,11 +61,12 @@ public class Worker_whitebox {
 			E_meg = e.getMessage();
 		}
 		assertTrue(E_meg.equals("ID is already used by another worker."));
-		
+
 	}
 	@Test
 	public void testInputE() {
-		SoftwareHouse house = new SoftwareHouse();
+		SoftwareHouse.deleteSoftwareHouse();
+		SoftwareHouse house = SoftwareHouse.getInstance();
 		String ID = "abc";
 		
 		String E_meg = "";
@@ -71,6 +76,6 @@ public class Worker_whitebox {
 			E_meg = e.getMessage();
 		}
 		assertTrue(house.getListOfWorkers().size()>0);
-		
+
 	}
 }
