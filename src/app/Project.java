@@ -1,7 +1,5 @@
 package app;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,20 +17,18 @@ public class Project implements Observer, Reporting {
 	private String projectNumberID;
 	private Worker projectLeader;
 
-	private DateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
 	private ArrayList<Activity> listOfActivities = new ArrayList<Activity>();
 	private Date startDate = new Date();
 	private Date endDate = new Date();
 	private Observable softwareHouse;
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 
-	public Project(Observable softwareHouse, Date startDate, Date endDate, String projectNumberID) {
+	public Project(Date startDate, Date endDate, String projectNumberID) {
 
-		this.softwareHouse = softwareHouse;
+		this.softwareHouse = SoftwareHouse.getInstance();
 		this.softwareHouse.register(this);
 		this.startDate = startDate;
 		this.endDate = endDate;
-		// this.projectLeader = null;
 
 		this.projectNumberID = projectNumberID;
 	}
@@ -128,11 +124,9 @@ public class Project implements Observer, Reporting {
 		else
 			throw new IllegalArgumentException("Project has leader assigned");
 
-//		System.out.println("\nWorker " + appointedProjectLeader.getID() + " is appointed project leader of " + this.getID());
-
 	}
 
-	// JUST A SHELL
+
 	public void createActivity(String title, Date startDate, Date endDate) {
 
 		assert title.length() > 0 : "Precondition for createActivity()";
@@ -148,13 +142,12 @@ public class Project implements Observer, Reporting {
 
 		if (isProjectLeaderLoggedIn()) {
 
-			Activity activity = new Activity(softwareHouse, title, startDate, endDate, this);
+			Activity activity = new Activity(title, startDate, endDate, this);
 
 			listOfActivities.add(activity);
 
 		} else {
 			throw new IllegalArgumentException("Only project leader may add an activity.");
-//			System.out.println("Only the Project Leader may add an activity.");
 
 		}
 		assert getActivities().size() > 0 : "Postcondition for createActivity()";
@@ -177,36 +170,14 @@ public class Project implements Observer, Reporting {
 	public WeekReport generateWeekReport(Date date) {
 
 		boolean weekReportExists = false;
-		Calendar cal = new GregorianCalendar();
 
-		/*
-		 * The first conditional checks if the entered date has not occured yet
-		 */
-//		if (cal.get(Calendar.YEAR) < date.getYear()
-//				|| (cal.get(Calendar.YEAR) == date.getYear() 
-//				&& cal.get(Calendar.WEEK_OF_YEAR) < date.getWeekNumber())) {
-//			throw new IllegalArgumentException("Illgeal date entered");
-//		}
-
-		/*
-	
-public WeekReport generateWeekReport(Date date) {
-		
-		boolean weekReportExists = false;
-		Calendar cal = new GregorianCalendar();
-			
-		/* 
-		 * Checks if a week report already exists for that date
-		 */
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {
 				weekReportExists = true;
 				return r; 
 			}
 		}
-		/*
-		 * Report added to list if no reports have been genereated for the given date
-		 */
+	
 		if (!weekReportExists) {
 			WeekReport report = new WeekReport(this, date);
 
@@ -232,8 +203,8 @@ public WeekReport generateWeekReport(Date date) {
 			a.generateWeekReport(date);
 			
 			if(a.getWeekReport(date) != null) {
-			numMinSpent[0] += a.getWeekReport(date).numMinSpent[0];
-			numMinSpent[1] += a.getWeekReport(date).numMinSpent[1];
+				numMinSpent[0] += a.getWeekReport(date).numMinSpent[0];
+				numMinSpent[1] += a.getWeekReport(date).numMinSpent[1];
 			}
 		}
 		return numMinSpent;
