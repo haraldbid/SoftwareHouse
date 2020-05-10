@@ -29,12 +29,8 @@ public class createActivity_whitebox {
 		project = softwareHouse.getListOfProjects().get(0);
 		project.appointProjectLeader(worker);
 		
-		
-		
-
-		
-		
 	}
+	
 	@Test
 	public void testInputA() {
 		softwareHouse.logIn("yyyy");

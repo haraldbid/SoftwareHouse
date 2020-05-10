@@ -1,5 +1,5 @@
 package app;
-
+//Author: Nicklas, Markus, Martin, Harald
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,16 +11,15 @@ import designPatterns.Observer;
 import designPatterns.Reporting;
 
 public class Activity implements Observer, Reporting {
-
+	
 	private String title;
 	private int expectedWorkingHours;
-	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private Date startDate;
 	private Date endDate;
 	private Worker workerLoggedIn;
 	private Project project;
 	private Observable softwareHouse;
-
+	private List<Worker> listWorkersActivity = new ArrayList<Worker>();
 	private List<TimeSheet> timeSheets = new ArrayList<TimeSheet>();
 	private List<WeekReport> weekReports = new ArrayList<WeekReport>();
 
@@ -39,15 +38,18 @@ public class Activity implements Observer, Reporting {
 	public void update(Worker loggedIn) {
 		this.workerLoggedIn = loggedIn;
 	}
+	
+	//Author: Harald
 	public void checkTimeInputs(Worker worker, int hours, int minutes, Date date)throws Exception{
 		if (this.startDate.after(date) || this.getEndDate().before(date)) {
 			throw new IllegalArgumentException("Date incongruent with project period");
 		}
 		if (hours < 0 || minutes < 0) // 1 || 2
 			throw new IllegalArgumentException("Invalid input");
-		if (this.searchWorker(worker.getID()) == null) // Whitebox 3
+		if (this.checkWorkerAssigned(worker.getID()) == null) // Whitebox 3
 			throw new IllegalArgumentException("Worker is not assigned to activity");
 	}
+//	Author: Harald
 	public void inputAssistance(Worker worker, Worker helper, int hours, int minutes, Date date) throws Exception {
 		
 		this.checkTimeInputs(worker, hours, minutes,date);
@@ -58,6 +60,7 @@ public class Activity implements Observer, Reporting {
 		this.timeSheets.add(t);
 	}
 
+//	Author: Harald
 	public void inputWorkTime(Worker worker, int hours, int minutes, Date date) throws Exception {
 		
 		assert worker != null && minutes < 60 : "Pre condition for inputWorkTime()";
@@ -72,9 +75,11 @@ public class Activity implements Observer, Reporting {
 		assert timeSheets.get(timeSheets.size() - 1).getHoursWorked() == hours : "Post condition for inputWorkTime()";
 		assert timeSheets.get(timeSheets.size() - 1).getMinutesInputed() == minutes : "Post condition for inputWorkTime()";
 	}
+	
+//	Author: Nicklas
 	public void assignWorker(Worker worker) throws Exception {
 		if (workerLoggedIn == project.getProjectLeader()) {
-			if (searchWorker(worker.getID()) == null) {
+			if (checkWorkerAssigned(worker.getID()) == null) {
 				this.listWorkersActivity.add(worker);
 				worker.addActivity(this);
 			} else {
@@ -85,9 +90,9 @@ public class Activity implements Observer, Reporting {
 		}
 
 	}
-
-
-	public Worker searchWorker(String ID) {
+	
+//	Author: Martin
+	public Worker checkWorkerAssigned(String ID) {
 		for (Worker worker : listWorkersActivity) {
 			if (worker.getID().equals(ID))
 				return worker;
@@ -103,6 +108,7 @@ public class Activity implements Observer, Reporting {
 		return this.timeSheets;
 	}
 
+//	Author: Markus
 	public void setStartDate(Date date) {
 		if ((date.after(project.getStartDate()) || date.equals(project.getStartDate())) && (date.before(project.getEndDate()) || date.equals(project.getEndDate()))) {
 		startDate = date;
@@ -111,6 +117,7 @@ public class Activity implements Observer, Reporting {
 		}
 	}
 
+//	Author: Markus
 	public void setEndDate(Date date) {
 		if ((date.after(project.getStartDate()) || date.equals(project.getStartDate())) && (date.before(project.getEndDate()) || date.equals(project.getEndDate()))) {
 			endDate = date;
@@ -119,20 +126,15 @@ public class Activity implements Observer, Reporting {
 			}
 	}
 
-	public Date getStartDate() {
-		return this.startDate;
-	}
 
-	public Date getEndDate() {
-		return this.endDate;
-	}
 
 	public void setExpectedWorkingHours(int expectedWorkingHours) {
 		this.expectedWorkingHours = expectedWorkingHours;
 	}
-
-	// 1. entry contains information about total hours spent on activity, 2. entry
-	// for the week
+	/*Author: Nicklas
+	 1. entry contains information about total hours spent on activity, 2. entry
+	 for the week
+	 */
 	@Override
 	public int[] numMinSpent(Date date) {
 
@@ -156,6 +158,7 @@ public class Activity implements Observer, Reporting {
 		return this.weekReports.get(weekReports.size() - 1);
 	}
 
+//	Author: Nicklas
 	public WeekReport generateWeekReport(Date date) {
 		boolean weekReportExists = false;
 
@@ -183,6 +186,7 @@ public class Activity implements Observer, Reporting {
 		return this.expectedWorkingHours;
 	}
 
+//	Author: Markus
 	public WeekReport getWeekReport(Date date) {
 		for (WeekReport r : weekReports) {
 			if (r.getDate().equals(date)) {
@@ -192,6 +196,7 @@ public class Activity implements Observer, Reporting {
 		return null;
 	}
 
+//	Author: Nicklas
 	public void printWeekReport(Date date) throws IllegalArgumentException {
 
 		if (date.after(this.endDate))
@@ -204,6 +209,7 @@ public class Activity implements Observer, Reporting {
 		}
 	}
 	
+//	Author: Martin
 	public void deleteWorker(Worker worker) {
 		int i = 0;
 		while (!listWorkersActivity.get(i).equals(worker)) {
@@ -212,6 +218,7 @@ public class Activity implements Observer, Reporting {
 		listWorkersActivity.remove(i);
 	}
 
+//	Author: Markus
 	public String stringWorkers() {
 		String str = "";
 		for (int i = 0; i < listWorkersActivity.size(); i++) {
@@ -223,6 +230,14 @@ public class Activity implements Observer, Reporting {
 	@Override
 	public String getID() {
 		return null;
+	}
+	
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public Date getEndDate() {
+		return this.endDate;
 	}
 
 }

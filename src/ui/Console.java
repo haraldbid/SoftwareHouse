@@ -1,5 +1,5 @@
 package ui;
-
+//Authors: Markus, Nicklas, Martin, Harald
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -30,19 +30,9 @@ public class Console {
 			console.displayOptions();
 		}
 	}
-
-	// run() is the method which control logic of the program
-
-//	TODO: Create method to check valid input (given interval of valid input, and the input.)
-	public boolean checkValidInput(int input, int lowerBound, int upperBound) throws IllegalArgumentException {
-		if (input <= upperBound && input >= lowerBound) {
-			return true;
-		} else
-			throw new IllegalArgumentException("Invalid input");
-	}
-
+	
+//	Author: Markus
 	public void displayOptions() {
-
 		if (stage == 0) {
 			stage0();
 		} else if (stage == 1) {
@@ -102,7 +92,7 @@ public class Console {
 		}
 
 	}
-
+//	Author: Markus
 	public void options() {
 		println("\nPress 0 to go back.\nPress 1 to repeat action.\n");
 
@@ -130,13 +120,13 @@ public class Console {
 				+ "---------------------------------------------------------------------------------------------------------"
 				+ "\n");
 	}
-
+//	Author: Markus
 	public void println(String string) {
 		System.out.println(string);
 	}
 
+//	Author: Markus
 	public void stage0() {
-
 		System.out.println("\nPress 1 to view all projects/activities info.\n" + "Press 2 to view all projects.\n"
 				+ "Press 3 to view all activities of a project.\n" + "\nPress 10 to create project.\n"
 				+ "Press 11 to edit project timeframe.\n" + "Press 12 to give a project a title.\n"
@@ -246,7 +236,6 @@ public class Console {
 		try {
 			softwareHouse.getProject(projectID).setProjectTitle(title);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
 
@@ -446,7 +435,6 @@ public class Console {
 	}
 
 	// Check workers availabilities    Martin
-
 	public void stage40() {
 		println("Enter start and end dates of period you wish to see how many activities each worker is working on :");
 		try {
@@ -492,7 +480,6 @@ public class Console {
 					softwareHouse.getProject(projectID).getActivity(activityTitle)
 							.assignWorker(softwareHouse.getWorker(workerID));
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					System.out.println(e.getMessage());
 				}
 			}
@@ -590,6 +577,7 @@ public class Console {
 
 		
 	}
+
 	
 	// Markus
 	public Date[] startAndEndDate() {
@@ -713,12 +701,10 @@ public class Console {
 			activity3.assignWorker(worker3);
 			activity3.assignWorker(worker4);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 //		Add time sheets for workers
-
 		try {
 			activity1.inputWorkTime(worker1, 10, 30, new Date(2025, 12));
 
@@ -735,7 +721,6 @@ public class Console {
 		Random r = new Random();
 
 //		GENERATES INPUTWORKEDHOURS FOR EVERY ACTIVITY
-
 		for (int i = 0; i < 5; i++) {
 			for (Activity a : arr) {
 				try {
@@ -757,7 +742,6 @@ public class Console {
 
 		softwareHouse.logOut();
 
-//		softwareHouse.getAllWorkersActivities(new Date(2025,8), new Date(2045,12));
 	}
 
 }

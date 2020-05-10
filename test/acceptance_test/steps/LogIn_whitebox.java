@@ -3,17 +3,14 @@ package acceptance_test.steps;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
-import app.Activity;
 import app.SoftwareHouse;
-import app.Worker;
-import designPatterns.Date;
 
 /**
 *@author Nicklas
 */
 
 public class LogIn_whitebox {
+	
 	@Test
 	public void testInputA() {
 		SoftwareHouse.deleteSoftwareHouse();
@@ -26,6 +23,7 @@ public class LogIn_whitebox {
 		}
 		assertTrue(eMeg.equals("Login failed."));
 	}
+	
 	@Test
 	public void testInputB() {
 		SoftwareHouse.deleteSoftwareHouse();
@@ -39,6 +37,7 @@ public class LogIn_whitebox {
 		}
 		assertTrue(eMeg.equals("Login failed."));
 	}
+	
 	@Test
 	public void testInputC() {
 		SoftwareHouse.deleteSoftwareHouse();

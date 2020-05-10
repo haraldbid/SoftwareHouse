@@ -2,8 +2,6 @@ package acceptance_test.steps;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
 import app.Activity;
 import app.Project;
 import app.SoftwareHouse;
@@ -25,10 +23,6 @@ public class weekReport_test {
 	private Project project;
 	private Worker worker;
 	
-	public weekReport_test() {
-		
-		
-	}
 	@When("a Activity is created and time is logged")
 	public void aActivityIsCreatedAndTimeIsLogged() throws Exception {
 		SoftwareHouse.deleteSoftwareHouse();
@@ -44,7 +38,6 @@ public class weekReport_test {
 		try {
 			activity = softwareHouse.getListOfProjects().get(0).getActivity("Activity");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		activity.setExpectedWorkingHours(10);
@@ -66,14 +59,12 @@ public class weekReport_test {
 
 	@Given("a weekreport is created for week {int}")
 	public void aWeekreportIsCreatedForWeek(Integer int1) {
-	    // Write code here that turns the phrase above into concrete actions
 	    assertTrue(activity.getRecentWeekReport() == weekreport);
 
 	}
 
 	@Then("the existing week report is returned")
 	public void theExistingWeekReportIsReturned() {
-	    // Write code here that turns the phrase above into concrete actions
 	    WeekReport newWeek = activity.generateWeekReport(new Date(2020,12));
 	    assertTrue(newWeek == weekreport);
 

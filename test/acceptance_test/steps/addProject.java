@@ -33,12 +33,11 @@ public class addProject {
 	}
 	@Given("project has title {string}")
 	public void projectHasTitle(String string) {
-	    // Write code here that turns the phrase above into concrete actions
+		
 		assertTrue(softwareHouse.getProjectByID(ID).hasProjectTitle());
 	}
 	@Then("{string} exists in array")
 	public void existsInArray(String string) {
-	    // Write code here that turns the phrase above into concrete actions
 		
 		assertTrue(softwareHouse.getProjectByID(ID).getID().equals(ID));
 	}
@@ -53,7 +52,6 @@ public class addProject {
 	    assertTrue(softwareHouse.getProjectByID("210000").getStartDate().getYear() == start.getYear());
 	    assertTrue(softwareHouse.getProjectByID("210000").getEndDate().getYear() == end.getYear());
 
-	    
 	}
 
 	@Then("The project has a new ID with the new date.")
