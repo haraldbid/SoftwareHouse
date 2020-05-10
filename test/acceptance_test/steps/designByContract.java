@@ -62,4 +62,14 @@ public class designByContract {
 	
 
 	}
+	@Test
+	public void createActivityContract() {
+		SoftwareHouse softwareHouse = new SoftwareHouse();
+		softwareHouse.createWorker("aaa");
+		softwareHouse.createProject(new Date(2020,10),new Date(2020,20));
+		softwareHouse.getListOfProjects().get(0).appointProjectLeader(softwareHouse.getWorkerByIndex("aaa"));
+		softwareHouse.logIn("aaa");
+		softwareHouse.getListOfProjects().get(0).createActivity("testAc", new Date(2020,12), new Date(2020,14));
+		
+	}
 }
